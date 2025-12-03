@@ -217,56 +217,157 @@ document.addEventListener('DOMContentLoaded', function() {
     return 'windows'; // 默认 Windows
   }
 
-  // 下载链接配置（请根据实际下载链接更新）
-  const downloadLinks = {
-    windows: {
-      url: 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-windows-x64.exe',
-      icon: 'fa-brands fa-windows',
-      text: '下载 Windows 版'
-    },
-    macos: {
-      url: 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-macos-universal.dmg',
-      icon: 'fa-brands fa-apple',
-      text: '下载 macOS 版'
-    },
-    linux: {
-      url: 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-linux-x64.AppImage',
-      icon: 'fa-brands fa-linux',
-      text: '下载 Linux 版'
-    },
-    android: {
-      url: '#',
-      icon: 'fa-brands fa-android',
-      text: 'Android 即将推出'
-    },
-    ios: {
-      url: '#',
-      icon: 'fa-brands fa-apple',
-      text: 'iOS 即将推出'
-    }
+  // GitHub 仓库配置
+  const GITHUB_REPO = 'flyhunterl/flymd';
+  const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`;
+
+  // 平台文件匹配规则（用于从 release assets 中识别对应平台的文件）
+  const platformPatterns = {
+    windows: { patterns: [/windows.*\.exe$/i, /win.*x64.*\.exe$/i, /\.exe$/i], icon: 'fa-brands fa-windows', text: '下载 Windows 版' },
+    macos: { patterns: [/macos.*\.dmg$/i, /mac.*universal.*\.dmg$/i, /\.dmg$/i], icon: 'fa-brands fa-apple', text: '下载 macOS 版' },
+    linux: { patterns: [/linux.*\.AppImage$/i, /linux.*x64.*\.AppImage$/i, /\.AppImage$/i], icon: 'fa-brands fa-linux', text: '下载 Linux 版' },
+    android: { patterns: [/\.apk$/i], icon: 'fa-brands fa-android', text: 'Android 即将推出' },
+    ios: { patterns: [], icon: 'fa-brands fa-apple', text: 'iOS 即将推出' }
   };
+
+  // 默认下载链接（备用，当 API 请求失败时使用）
+  const defaultDownloadLinks = {
+    windows: `https://github.com/${GITHUB_REPO}/releases/latest/download/flymd-windows-x64.exe`,
+    macos: `https://github.com/${GITHUB_REPO}/releases/latest/download/flymd-macos-universal.dmg`,
+    linux: `https://github.com/${GITHUB_REPO}/releases/latest/download/flymd-linux-x64.AppImage`,
+    android: '#',
+    ios: '#'
+  };
+
+  // 缓存从 GitHub API 获取的下载链接
+  let githubReleaseLinks = null;
+  let githubReleaseVersion = null;
+
+  // 从 GitHub Releases API 获取最新版本下载链接
+  async function fetchGitHubReleaseLinks() {
+    // 检查 localStorage 缓存（缓存 10 分钟）
+    const cached = localStorage.getItem('flymd_release_cache');
+    if (cached) {
+      try {
+        const { links, version, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < 10 * 60 * 1000) {
+          githubReleaseLinks = links;
+          githubReleaseVersion = version;
+          return links;
+        }
+      } catch (e) {
+        localStorage.removeItem('flymd_release_cache');
+      }
+    }
+
+    try {
+      const response = await fetch(GITHUB_API_URL, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.status}`);
+      }
+
+      const release = await response.json();
+      const assets = release.assets || [];
+      const links = {};
+
+      // 为每个平台匹配对应的资产文件
+      for (const [platform, config] of Object.entries(platformPatterns)) {
+        let matchedAsset = null;
+
+        for (const pattern of config.patterns) {
+          matchedAsset = assets.find(asset => pattern.test(asset.name));
+          if (matchedAsset) break;
+        }
+
+        links[platform] = matchedAsset ? matchedAsset.browser_download_url : defaultDownloadLinks[platform];
+      }
+
+      githubReleaseLinks = links;
+      githubReleaseVersion = release.tag_name || release.name;
+
+      // 缓存到 localStorage
+      localStorage.setItem('flymd_release_cache', JSON.stringify({
+        links,
+        version: githubReleaseVersion,
+        timestamp: Date.now()
+      }));
+
+      console.log('已从 GitHub 获取最新 release:', githubReleaseVersion);
+      return links;
+    } catch (err) {
+      console.warn('获取 GitHub Release 失败，使用默认链接:', err);
+      return null;
+    }
+  }
+
+  // 获取指定平台的下载链接
+  function getDownloadUrl(platform) {
+    if (githubReleaseLinks && githubReleaseLinks[platform]) {
+      return githubReleaseLinks[platform];
+    }
+    return defaultDownloadLinks[platform] || '#';
+  }
+
+  // 获取平台配置信息
+  function getPlatformConfig(platform) {
+    const config = platformPatterns[platform] || platformPatterns.windows;
+    return {
+      url: getDownloadUrl(platform),
+      icon: config.icon,
+      text: config.text
+    };
+  }
 
   // 更新主下载按钮
   const downloadMainBtn = document.getElementById('downloadMainBtn');
   const downloadIcon = document.getElementById('downloadIcon');
   const downloadText = document.getElementById('downloadText');
 
-  if (downloadMainBtn && downloadIcon && downloadText) {
-    const platform = detectPlatform();
-    const platformInfo = downloadLinks[platform];
+  // 初始化下载按钮（异步获取 GitHub release 链接）
+  async function initDownloadButtons() {
+    // 先尝试从 GitHub API 获取最新 release
+    await fetchGitHubReleaseLinks();
 
-    downloadMainBtn.href = platformInfo.url;
-    downloadIcon.className = platformInfo.icon;
-    downloadText.textContent = platformInfo.text;
+    if (downloadMainBtn && downloadIcon && downloadText) {
+      const platform = detectPlatform();
+      const platformInfo = getPlatformConfig(platform);
 
-    // 如果是 Android 或 iOS，禁用链接
-    if (platform === 'android' || platform === 'ios') {
-      downloadMainBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('该平台版本即将推出，敬请期待！');
-      });
+      downloadMainBtn.href = platformInfo.url;
+      downloadIcon.className = platformInfo.icon;
+      downloadText.textContent = platformInfo.text;
+
+      // 如果是 Android 或 iOS，禁用链接
+      if (platform === 'android' || platform === 'ios') {
+        downloadMainBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('该平台版本即将推出，敬请期待！');
+        });
+      }
     }
+
+    // 更新下拉菜单中的链接
+    updateDropdownLinks();
   }
+
+  // 更新下拉菜单中的下载链接
+  function updateDropdownLinks() {
+    const downloadOptions = document.querySelectorAll('#downloadDropdownMenu .download-option:not(.disabled)');
+    downloadOptions.forEach(option => {
+      const platform = option.getAttribute('data-platform');
+      if (platform) {
+        const platformMap = { win: 'windows', mac: 'macos', linux: 'linux' };
+        const normalizedPlatform = platformMap[platform] || platform;
+        const url = getDownloadUrl(normalizedPlatform);
+        option.href = url;
+      }
+    });
+  }
+
+  // 立即开始初始化
+  initDownloadButtons();
 
   // 更多平台下拉菜单
   const downloadWrapper = document.querySelector('.download-dropdown-wrapper');
@@ -287,31 +388,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    // 处理下拉菜单中的下载选项点击
+    // 处理下拉菜单中的下载选项点击（链接已由 updateDropdownLinks 动态设置）
     const downloadOptions = downloadMenu.querySelectorAll('.download-option:not(.disabled)');
     downloadOptions.forEach(option => {
-      option.addEventListener('click', function(e) {
-        e.preventDefault();
-        const platform = this.getAttribute('data-platform');
-        let downloadUrl = '';
-
-        // 根据平台设置下载链接
-        switch(platform) {
-          case 'win':
-            downloadUrl = 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-windows-x64.exe';
-            break;
-          case 'mac':
-            downloadUrl = 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-macos-universal.dmg';
-            break;
-          case 'linux':
-            downloadUrl = 'https://github.com/flyhunterl/flymd/releases/latest/download/flymd-linux-x64.AppImage';
-            break;
-        }
-
-        if (downloadUrl) {
-          window.location.href = downloadUrl;
-        }
-
+      option.addEventListener('click', function() {
+        // 关闭下拉菜单（链接跳转由浏览器自动处理）
         downloadWrapper.classList.remove('open');
       });
     });
