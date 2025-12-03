@@ -1,22 +1,42 @@
-<header class="site-header">
+<header class="site-header" data-menu-state="closed">
   <div class="container">
     <div class="header-content">
+      <!-- Logo 区域 -->
       <div class="header-left">
         <a href="index.html" class="logo">
           <img src="favicon.ico" alt="飞速Markdown" class="logo-icon">
           <span>飞速Markdown</span>
         </a>
       </div>
-      <nav class="header-nav">
+
+      <!-- 桌面端导航 -->
+      <nav class="header-nav" data-device="desktop">
         <a href="index.html#feature-grid" data-en="Features" data-zh="特色">特色</a>
         <a href="docs.html" data-en="Docs" data-zh="文档">文档</a>
         <a href="blog.html" data-en="Blog" data-zh="博客">博客</a>
         <a href="plugins.html" data-en="Extensions" data-zh="插件">插件</a>
         <a href="about.html" data-en="About" data-zh="关于">关于</a>
-        <!-- 动态导航链接插入点 -->
         <span id="dynamicNavLinks"></span>
-        <a href="https://github.com/flyhunterl/flymd" target="_blank" rel="noopener" data-en="Login" data-zh="登录" class="btn-signup">登录</a>
       </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button class="mobile-menu-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="mobileMenuDropdown">
+        <span class="hamburger-icon" aria-hidden="true">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </span>
+      </button>
     </div>
   </div>
+
+  <!-- 移动端下拉菜单（内嵌于 header 内部） -->
+  <nav class="mobile-menu-dropdown" id="mobileMenuDropdown" data-state="closed" aria-hidden="true">
+    <div class="mobile-menu-content">
+      <a href="index.html#feature-grid" class="mobile-nav-link" data-en="Features" data-zh="特色">特色</a>
+      <a href="docs.html" class="mobile-nav-link" data-en="Docs" data-zh="文档">文档</a>
+      <a href="blog.html" class="mobile-nav-link" data-en="Blog" data-zh="博客">博客</a>
+      <a href="plugins.html" class="mobile-nav-link" data-en="Extensions" data-zh="插件">插件</a>
+      <a href="about.html" class="mobile-nav-link" data-en="About" data-zh="关于">关于</a>
+    </div>
+  </nav>
 </header>

@@ -1,7 +1,7 @@
 /* 站点样式（全部中文注释） */
 
 :root {
-  /* 白天模式 - 白色背景，暗色字体 */
+  /* 白天模式 - 白色背景，暗色字�?*/
   --bg: #ffffff;
   --bg-secondary: #f8f9fa;
   --panel: #ffffff;
@@ -63,7 +63,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 滚动进度条 */
+/* 滚动进度�?*/
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -76,7 +76,7 @@ body {
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.3);
 }
 
-/* 暗色模式下的进度条 */
+/* 暗色模式下的进度�?*/
 [data-theme="dark"] .scroll-progress {
   background-color: var(--primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
@@ -89,7 +89,7 @@ body {
   margin: 0 auto;
 }
 
-/* 顶部导航栏 - 现代化设计 (主要样式在第 2368 行) */
+/* 顶部导航�?- 现代化设�?(主要样式在第 2368 �? */
 .header-inner {
   display: flex;
   align-items: center;
@@ -97,7 +97,7 @@ body {
   height: 68px;
 }
 
-/* 主导航 (主要样式在第 2395 行) */
+/* 主导�?(主要样式在第 2395 �? */
 
 /* 语言切换 */
 .lang-switch {
@@ -153,7 +153,7 @@ body {
   filter: brightness(0.95);
 }
 
-/* 右侧工具组 */
+/* 右侧工具�?*/
 .right-tools {
   display: flex;
   align-items: center;
@@ -161,7 +161,7 @@ body {
   margin-left: auto;
 }
 
-/* Hero 区域 - 现代化设计 */
+/* Hero 区域 - 现代化设�?*/
 .section {
   padding: 80px 0;
   background: var(--bg);
@@ -266,7 +266,7 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* 打字机动画效果 */
+/* 打字机动画效�?*/
 .typing-text {
   position: relative;
   min-height: 3.2em;
@@ -302,7 +302,7 @@ body {
   justify-content: flex-start;
 }
 
-/* 按钮设计 - 现代化 */
+/* 按钮设计 - 现代�?*/
 .btn {
   display: inline-flex;
   align-items: center;
@@ -795,7 +795,7 @@ body {
     -ms-overflow-style: none;
   }
 
-  /* 隐藏横向滚动条 */
+  /* 隐藏横向滚动�?*/
   .hero-feature-tabs::-webkit-scrollbar {
     display: none;
   }
@@ -837,7 +837,7 @@ body {
     padding: 7px 14px;
   }
 
-  /* 平板端弹幕位置优化 - 避免底部被裁剪 */
+  /* 平板端弹幕位置优�?- 避免底部被裁�?*/
   .feature-points-danmaku li:nth-child(1) {
     top: 18%;
   }
@@ -917,7 +917,7 @@ body {
     justify-content: flex-start;
   }
 
-  /* 隐藏横向滚动条 */
+  /* 隐藏横向滚动�?*/
   .hero-feature-tabs::-webkit-scrollbar {
     display: none;
   }
@@ -929,13 +929,13 @@ body {
     flex-shrink: 0;
   }
 
-  /* 移动端弹幕样式 */
+  /* 移动端弹幕样�?*/
   .feature-points-danmaku li {
     font-size: 12px;
     padding: 6px 12px;
   }
 
-  /* 移动端弹幕位置优化 - 避免底部被裁剪 */
+  /* 移动端弹幕位置优�?- 避免底部被裁�?*/
   .feature-points-danmaku li:nth-child(1) {
     top: 20%;
   }
@@ -1199,7 +1199,7 @@ body {
   50% { transform: scale(1.05); }
 }
 
-/* Demo 布局：左图右文 */
+/* Demo 布局：左图右�?*/
 .demo-grid {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
@@ -1324,7 +1324,7 @@ body {
   color: #000;
 }
 
-/* 特性列表 - 黑灰白极简风格 */
+/* 特性列�?- 黑灰白极简风格 */
 .feature-list-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1408,11 +1408,11 @@ body {
   line-height: 1.5;
 }
 
-/* 两列网格（仍用于许可区块布局时可复用） */
+/* 两列网格（仍用于许可区块布局时可复用�?*/
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 .grid h3 { margin-top: 0; }
 
-/* 开发者板块样式 */
+/* 开发者板块样�?*/
 #developers {
   background: var(--bg);
   border-top: 1px solid var(--border-light);
@@ -1562,7 +1562,7 @@ body {
   color: var(--muted);
 }
 
-/* 生态合作伙伴 */
+/* 生态合作伙�?*/
 .partners-section {
   padding: 80px 0;
   background: var(--bg);
@@ -1740,7 +1740,7 @@ body {
   line-height: 1.6;
 }
 
-/* Footer 列 */
+/* Footer �?*/
 .footer-column {
   display: flex;
   flex-direction: column;
@@ -1817,7 +1817,7 @@ body {
     padding: 48px 0 24px;
   }
 
-  /* 平板端保持四列布局，缩小间距 */
+  /* 平板端保持四列布局，缩小间�?*/
   .footer-grid {
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 24px;
@@ -1872,7 +1872,7 @@ body {
     line-height: 1.4;
   }
 
-  /* 手机端隐藏GitHub用户名 */
+  /* 手机端隐藏GitHub用户�?*/
   .developer-github {
     display: none;
   }
@@ -1927,7 +1927,7 @@ body {
 /* 确保内容浮在背景动画上层 */
 .site-header, main, .site-footer { position: relative; z-index: 1; }
 
-/* 移动端适配 - 优化响应式 */
+/* 移动端适配 - 优化响应�?*/
 @media (max-width: 960px) {
   .hero {
     padding: 120px 0 100px;
@@ -2129,7 +2129,7 @@ body {
     width: min(1120px, 90%);
   }
 
-  /* 开发者板块移动端适配 - 平板端保持3列布局 */
+  /* 开发者板块移动端适配 - 平板端保�?列布局 */
   .developers-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
@@ -2154,7 +2154,7 @@ body {
     font-size: 12px;
   }
 
-  /* 平板端隐藏GitHub用户名 */
+  /* 平板端隐藏GitHub用户�?*/
   .developer-github {
     display: none;
   }
@@ -2197,7 +2197,7 @@ body {
   }
 }
 
-/* 历史块样式 */
+/* 历史块样�?*/
 .history-block { margin: 20px 0 28px; }
 .history-block h2 {
   margin: 0 0 12px;
@@ -2232,7 +2232,7 @@ body {
   position: relative;
 }
 
-/* 中间完整分割线 */
+/* 中间完整分割�?*/
 .dual-layout::before {
   content: '';
   position: absolute;
@@ -2729,7 +2729,7 @@ body {
   }
 }
 
-/* 响应式设计 */
+/* 响应式设�?*/
 @media (max-width: 768px) {
   .focus-ai-combined {
     padding: 60px 0;
@@ -2802,10 +2802,10 @@ body {
 }
 
 /* ========================================
-   文档页专用样式
+   文档页专用样�?
    ======================================== */
 
-/* 文档页目录面板 */
+/* 文档页目录面�?*/
 .docs-toc-panel {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -2822,7 +2822,7 @@ body {
   margin: 0 0 12px;
 }
 
-/* 文档页目录导航链接 */
+/* 文档页目录导航链�?*/
 .docs-toc {
   display: flex;
   flex-wrap: wrap;
@@ -2848,7 +2848,7 @@ body {
   color: var(--primary);
 }
 
-/* 文档内容区 */
+/* 文档内容�?*/
 .docs-article {
   background: transparent;
   border: none;
@@ -2946,7 +2946,7 @@ body {
   text-decoration: underline;
 }
 
-/* 快捷键表格样式 */
+/* 快捷键表格样�?*/
 .hotkey-table {
   width: 100%;
   border-collapse: collapse;
@@ -2979,7 +2979,7 @@ body {
   font-size: 13px;
 }
 
-/* 文档页视频/图片 */
+/* 文档页视�?图片 */
 .docs-media {
   width: 100%;
   max-width: 720px;
@@ -3139,7 +3139,7 @@ body {
 }
 
 /* ========================================
-   顶栏样式 - 简洁设计
+   顶栏样式 - 简洁设�?
    ======================================== */
 
 .site-header {
@@ -3154,7 +3154,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* 滚动后显示阴影 */
+/* 滚动后显示阴�?*/
 .site-header.scrolled {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -3230,7 +3230,7 @@ body {
 }
 
 /* ========================================
-   新功能提示容器 - Hero顶部悬浮（简洁风格）
+   新功能提示容�?- Hero顶部悬浮（简洁风格）
    ======================================== */
 
 .feature-pill-container {
@@ -3265,7 +3265,7 @@ body {
   box-shadow: none;
 }
 
-/* 左侧标签（浅红背景红色字） */
+/* 左侧标签（浅红背景红色字�?*/
 .feature-pill-tag {
   display: inline-flex;
   align-items: center;
@@ -3416,7 +3416,7 @@ body {
   color: rgba(120, 120, 120, 0.45);
 }
 
-/* 移动端隐藏弹幕 */
+/* 移动端隐藏弹�?*/
 @media (max-width: 768px) {
   .hero-danmaku-container {
     display: none;
@@ -3449,7 +3449,7 @@ body {
   z-index: 10;
 }
 
-/* 浏览器窗口框架容器 */
+/* 浏览器窗口框架容�?*/
 .hero-image-frame {
   position: relative;
   width: 100%;
@@ -3465,7 +3465,7 @@ body {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-/* 窗口标题栏 */
+/* 窗口标题�?*/
 .hero-image-titlebar {
   display: flex;
   align-items: center;
@@ -3515,7 +3515,7 @@ body {
   margin-right: 60px;
 }
 
-/* Hero 主图片 */
+/* Hero 主图�?*/
 .hero-image {
   position: relative;
   width: 100%;
@@ -3530,7 +3530,7 @@ body {
   vertical-align: top;
 }
 
-/* 无框架时的备用样式 - 直接使用图片 */
+/* 无框架时的备用样�?- 直接使用图片 */
 .hero-image-wrapper > .hero-image {
   width: 100%;
   max-width: 100%;
@@ -3551,7 +3551,7 @@ body {
   }
 }
 
-/* 宽度小于1000px时居中显示 */
+/* 宽度小于1000px时居中显�?*/
 @media (max-width: 1000px) {
   .hero.hero-new {
     padding: 60px 16px 0;
@@ -3607,7 +3607,7 @@ body {
     margin-right: 46px;
   }
 
-  /* 无框架时的备用样式 */
+  /* 无框架时的备用样�?*/
   .hero-image-wrapper > .hero-image {
     width: 100%;
     max-width: 100%;
@@ -3664,7 +3664,7 @@ body {
     padding: 0 8px;
   }
 
-  /* 胶囊按钮组 - 移动端竖向排列 */
+  /* 胶囊按钮�?- 移动端竖向排�?*/
   .capsule-container {
     flex-direction: column;
     border-radius: 16px;
@@ -3892,7 +3892,7 @@ body {
 }
 
 
-/* Hero 主标题 */
+/* Hero 主标�?*/
 .hero-main-title {
   font-size: clamp(42px, 6vw, 64px);
   font-weight: 700;
@@ -3902,7 +3902,7 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Hero 副标题 */
+/* Hero 副标�?*/
 .hero-subtitle-new {
   font-size: clamp(14px, 2vw, 16px);
   color: var(--text-secondary);
@@ -3948,7 +3948,7 @@ body {
   border-radius: 4px;
 }
 
-/* 胶囊按钮组容器 */
+/* 胶囊按钮组容�?*/
 .capsule-container {
   display: inline-flex;
   align-items: stretch;
@@ -4007,7 +4007,7 @@ body {
   background: var(--panel);
 }
 
-/* 胶囊分隔线 */
+/* 胶囊分隔�?*/
 .capsule-divider {
   width: 1px;
   height: 24px;
@@ -4159,7 +4159,7 @@ body {
   border-radius: 4px;
 }
 
-/* 更多平台按钮 - 保持原有简洁样式 */
+/* 更多平台按钮 - 保持原有简洁样�?*/
 .more-platforms-btn {
   display: inline-flex;
   align-items: center;
@@ -4224,7 +4224,7 @@ body {
   box-shadow: none;
 }
 
-/* 暗色模式滚动后显示阴影 */
+/* 暗色模式滚动后显示阴�?*/
 [data-theme="dark"] .site-header.scrolled {
   border-bottom-color: var(--border);
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.08);
@@ -4260,15 +4260,6 @@ body {
     padding: 12px 0;
   }
 
-  .header-nav {
-    display: flex;
-  }
-
-  /* 移动端隐藏除登录按钮外的所有导航链接 */
-  .header-nav a:not(.btn-signup) {
-    display: none;
-  }
-
   .header-left .logo {
     font-size: 18px;
   }
@@ -4278,20 +4269,13 @@ body {
     height: 28px;
   }
 
-  /* 移动端登录按钮样式调整 */
-  .header-nav .btn-signup {
-    padding: 4px 12px;
-    font-size: 14px;
-    margin-left: 0;
-  }
-
   /* 移动端新功能提示调整 */
   .feature-pill-container {
     top: 75px;
     padding: 0 16px;
   }
 
-  /* 移动端内容区域调整 */
+  /* 移动端内容区域调�?*/
   .hero.hero-new {
     height: 100vh;
   }
@@ -4351,7 +4335,7 @@ body {
     font-size: 14px;
   }
 
-  /* 移动端禁用 hover 效果 */
+  /* 移动端禁�?hover 效果 */
   .capsule-btn:hover {
     background: transparent;
   }
@@ -4411,7 +4395,7 @@ body {
     height: 1px;
   }
 
-  /* 移动端 Hero 标题调整 */
+  /* 移动�?Hero 标题调整 */
   .hero-main-title {
     font-size: clamp(28px, 8vw, 42px);
     margin-bottom: 12px;
@@ -4423,7 +4407,7 @@ body {
     max-width: 100%;
   }
 
-  /* 移动端合作伙伴样式调整 */
+  /* 移动端合作伙伴样式调�?*/
   .hero-partners {
     gap: 10px;
     margin-bottom: 30px;
@@ -4443,10 +4427,10 @@ body {
     height: 18px;
   }
 
-  /* 移动端图片样式调整 */
+  /* 移动端图片样式调�?*/
   .hero-image-wrapper {
     width: 94%;
-    top: 72%; /* 移动端 hero 高度较短，微调位置 */
+    top: 72%; /* 移动�?hero 高度较短，微调位�?*/
   }
 
   .hero-image-frame {
@@ -4482,7 +4466,7 @@ body {
     margin-right: 38px;
   }
 
-  /* 无框架时的备用样式 */
+  /* 无框架时的备用样�?*/
   .hero-image-wrapper > .hero-image {
     width: 90%;
     max-width: 90%;
@@ -4604,7 +4588,7 @@ body.docs-page .docs-main {
   width: 100%;
 }
 
-/* 隐藏默认的toc-title，使用分类标题 */
+/* 隐藏默认的toc-title，使用分类标�?*/
 .toc-title {
   display: none;
 }
@@ -4732,7 +4716,7 @@ body.docs-page .docs-main {
   }
 }
 
-/* 加载状态 */
+/* 加载状�?*/
 .docs-loading {
   text-align: center;
   padding: 64px 24px;
@@ -4880,7 +4864,7 @@ body.docs-page .docs-main {
   transition: color 0.25s, background-color 0.25s;
 }
 
-/* 代码块 */
+/* 代码�?*/
 .docs-section pre {
   background-color: var(--vp-c-bg-soft);
   border-radius: 8px;
@@ -4904,7 +4888,7 @@ body.docs-page .docs-main {
   line-height: 1.7;
 }
 
-/* 引用块 - VitePress tip 风格 */
+/* 引用�?- VitePress tip 风格 */
 .docs-section blockquote {
   margin: 16px 0;
   padding: 16px 20px;
@@ -4918,7 +4902,7 @@ body.docs-page .docs-main {
   color: var(--vp-c-text-2);
 }
 
-/* 分隔线 */
+/* 分隔�?*/
 .docs-section hr {
   margin: 32px 0;
   border: none;
@@ -4964,7 +4948,7 @@ body.docs-page .docs-main {
   background-color: var(--vp-c-bg-soft);
 }
 
-/* 快捷键表格 */
+/* 快捷键表�?*/
 .hotkey-table {
   width: 100%;
   border-collapse: collapse;
@@ -5287,10 +5271,10 @@ body.docs-page .docs-main {
 }
 
 /* =====================================================
-   响应式设计
+   响应式设�?
    ===================================================== */
 
-/* 大屏幕 (> 1280px) - 显示三栏布局 */
+/* 大屏�?(> 1280px) - 显示三栏布局 */
 @media (min-width: 1280px) {
   .docs-layout {
     display: flex;
@@ -5313,7 +5297,7 @@ body.docs-page .docs-main {
   }
 }
 
-/* 平板 (960px - 1279px) - 两栏布局，隐藏右侧 */
+/* 平板 (960px - 1279px) - 两栏布局，隐藏右�?*/
 @media (max-width: 1279px) {
   .docs-page-toc {
     display: none;
@@ -5329,7 +5313,7 @@ body.docs-page .docs-main {
   }
 }
 
-/* 移动端 (< 960px) - 单栏布局，侧边栏抽屉 */
+/* 移动�?(< 960px) - 单栏布局，侧边栏抽屉 */
 @media (max-width: 959px) {
   .docs-shell {
     padding-top: calc(var(--vp-nav-height) + 48px);
@@ -6011,7 +5995,7 @@ body.docs-page .docs-main {
 
 /* ==================
    Feature Grid - Mono Style
-   网格线无限延长 + 无hover放大 + 黑白色调 + 直边
+   网格线无限延�?+ 无hover放大 + 黑白色调 + 直边
    ================== */
 .feature-grid--mono {
   position: relative;
@@ -6407,7 +6391,7 @@ body.docs-page .docs-main {
   }
 }
 
-/* 成功状态 - 绿色 */
+/* 成功状�?- 绿色 */
 .notification-toast[data-type="success"] {
   background: rgba(240, 253, 244, 0.85);
   border: 1px solid rgba(34, 197, 94, 0.3);
@@ -6419,7 +6403,7 @@ body.docs-page .docs-main {
   border-color: rgba(34, 197, 94, 0.4);
 }
 
-/* 信息状态 - 绿色（协同未连接） */
+/* 信息状�?- 绿色（协同未连接�?*/
 .notification-toast[data-type="info"] {
   background: rgba(240, 253, 244, 0.85);
   border: 1px solid rgba(34, 197, 94, 0.3);
@@ -6431,7 +6415,7 @@ body.docs-page .docs-main {
   border-color: rgba(34, 197, 94, 0.4);
 }
 
-/* 警告/错误状态 - 红色 */
+/* 警告/错误状�?- 红色 */
 .notification-toast[data-type="warning"],
 .notification-toast[data-type="error"] {
   background: rgba(254, 242, 242, 0.85);
@@ -6619,7 +6603,7 @@ body.docs-page .docs-main {
   border-bottom-color: #e0e0e0;
 }
 
-/* 顶栏菜单行 */
+/* 顶栏菜单�?*/
 .topbar-menus {
   display: flex;
   align-items: center;
@@ -6650,7 +6634,7 @@ body.docs-page .docs-main {
   color: #1a1a1a;
 }
 
-/* 标签页容器 */
+/* 标签页容�?*/
 .layout-tabs {
   display: flex;
   align-items: center;
@@ -6722,7 +6706,7 @@ body.docs-page .docs-main {
   cursor: pointer;
 }
 
-/* 右侧工具栏 */
+/* 右侧工具�?*/
 .topbar-tools {
   display: flex;
   align-items: center;
@@ -6757,7 +6741,7 @@ body.docs-page .docs-main {
   background: #555;
 }
 
-/* 侧栏工具栏 */
+/* 侧栏工具�?*/
 .sidebar-toolbar {
   display: flex;
   gap: 4px;
@@ -6794,7 +6778,7 @@ body.docs-page .docs-main {
   color: #333;
 }
 
-/* 目录树增强 */
+/* 目录树增�?*/
 .tree-item {
   display: flex;
   align-items: center;
@@ -7929,7 +7913,7 @@ body.docs-page .docs-main {
 }
 
 /* ==================
-   Monochrome Color Override - 黑灰白色调
+   Monochrome Color Override - 黑灰白色�?
    ================== */
 
 /* Override primary color to dark gray/black */
@@ -8323,7 +8307,7 @@ body.docs-page .docs-main {
     padding: 32px 0;
   }
 
-  /* Hero 容器手机端优化 */
+  /* Hero 容器手机端优�?*/
   .hero {
     padding: 100px 0 60px;
     min-height: auto;
@@ -8378,3 +8362,218 @@ body.docs-page .docs-main {
     padding: 5px 8px;
   }
 }
+
+/* ========================================
+   顶栏导航链接样式更新
+   ======================================== */
+
+/* 导航链接默认样式 */
+.header-nav a:not(.btn-github) {
+  color: #666666;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+/* 导航链接 hover 样式 */
+.header-nav a:not(.btn-github):hover {
+  color: #171717;
+  background: #ebebeb;
+}
+
+/* 暗色模式导航链接 */
+[data-theme="dark"] .header-nav a:not(.btn-github) {
+  color: #999999;
+}
+
+[data-theme="dark"] .header-nav a:not(.btn-github):hover {
+  color: #ffffff;
+  background: #333333;
+}
+
+/* ========================================
+   GitHub 图标按钮样式
+   ======================================== */
+
+.header-nav .btn-github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin-left: 8px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.header-nav .btn-github:hover {
+  border-color: var(--border);
+  background: var(--bg-secondary);
+}
+
+.header-nav .btn-github svg {
+  width: 20px;
+  height: 20px;
+}
+
+[data-theme="dark"] .header-nav .btn-github {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--panel);
+}
+
+[data-theme="dark"] .header-nav .btn-github:hover {
+  border-color: var(--border);
+  background: var(--bg-secondary);
+}
+
+/* ========================================
+   移动端汉堡菜单按钮
+   ======================================== */
+
+.mobile-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.hamburger-line {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* 汉堡菜单打开时变成 X - 使用 data-menu-state 控制 */
+.site-header[data-menu-state="open"] .hamburger-line:first-child {
+  transform: rotate(45deg) translate(3px, 3px);
+}
+
+.site-header[data-menu-state="open"] .hamburger-line:last-child {
+  transform: rotate(-45deg) translate(3px, -3px);
+}
+
+/* 移动端显示汉堡菜单 */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* 移动端隐藏桌面导航 - 使用 data-device 属性精确控制 */
+  .header-nav[data-device="desktop"] {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ========================================
+   移动端下拉菜单
+   ======================================== */
+
+.mobile-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+/* 移动端下拉菜单内容 */
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+/* 移动端显示下拉菜单容器 */
+@media (max-width: 768px) {
+  .mobile-menu-dropdown {
+    display: block;
+  }
+}
+
+/* 菜单打开状态 - 使用 data-state 控制 */
+.mobile-menu-dropdown[data-state="open"] {
+  max-height: 400px;
+  opacity: 1;
+}
+
+/* 移动端导航链接 */
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #666666;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  color: #171717;
+  background: #f5f5f5;
+}
+
+.mobile-nav-github {
+  border-top: 1px solid var(--border-light);
+  margin-top: 4px;
+  padding-top: 14px;
+}
+
+.mobile-nav-github svg {
+  flex-shrink: 0;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .mobile-menu-dropdown {
+  background: var(--bg);
+  border-color: var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .mobile-nav-link {
+  color: #999999;
+}
+
+[data-theme="dark"] .mobile-nav-link:hover,
+[data-theme="dark"] .mobile-nav-link:active {
+  color: #ffffff;
+  background: #333333;
+}
+

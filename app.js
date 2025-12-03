@@ -101,6 +101,85 @@ document.addEventListener('DOMContentLoaded', function() {
     initHeaderScroll();
   }
 
+  // ===============================
+  // 移动端汉堡菜单功能
+  // ===============================
+  function initMobileMenu() {
+    const header = document.querySelector('.site-header');
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const menuDropdown = document.querySelector('.mobile-menu-dropdown');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!header || !menuToggle || !menuDropdown) return;
+
+    // 打开菜单
+    function openMenu() {
+      header.setAttribute('data-menu-state', 'open');
+      menuDropdown.setAttribute('data-state', 'open');
+      menuDropdown.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    // 关闭菜单
+    function closeMenu() {
+      header.setAttribute('data-menu-state', 'closed');
+      menuDropdown.setAttribute('data-state', 'closed');
+      menuDropdown.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    // 获取当前菜单状态
+    function isMenuOpen() {
+      return menuDropdown.getAttribute('data-state') === 'open';
+    }
+
+    // 切换菜单
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (isMenuOpen()) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // 点击导航链接关闭菜单
+    mobileNavLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        closeMenu();
+      });
+    });
+
+    // 点击页面其他区域关闭菜单
+    document.addEventListener('click', function(e) {
+      if (isMenuOpen() && !header.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // 窗口大小变化时关闭菜单
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768 && isMenuOpen()) {
+        closeMenu();
+      }
+    });
+
+    // ESC 键关闭菜单
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isMenuOpen()) {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+  }
+
+  // 监听组件加载完成事件
+  document.addEventListener('componentsLoaded', initMobileMenu);
+  // 如果组件已加载，直接执行
+  if (document.querySelector('.mobile-menu-dropdown')) {
+    initMobileMenu();
+  }
+
   // Hero 向下滚动箭头点击事件
   const heroScrollArrow = document.getElementById('heroScrollArrow');
   if (heroScrollArrow) {
