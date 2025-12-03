@@ -5,7 +5,13 @@
 (function() {
   'use strict';
 
-  const COMPONENTS_PATH = 'components/';
+  // 获取组件路径（支持 CDN）
+  function getComponentsPath() {
+    // 组件 HTML 通常不走 CDN（需要实时更新）
+    return 'components/';
+  }
+
+  const COMPONENTS_PATH = getComponentsPath();
 
   /**
    * Load HTML component into target element

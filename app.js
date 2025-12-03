@@ -1,5 +1,17 @@
 // FlyMD 网站交互脚本
 
+// CDN URL 辅助函数（在 cdn.js 加载前的后备方案）
+function getCdnUrl(path, noCache) {
+  if (window.cdnUrl) {
+    return window.cdnUrl(path, { noCache: noCache });
+  }
+  // 后备方案：直接使用相对路径
+  if (noCache) {
+    return path + (path.indexOf('?') === -1 ? '?' : '&') + '_t=' + Date.now();
+  }
+  return path;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // ===============================
   // 自动加载最新博客文章
@@ -9,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!pillRow) return;
 
     // 从博客索引获取最新文章
-    fetch('content/blog/_index.json?' + Date.now())
+    fetch(getCdnUrl('content/blog/_index.json', true))
       .then(response => response.json())
       .then(blogData => {
         const currentLang = localStorage.getItem('preferred-language') ||
@@ -856,7 +868,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!container || container.dataset.loaded === 'true') return;
 
     try {
-      const response = await fetch('content/nav-links.json?' + Date.now());
+      const response = await fetch(getCdnUrl('content/nav-links.json', true));
       if (!response.ok) return;
       const data = await response.json();
 
@@ -896,7 +908,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!grid || grid.dataset.loaded === 'true') return;
 
     try {
-      const response = await fetch('content/contributors.json?' + Date.now());
+      const response = await fetch(getCdnUrl('content/contributors.json', true));
       if (!response.ok) return;
       const data = await response.json();
 
@@ -949,7 +961,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (featureGridState.cache) return featureGridState.cache;
     if (featureGridState.promise) return featureGridState.promise;
 
-    featureGridState.promise = fetch(`tauri/components.ts?v=0.5.6`)
+    featureGridState.promise = fetch(getCdnUrl('tauri/components.ts'))
       .then(response => (response.ok ? response.text() : ''))
       .then(text => {
         if (!text) return null;

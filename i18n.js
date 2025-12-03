@@ -160,6 +160,10 @@
     if (API_BASE) {
       return API_BASE + '/api/i18n/translations/';
     }
+    // 使用 CDN 工具函数（如果可用）
+    if (window.cdnUrl) {
+      return window.cdnUrl('i18n/');
+    }
     // 获取当前脚本的路径来确定基础路径
     const scripts = document.getElementsByTagName('script');
     for (let i = 0; i < scripts.length; i++) {
