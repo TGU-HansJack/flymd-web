@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "updatedAt": "2025-12-01T12:00:00Z",
+  "ttlSeconds": 3600,
+  "tags": {
+    "zh": [
+      { "slug": "all", "name": "推荐", "color": "#3b82f6" },
+      { "slug": "publish", "name": "发布工具", "color": "#10b981" },
+      { "slug": "ai", "name": "AI 集成", "color": "#8b5cf6" },
+      { "slug": "export", "name": "导出增强", "color": "#f59e0b" },
+      { "slug": "utility", "name": "效率工具", "color": "#06b6d4" },
+      { "slug": "third", "name": "第三方集成", "color": "#ec4899" },
+      { "slug": "dev", "name": "开发者工具", "color": "#6366f1" },
+      { "slug": "other", "name": "其他", "color": "#64748b" }
+    ],
+    "en": [
+      { "slug": "all", "name": "Featured", "color": "#3b82f6" },
+      { "slug": "publish", "name": "Publishing", "color": "#10b981" },
+      { "slug": "ai", "name": "AI Integration", "color": "#8b5cf6" },
+      { "slug": "export", "name": "Export", "color": "#f59e0b" },
+      { "slug": "utility", "name": "Utilities", "color": "#06b6d4" },
+      { "slug": "third", "name": "3rd Party", "color": "#ec4899" },
+      { "slug": "dev", "name": "Developer Tools", "color": "#6366f1" },
+      { "slug": "other", "name": "Other", "color": "#64748b" }
+    ]
+  },
+  "items": [
+    {
+      "id": "ai-assistant",
+      "author": "飞速MarkDown",
+      "homepage": "https://github.com/flyhunterl/flymd",
+      "featured": true,
+      "rank": 1,
+      "i18n": {
+        "zh": {
+          "name": "AI 助手",
+          "description": "智能 AI 写作助手，支持续写、润色、纠错、生成大纲、Mermaid 图表等功能",
+          "tags": ["ai"]
+        },
+        "en": {
+          "name": "AI Assistant",
+          "description": "Smart AI writing assistant with continue writing, polish, correction, outline generation, Mermaid charts and more",
+          "tags": ["ai"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/ai-assistant/manifest.json",
+        "type": "manifest"
+      }
+    },
+    {
+      "id": "typecho-publisher-flymd",
+      "author": "HansJack",
+      "homepage": "https://github.com/TGU-HansJack/typecho-publisher-flymd",
+      "featured": false,
+      "rank": 2,
+      "i18n": {
+        "zh": {
+          "name": "Typecho 发布器",
+          "description": "一键发布文章到 Typecho 博客平台",
+          "tags": ["publish", "third"]
+        },
+        "en": {
+          "name": "Typecho Publisher",
+          "description": "One-click publish articles to Typecho blog platform",
+          "tags": ["publish", "third"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/typecho/manifest.json",
+        "type": "manifest"
+      }
+    },
+    {
+      "id": "flymd-halo",
+      "author": "HansJack",
+      "homepage": "https://github.com/TGU-HansJack/flymd-halo",
+      "featured": false,
+      "rank": 3,
+      "i18n": {
+        "zh": {
+          "name": "Halo 发布器",
+          "description": "一键发布文章到 Halo 博客平台",
+          "tags": ["publish", "third"]
+        },
+        "en": {
+          "name": "Halo Publisher",
+          "description": "One-click publish articles to Halo blog platform",
+          "tags": ["publish", "third"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/flymd-halo/manifest.json",
+        "type": "manifest"
+      }
+    },
+    {
+      "id": "batch-pdf",
+      "author": "飞速MarkDown",
+      "homepage": "https://github.com/flyhunterl/flymd",
+      "featured": false,
+      "rank": 4,
+      "i18n": {
+        "zh": {
+          "name": "批量导出 PDF",
+          "description": "一次选择多个文档并批量导出为 PDF 文件",
+          "tags": ["export"]
+        },
+        "en": {
+          "name": "Batch PDF Export",
+          "description": "Select multiple documents and batch export them to PDF files",
+          "tags": ["export"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/batch-pdf/manifest.json",
+        "type": "manifest"
+      }
+    },
+    {
+      "id": "wordcount",
+      "author": "飞速MarkDown",
+      "homepage": "https://github.com/flyhunterl/flymd",
+      "featured": false,
+      "rank": 5,
+      "i18n": {
+        "zh": {
+          "name": "字数统计",
+          "description": "统计当前文档的字数、字符数、段落数等信息",
+          "tags": ["utility"]
+        },
+        "en": {
+          "name": "Word Count",
+          "description": "Count words, characters, paragraphs and more in current document",
+          "tags": ["utility"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/wordcount/manifest.json",
+        "type": "manifest"
+      }
+    },
+    {
+      "id": "xxtui-todo-push",
+      "author": "飞速MarkDown",
+      "homepage": "https://github.com/flyhunterl/flymd",
+      "featured": false,
+      "rank": 6,
+      "i18n": {
+        "zh": {
+          "name": "xxtui 待办推送",
+          "description": "扫描当前文档中的未完成待办并推送到 xxtui（beta）",
+          "tags": ["utility", "third"]
+        },
+        "en": {
+          "name": "xxtui Todo Push",
+          "description": "Scan uncompleted todos in current document and push to xxtui (beta)",
+          "tags": ["utility", "third"]
+        }
+      },
+      "install": {
+        "ref": "https://flymd.llingfei.com/plugins/xxtui-todo-push/manifest.json",
+        "type": "manifest"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tag": {
+    "zh": "更新",
+    "en": "Update"
+  },
+  "title": {
+    "zh": "开放式协同编辑现已上线",
+    "en": "Open collaborative editing is now available"
+  },
+  "url": "https://blog.example.com/article",
+  "button": {
+    "zh": "点击详情",
+    "en": "Details"
+  }
+}

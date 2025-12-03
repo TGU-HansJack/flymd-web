@@ -1,0 +1,86 @@
+{
+  "locales": ["zh", "en"],
+  "defaultLocale": "zh",
+  "tree": {
+    "zh": [
+      {
+        "title": "快速开始",
+        "slug": "quick-start",
+        "children": [
+          {
+            "title": "快速上手",
+            "slug": "getting-started",
+            "file": "zh/getting-started.md"
+          },
+          {
+            "title": "安装与配置",
+            "slug": "installation",
+            "file": "zh/installation.md"
+          }
+        ]
+      },
+      {
+        "title": "功能指南",
+        "slug": "guide",
+        "children": [
+          {
+            "title": "完整使用指南",
+            "slug": "docs",
+            "file": "zh/docs.md"
+          }
+        ]
+      },
+      {
+        "title": "扩展与插件",
+        "slug": "extensions",
+        "children": [
+          {
+            "title": "插件开发",
+            "slug": "plugin-dev",
+            "file": "zh/plugin-dev.md"
+          }
+        ]
+      }
+    ],
+    "en": [
+      {
+        "title": "Guide",
+        "slug": "guide",
+        "children": [
+          {
+            "title": "Quick Start",
+            "slug": "getting-started",
+            "file": "en/getting-started.md"
+          },
+          {
+            "title": "Installation",
+            "slug": "installation",
+            "file": "en/installation.md"
+          }
+        ]
+      },
+      {
+        "title": "In Depth",
+        "slug": "in-depth",
+        "children": [
+          {
+            "title": "User Guide",
+            "slug": "docs",
+            "file": "en/docs.md"
+          }
+        ]
+      },
+      {
+        "title": "Extensions",
+        "slug": "extensions",
+        "children": [
+          {
+            "title": "Plugin Development",
+            "slug": "plugin-dev",
+            "file": "en/plugin-dev.md"
+          }
+        ]
+      }
+    ]
+  }
+}

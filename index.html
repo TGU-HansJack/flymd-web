@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>飞速Markdown · FlyMD</title>
+    <meta name="description" content="仅7MB，免费且强大的MarkDown编辑/PDF阅读工具" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fonts/fontawesome.css" />
+    <link rel="icon" type="image/png" href="Flymdnew.png" />
+    <link rel="icon" type="image/x-icon" href="Flymdnew.ico" />
+  </head>
+  <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress" class="scroll-progress"></div>
+
+    <!-- Header Component -->
+    <div data-include="header"></div>
+
+    <main>
+      <!-- Hero -->
+      <section id="hero" class="section hero hero-new snap-section">
+        <!-- Feature Pill - Hero顶部悬浮（最新博客文章） -->
+        <div class="feature-pill-container">
+          <a href="https://blog.example.com/article" class="feature-pill-row" target="_blank" rel="noopener">
+            <span class="feature-pill-tag">
+              <span class="tag-dot"></span>
+              <span data-en="Update" data-zh="更新">更新</span>
+            </span>
+            <span class="feature-pill-text" data-en="Open collaborative editing is now available" data-zh="开放式协同编辑现已上线">开放式协同编辑现已上线</span>
+            <span class="feature-pill-btn" data-en="Details" data-zh="点击详情">点击详情</span>
+          </a>
+        </div>
+
+        <div class="container hero-content-centered">
+          <!-- Main Title -->
+          <h1 class="hero-main-title" data-i18n="hero_main_title">FlyMD：快速书写，自由创作</h1>
+
+          <!-- Subtitle -->
+          <p class="hero-subtitle-new" data-i18n="hero_subtitle_new">毫秒级性能响应、智能生成便签、待办多渠道推送、AI润色续写、支持多端同步 、多人协同写作</p>
+
+          <!-- Capsule Button Group -->
+          <div class="capsule-container">
+            <!-- Auto-detect Download Button -->
+            <a href="#" class="capsule-btn download-main-btn" id="downloadMainBtn">
+              <i class="fa-brands fa-windows" id="downloadIcon"></i>
+              <span id="downloadText">下载 Windows 版</span>
+            </a>
+
+            <!-- Divider -->
+            <div class="capsule-divider"></div>
+
+            <!-- More Platforms Button with Dropdown -->
+            <div class="download-dropdown-wrapper">
+              <button class="capsule-btn more-platforms-btn" id="morePlatformsBtn" type="button">
+                <span data-en="More platforms" data-zh="更多平台">更多平台</span>
+              </button>
+              <div class="download-dropdown-menu" id="downloadDropdownMenu">
+                <a class="download-option" href="#" data-platform="win">
+                  <i class="fa-brands fa-windows"></i>
+                  <span>Windows X64</span>
+                </a>
+                <a class="download-option" href="#" data-platform="mac">
+                  <i class="fa-brands fa-apple"></i>
+                  <span>macOS Universal</span>
+                </a>
+                <a class="download-option" href="#" data-platform="linux">
+                  <i class="fa-brands fa-linux"></i>
+                  <span>Linux</span>
+                </a>
+                <a class="download-option disabled" href="#" data-platform="android">
+                  <i class="fa-brands fa-android"></i>
+                  <span>Android</span>
+                  <span class="coming-badge" data-i18n="coming_soon">将至</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image - 浏览器窗口框架 -->
+        <div class="hero-image-wrapper">
+          <div class="hero-image-frame">
+            <div class="hero-image-titlebar">
+              <div class="hero-image-controls">
+                <span class="ctrl-close"></span>
+                <span class="ctrl-min"></span>
+                <span class="ctrl-max"></span>
+              </div>
+              <span class="hero-image-title">FlyMD - 飞速Markdown</span>
+            </div>
+            <img src="hero.png" alt="FlyMD 界面展示" class="hero-image" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature Grid (交互式功能展示) -->
+      <section data-include="feature-grid"></section>
+
+      <!-- Demo (GIF left + bullets right) -->
+      <section id="demo" class="section demo snap-section">
+        <div class="container">
+          <!-- 添加标题和描述 -->
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="demo_title">强大功能，一目了然</h2>
+            <p class="section-subtitle" data-i18n="demo_subtitle">轻量级却不简单，为高效写作而生</p>
+          </div>
+
+          <div class="feature-list-container">
+              <div class="feature-header">
+                <h3 data-i18n="features_heading">核心特性</h3>
+                <span class="feature-count">12+</span>
+              </div>
+              <ul class="bullets">
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-code"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_dual">源码/所见双模式</span>
+                    <span class="feature-desc" data-i18n="b_dual_desc">自由切换编辑与预览</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-bolt"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_perf">毫秒级启动与渲染体验</span>
+                    <span class="feature-desc" data-i18n="b_perf_desc">瞬间加载，流畅书写</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-bookmark"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_memory">阅读位置记忆</span>
+                    <span class="feature-desc" data-i18n="b_memory_desc">断点续读不丢失</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-list"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_toc">目录大纲支持</span>
+                    <span class="feature-desc" data-i18n="b_toc_desc">智能大纲，快速导航</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-upload"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_publish">一键发布到Typecho/WordPress/Halo</span>
+                    <span class="feature-desc" data-i18n="b_publish_desc">写完即发，无缝对接</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-robot"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_ai">AI 助手扩展：辅助写作、润色与改错</span>
+                    <span class="feature-desc" data-i18n="b_ai_desc">智能辅助，事半功倍</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-window-maximize"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_embed">灵活嵌入 iframe 控件</span>
+                    <span class="feature-desc" data-i18n="b_embed_desc">支持音乐、视频、地图、在线文档等外部内容</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-desktop"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_platform">Windows / Linux / macOS 全平台支持</span>
+                    <span class="feature-desc" data-i18n="b_platform_desc">跨平台无障碍使用</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-file-export"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_export">支持导出格式为PDF和DOCX</span>
+                    <span class="feature-desc" data-i18n="b_export_desc">多格式导出，满足不同需求</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-bell"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_todo_remind">智能生成待办并支持定时发送提醒</span>
+                    <span class="feature-desc" data-i18n="b_todo_remind_desc">微信、短信、邮箱、钉钉、飞书等多渠道推送</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-note-sticky"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_sticky_note">一键生成桌面便签</span>
+                    <span class="feature-desc" data-i18n="b_sticky_note_desc">右键生成置顶小窗，重要事项随时可见</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <i class="fa-solid fa-users"></i>
+                  </span>
+                  <div class="feature-content">
+                    <span class="feature-title" data-i18n="b_collab">协同编辑支持</span>
+                    <span class="feature-desc" data-i18n="b_collab_desc">多人实时协作，团队效率翻倍</span>
+                  </div>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Focus Mode & AI Todo Combined -->
+      <section id="focus-ai-combined" class="section focus-ai-combined snap-section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="ai_todo_title">AI + 待办联动：智能生活助手</h2>
+            <p class="section-subtitle" data-i18n="ai_todo_subtitle">这不是赛博，这是生活</p>
+          </div>
+
+          <div class="dual-layout">
+            <!-- Left: Todo Video -->
+            <div class="dual-left">
+              <div class="focus-video-wrapper">
+                <video
+                  class="focus-video"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  src="todo.webm"
+                  type="video/webm">
+                </video>
+              </div>
+            </div>
+
+            <!-- Right: AI Scenarios -->
+            <div class="dual-right">
+              <div class="ai-todo-content">
+                <ul class="bullets scenario-list">
+                  <li>
+                    <span class="icon" aria-hidden="true">
+                      <i class="fa-solid fa-calendar-check"></i>
+                    </span>
+                    <div class="feature-content">
+                      <span class="feature-title" data-i18n="scenario_habit_title">个人习惯养成</span>
+                      <span class="feature-desc" data-i18n="scenario_habit_desc">笔记中写下起床时间，AI识别需求，通过待办插件打来电话提醒</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="icon" aria-hidden="true">
+                      <i class="fa-solid fa-map-location-dot"></i>
+                    </span>
+                    <div class="feature-content">
+                      <span class="feature-title" data-i18n="scenario_travel_title">旅游攻略执行</span>
+                      <span class="feature-desc" data-i18n="scenario_travel_desc">粘贴攻略到笔记，AI自动提取时间节点，微信推送景点提醒</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="icon" aria-hidden="true">
+                      <i class="fa-solid fa-briefcase"></i>
+                    </span>
+                    <div class="feature-content">
+                      <span class="feature-title" data-i18n="scenario_meeting_title">团队会议管理</span>
+                      <span class="feature-desc" data-i18n="scenario_meeting_desc">记录会议安排，团队成员准时收到钉钉、邮件或微信提醒</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performance & Developers Combined -->
+      <section id="perf-dev" class="section snap-section perf-dev-combined">
+        <!-- Performance -->
+        <div class="perf-dev-inner">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title" data-i18n="perf_title">极致性能</h2>
+              <p class="section-subtitle" data-i18n="perf_subtitle">轻量却强大，为效率而生</p>
+            </div>
+            <div class="perf-grid perf-grid-home">
+              <div class="perf-card">
+                <span class="perf-value">≤300ms</span>
+                <span class="perf-label" data-i18n="perf_cold">冷启动</span>
+              </div>
+              <div class="perf-card">
+                <span class="perf-value">≤10MB</span>
+                <span class="perf-label" data-i18n="perf_size">安装包体积</span>
+              </div>
+              <div class="perf-card">
+                <span class="perf-value">≤50MB</span>
+                <span class="perf-label" data-i18n="perf_memory">常驻内存</span>
+              </div>
+              <div class="perf-card">
+                <span class="perf-value">≤16ms</span>
+                <span class="perf-label" data-i18n="perf_switch">预览切换</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Developers -->
+          <div class="container" style="margin-top: 60px;">
+            <div class="section-header">
+              <h2 class="section-title" data-i18n="developers_title">感谢开发者</h2>
+              <p class="section-subtitle" data-i18n="developers_intro">感谢以下开发者的辛勤付出，让飞速Markdown变得更加强大</p>
+            </div>
+            <div class="developers-grid" id="contributorsGrid">
+              <!-- 动态加载贡献者 -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partners Section -->
+      <section id="partners" class="section partners-section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="partners_title">生态合作伙伴</h2>
+            <p class="section-subtitle" data-i18n="partners_subtitle">感谢生态伙伴的鼎力支持</p>
+          </div>
+
+          <div class="partners-grid">
+            <!-- SiliconFlow -->
+            <div class="partner-card">
+              <a href="https://cloud.siliconflow.cn/i/X96CT74a" target="_blank" rel="noopener noreferrer" class="partner-link">
+                <picture>
+                  <source media="(prefers-color-scheme: dark)" srcset="Powered-by-dark.png">
+                  <source media="(prefers-color-scheme: light)" srcset="Powered-by-light.png">
+                  <img alt="Powered by SiliconFlow" src="Powered-by-light.png" class="partner-logo">
+                </picture>
+                <div class="partner-info">
+                  <h3 class="partner-name" data-i18n="partner_siliconflow_name">硅基流动</h3>
+                  <p class="partner-slogan" data-i18n="partner_siliconflow_slogan">致力成为全球领先的AI能力提供商</p>
+                  <span class="partner-support" data-i18n="partner_siliconflow_support">模型服务支持</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- xxtui -->
+            <div class="partner-card">
+              <a href="https://www.xxtui.com/" target="_blank" rel="noopener noreferrer" class="partner-link">
+                <img src="https://www.xxtui.com/img/logo.png" alt="xxtui" class="partner-logo">
+                <div class="partner-info">
+                  <h3 class="partner-name" data-i18n="partner_xxtui_name">XXTUI</h3>
+                  <p class="partner-slogan" data-i18n="partner_xxtui_slogan">简单高效的个人推送API</p>
+                  <span class="partner-support" data-i18n="partner_xxtui_support">推送服务支持</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- x666.me -->
+            <div class="partner-card">
+              <a href="https://x666.me/register?aff=yUSz" target="_blank" rel="noopener noreferrer" class="partner-link">
+                <img src="https://i.111666.best/image/UQ3YrIrF59JZfaEFGJabrr.png" alt="薄荷公益" class="partner-logo">
+                <div class="partner-info">
+                  <h3 class="partner-name" data-i18n="partner_x666_name">薄荷公益</h3>
+                  <p class="partner-slogan" data-i18n="partner_x666_slogan">用心提供优质 AI 接口支持的公益站</p>
+                  <span class="partner-support" data-i18n="partner_x666_support">模型服务支持</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer Component -->
+    <div data-include="footer"></div>
+
+    <!-- Scripts -->
+    <script src="components/includes.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+

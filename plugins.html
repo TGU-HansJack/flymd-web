@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>插件商店 · 飞速MarkDown</title>
+    <meta name="description" content="飞速MarkDown 插件商店 - 增强你的写作体验" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fonts/fontawesome.css" />
+    <link rel="icon" type="image/png" href="Flymdnew.png" />
+    <link rel="icon" type="image/x-icon" href="Flymdnew.ico" />
+    <style>
+      /* 插件商店专用样式 */
+      .plugins-page {
+        background: #f5f5f5;
+        min-height: 100vh;
+        padding-top: 68px;
+      }
+
+      [data-theme="dark"] .plugins-page {
+        background: var(--bg);
+      }
+
+      .plugins-hero {
+        padding: 40px 0 24px;
+        text-align: center;
+        background: #f5f5f5;
+      }
+
+      [data-theme="dark"] .plugins-hero {
+        background: var(--bg);
+      }
+
+      .plugins-hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 24px;
+        color: var(--text);
+      }
+
+      /* 顶部操作按钮 */
+      .plugins-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: none;
+        background: #374151;
+        color: white;
+        cursor: pointer;
+      }
+
+      .action-btn:hover {
+        background: #1f2937;
+      }
+
+      .action-btn.outline {
+        background: white;
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      .action-btn.outline:hover {
+        border-color: #4b5563;
+        color: #4b5563;
+      }
+
+      [data-theme="dark"] .action-btn.outline {
+        background: var(--panel);
+      }
+
+      /* 筛选区域 */
+      .plugins-filters {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+
+      .search-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .search-wrapper svg {
+        position: absolute;
+        left: 12px;
+        width: 16px;
+        height: 16px;
+        color: var(--muted);
+        pointer-events: none;
+      }
+
+      .search-input {
+        padding: 10px 14px 10px 38px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: white;
+        color: var(--text);
+        font-size: 14px;
+        min-width: 240px;
+        transition: all 0.2s ease;
+      }
+
+      [data-theme="dark"] .search-input {
+        background: var(--panel);
+      }
+
+      .search-input::placeholder {
+        color: var(--muted);
+      }
+
+      .search-input:hover,
+      .search-input:focus {
+        border-color: #4b5563;
+        outline: none;
+      }
+
+      /* 标签筛选 */
+      .plugins-tags {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+
+      .tag-btn {
+        padding: 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: white;
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      [data-theme="dark"] .tag-btn {
+        background: var(--panel);
+      }
+
+      .tag-btn:hover {
+        border-color: #4b5563;
+        color: #4b5563;
+      }
+
+      .tag-btn.active {
+        background: #374151;
+        border-color: #374151;
+        color: white;
+      }
+
+      /* 插件列表容器 */
+      .plugins-section {
+        padding: 0 24px 60px;
+        background: #f5f5f5;
+      }
+
+      [data-theme="dark"] .plugins-section {
+        background: var(--bg);
+      }
+
+      /* 插件网格 - 固定6列居中 */
+      .plugins-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 220px);
+        gap: 16px;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 1450px) {
+        .plugins-grid {
+          grid-template-columns: repeat(5, 220px);
+        }
+      }
+
+      @media (max-width: 1200px) {
+        .plugins-grid {
+          grid-template-columns: repeat(4, 220px);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .plugins-grid {
+          grid-template-columns: repeat(3, 220px);
+        }
+      }
+
+      @media (max-width: 740px) {
+        .plugins-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 500px) {
+        .plugins-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* 插件卡片 */
+      .plugin-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 16px 18px;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        min-height: 200px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+
+      [data-theme="dark"] .plugin-card {
+        background: var(--panel);
+        border-color: var(--border);
+      }
+
+      .plugin-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      /* 插件名称 */
+      .plugin-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0 10px;
+        line-height: 1.3;
+      }
+
+      [data-theme="dark"] .plugin-name {
+        color: var(--text);
+      }
+
+      /* 作者信息行 */
+      .plugin-meta {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 6px;
+      }
+
+      .plugin-meta svg {
+        width: 13px;
+        height: 13px;
+        flex-shrink: 0;
+        color: #9ca3af;
+      }
+
+      .plugin-meta .author {
+        color: #6b7280;
+      }
+
+      /* 插件描述 */
+      .plugin-description {
+        font-size: 13px;
+        color: #6b7280;
+        line-height: 1.55;
+        margin: 0;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      [data-theme="dark"] .plugin-description {
+        color: var(--text-secondary);
+      }
+
+      /* 插件标签 */
+      .plugin-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        min-height: 24px;
+      }
+
+      .plugin-tag {
+        padding: 3px 8px;
+        background: transparent;
+        color: #4b5563;
+        font-size: 11px;
+        font-weight: 400;
+        border-radius: 3px;
+        border: 1px solid #d1d5db;
+      }
+
+      [data-theme="dark"] .plugin-tag {
+        background: transparent;
+        border-color: rgba(107, 114, 128, 0.4);
+        color: #9ca3af;
+      }
+
+      .plugin-tag.featured {
+        background: #374151;
+        border-color: #374151;
+        color: white;
+      }
+
+      /* 插件操作按钮 */
+      .plugin-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      [data-theme="dark"] .plugin-actions {
+        border-top-color: var(--border);
+      }
+
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 7px 16px;
+        background: #374151;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .download-btn:hover {
+        background: #1f2937;
+      }
+
+      .download-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        background: white;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      [data-theme="dark"] .icon-btn {
+        background: var(--panel);
+        border-color: var(--border);
+      }
+
+      .icon-btn:hover {
+        border-color: #d1d5db;
+        color: #6b7280;
+      }
+
+      .icon-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* 侧边栏 */
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .sidebar-panel {
+        position: fixed;
+        top: 0;
+        right: -500px;
+        width: 460px;
+        max-width: 90vw;
+        height: 100vh;
+        background: white;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        z-index: 1001;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+      }
+
+      [data-theme="dark"] .sidebar-panel {
+        background: var(--panel);
+      }
+
+      .sidebar-panel.active {
+        right: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+      }
+
+      [data-theme="dark"] .sidebar-header {
+        background: var(--panel);
+        border-color: var(--border);
+      }
+
+      .sidebar-header h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--text);
+      }
+
+      .sidebar-close {
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .sidebar-close:hover {
+        background: #f3f4f6;
+        color: var(--text);
+      }
+
+      [data-theme="dark"] .sidebar-close:hover {
+        background: var(--bg);
+      }
+
+      .sidebar-content {
+        padding: 24px;
+      }
+
+      .sidebar-notice {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: #4b5563;
+        line-height: 1.5;
+      }
+
+      [data-theme="dark"] .sidebar-notice {
+        background: rgba(107, 114, 128, 0.1);
+        border-color: rgba(107, 114, 128, 0.3);
+        color: #9ca3af;
+      }
+
+      .sidebar-notice a {
+        color: #374151;
+        text-decoration: underline;
+      }
+
+      [data-theme="dark"] .sidebar-notice a {
+        color: #d1d5db;
+      }
+
+      .sidebar-section {
+        margin-bottom: 24px;
+      }
+
+      .sidebar-section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      [data-theme="dark"] .sidebar-section-title {
+        border-color: var(--border);
+      }
+
+      .sidebar-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .sidebar-info-row {
+        display: flex;
+        font-size: 14px;
+      }
+
+      .sidebar-info-label {
+        color: var(--muted);
+        width: 80px;
+        flex-shrink: 0;
+      }
+
+      .sidebar-info-value {
+        color: var(--text);
+        word-break: break-all;
+      }
+
+      .sidebar-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .sidebar-link-btn {
+        padding: 8px 16px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      [data-theme="dark"] .sidebar-link-btn {
+        background: var(--bg);
+        border-color: var(--border);
+      }
+
+      .sidebar-link-btn:hover {
+        border-color: #4b5563;
+        color: #4b5563;
+      }
+
+      .sidebar-link-btn.primary {
+        background: #374151;
+        border-color: #374151;
+        color: white;
+      }
+
+      .sidebar-link-btn.primary:hover {
+        background: #1f2937;
+      }
+
+      /* 加载状态 */
+      .loading {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--muted);
+        grid-column: 1 / -1;
+      }
+
+      .loading-spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid var(--border);
+        border-top-color: #374151;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 12px;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* 空状态 */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--muted);
+        grid-column: 1 / -1;
+      }
+
+      .empty-state svg {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        opacity: 0.5;
+      }
+
+      /* 底部信息区 */
+      .plugins-footer-info {
+        background: white;
+        padding: 40px 0;
+      }
+
+      [data-theme="dark"] .plugins-footer-info {
+        background: var(--panel);
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .info-card {
+        background: #f5f5f5;
+        border-radius: 12px;
+        padding: 24px;
+      }
+
+      [data-theme="dark"] .info-card {
+        background: var(--bg);
+      }
+
+      .info-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 12px;
+        color: var(--text);
+      }
+
+      .info-card p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .info-card ol {
+        margin: 12px 0 0 20px;
+        padding: 0;
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .info-card code {
+        background: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        color: #374151;
+        border: 1px solid var(--border);
+      }
+
+      [data-theme="dark"] .info-card code {
+        background: var(--panel);
+      }
+
+      .info-card a {
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .info-card a:hover {
+        text-decoration: underline;
+      }
+
+      /* 响应式调整 */
+      @media (max-width: 768px) {
+        .plugins-hero {
+          padding: 30px 0 20px;
+        }
+
+        .plugins-hero h1 {
+          font-size: 28px;
+        }
+
+        .plugins-section {
+          padding: 0 16px 60px;
+        }
+
+        .plugins-tags {
+          gap: 6px;
+        }
+
+        .tag-btn {
+          padding: 6px 12px;
+          font-size: 12px;
+        }
+
+        .plugins-actions {
+          gap: 8px;
+        }
+
+        .action-btn {
+          padding: 8px 14px;
+          font-size: 13px;
+        }
+
+        .plugin-card {
+          padding: 14px;
+          min-height: auto;
+        }
+
+        .sidebar-panel {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress" class="scroll-progress"></div>
+
+    <!-- Header Component -->
+    <div data-include="header"></div>
+
+    <!-- 侧边栏 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar-panel" id="sidebarPanel">
+      <div class="sidebar-header">
+        <h2 id="sidebarTitle">插件名称</h2>
+        <button class="sidebar-close" id="sidebarClose">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="sidebar-content">
+        <div class="sidebar-notice">
+          <i class="fa-solid fa-triangle-exclamation"></i> 本页面为每一个插件都提供了多个下载地址，请逐个尝试在链接上右击，选择 "另存为" 来下载 XPI 包。<br>
+          <i class="fa-solid fa-triangle-exclamation"></i> 插件之间可能存在冲突，建议按需安装。
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-section-title">下载 FlyMD 插件</h3>
+          <div class="sidebar-info">
+            <div class="sidebar-info-row">
+              <span class="sidebar-info-label">插件版本:</span>
+              <span class="sidebar-info-value" id="sidebarVersion">-</span>
+            </div>
+            <div class="sidebar-info-row">
+              <span class="sidebar-info-label">作者:</span>
+              <span class="sidebar-info-value" id="sidebarAuthor">-</span>
+            </div>
+            <div class="sidebar-info-row">
+              <span class="sidebar-info-label">描述:</span>
+              <span class="sidebar-info-value" id="sidebarDesc">-</span>
+            </div>
+          </div>
+          <div class="sidebar-links" id="sidebarLinks">
+            <!-- 动态生成下载链接 -->
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-section-title">安装说明</h3>
+          <div class="sidebar-info">
+            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin: 0;">
+              请在飞速MarkDown应用内安装此插件：<br>
+              1. 打开 <strong>扩展</strong> → <strong>扩展管理</strong><br>
+              2. 在扩展市场中搜索此插件<br>
+              3. 点击安装并重启应用
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="plugins-page">
+      <section class="plugins-hero">
+        <div class="container">
+          <h1>FlyMD 插件商店</h1>
+          <p class="update-time" id="updateTime" style="color: var(--muted); font-size: 13px; margin: -16px 0 20px;">更新时间：-</p>
+
+          <div class="plugins-actions">
+            <a href="https://github.com/user/repo/issues/new?template=plugin.md" target="_blank" class="action-btn">
+              <i class="fa-solid fa-box"></i> 请求收录插件
+            </a>
+            <a href="https://github.com/user/repo/blob/main/plugin.md" target="_blank" class="action-btn outline">
+              <i class="fa-solid fa-book"></i> 开发文档
+            </a>
+          </div>
+
+          <div class="plugins-filters">
+            <div class="search-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="search-input" id="searchInput" placeholder="搜索插件...">
+            </div>
+          </div>
+
+          <div class="plugins-tags" id="pluginsTags">
+            <!-- 标签按钮从 JSON 动态加载 -->
+          </div>
+        </div>
+      </section>
+
+      <section class="plugins-section">
+        <div class="plugins-grid" id="pluginsGrid">
+          <div class="loading" id="loadingState">
+            <div class="loading-spinner"></div>
+            <p>正在加载插件列表...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="plugins-footer-info">
+        <div class="container">
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>如何安装插件</h3>
+              <p>在飞速MarkDown中安装插件非常简单：</p>
+              <ol>
+                <li>打开飞速MarkDown应用</li>
+                <li>进入 <code>扩展</code> → <code>扩展管理</code></li>
+                <li>等待 <code>扩展市场</code> 加载完成</li>
+                <li>选择想要的插件，点击 <code>安装</code></li>
+                <li>重启应用即可使用</li>
+              </ol>
+            </div>
+            <div class="info-card">
+              <h3>开发插件</h3>
+              <p>想要为飞速MarkDown开发插件？我们提供了完善的插件开发文档和API接口。你可以根据自己的需求开发各种功能插件，并分享给其他用户。</p>
+              <p style="margin-top: 12px;">
+                <a href="https://github.com/user/repo/blob/main/plugin.md" target="_blank">查看开发文档 →</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Component -->
+    <div data-include="footer"></div>
+
+    <!-- Scripts -->
+    <script src="components/includes.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+    <script>
+      (function() {
+        const pluginsGrid = document.getElementById('pluginsGrid');
+        const updateTimeEl = document.getElementById('updateTime');
+        const searchInput = document.getElementById('searchInput');
+        const pluginsTagsContainer = document.getElementById('pluginsTags');
+
+        // 侧边栏元素
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarPanel = document.getElementById('sidebarPanel');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarTitle = document.getElementById('sidebarTitle');
+        const sidebarVersion = document.getElementById('sidebarVersion');
+        const sidebarAuthor = document.getElementById('sidebarAuthor');
+        const sidebarDesc = document.getElementById('sidebarDesc');
+        const sidebarLinks = document.getElementById('sidebarLinks');
+
+        let allPlugins = [];
+        let currentTag = 'all';
+        let tagsConfig = []; // 从 JSON 加载的标签配置
+
+        // 打开侧边栏
+        function openSidebar(plugin) {
+          sidebarTitle.textContent = plugin.name;
+          sidebarVersion.textContent = plugin.version || '1.0.0';
+          sidebarAuthor.textContent = plugin.author;
+          sidebarDesc.textContent = plugin.description;
+
+          // 生成下载链接
+          let linksHtml = '';
+          if (plugin.homepage) {
+            linksHtml += `<a href="${plugin.homepage}" target="_blank" class="sidebar-link-btn primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>`;
+          }
+          if (plugin.homepage && plugin.homepage.includes('github.com')) {
+            const repoPath = plugin.homepage.replace('https://github.com/', '');
+            linksHtml += `<a href="https://ghproxy.com/https://github.com/${repoPath}/releases" target="_blank" class="sidebar-link-btn">ghProxy</a>`;
+            linksHtml += `<a href="https://hub.fastgit.xyz/${repoPath}/releases" target="_blank" class="sidebar-link-btn">fastgit</a>`;
+          }
+          sidebarLinks.innerHTML = linksHtml;
+
+          sidebarPanel.classList.add('active');
+          sidebarOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭侧边栏
+        function closeSidebar() {
+          sidebarPanel.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        sidebarClose.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // 渲染标签按钮
+        function renderTagButtons() {
+          if (!tagsConfig || tagsConfig.length === 0) return;
+
+          const html = tagsConfig.map((tag, index) =>
+            `<button class="tag-btn${index === 0 ? ' active' : ''}" data-tag="${tag.slug}">${tag.name}</button>`
+          ).join('');
+
+          pluginsTagsContainer.innerHTML = html;
+
+          // 绑定点击事件
+          pluginsTagsContainer.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              pluginsTagsContainer.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              currentTag = btn.dataset.tag;
+              renderPlugins();
+            });
+          });
+        }
+
+        // 获取插件标签（优先使用 JSON 定义的标签，否则根据规则自动推断）
+        function getPluginTags(plugin) {
+          // 如果插件有定义标签，直接使用
+          if (plugin.tags && plugin.tags.length > 0) {
+            const tags = [...plugin.tags];
+            if (plugin.featured) tags.unshift('featured');
+            return tags;
+          }
+
+          // 否则根据规则自动推断标签
+          const tags = [];
+          const name = (plugin.name || '').toLowerCase();
+          const desc = (plugin.description || '').toLowerCase();
+          const id = (plugin.id || '').toLowerCase();
+
+          if (plugin.featured) tags.push('featured');
+          if (name.includes('publish') || name.includes('发布') || id.includes('publisher') || id.includes('halo')) tags.push('publish');
+          if (name.includes('ai') || desc.includes('ai') || desc.includes('助手')) tags.push('ai');
+          if (name.includes('pdf') || name.includes('导出') || desc.includes('导出')) tags.push('export');
+          if (name.includes('统计') || name.includes('待办') || name.includes('推送') || name.includes('字数')) tags.push('utility');
+          if (id.includes('typecho') || id.includes('halo')) tags.push('third');
+
+          return tags;
+        }
+
+        // 获取标签显示名称
+        function getTagDisplayName(slug) {
+          const tag = tagsConfig.find(t => t.slug === slug);
+          return tag ? tag.name : slug;
+        }
+
+        // 渲染插件卡片
+        function renderPluginCard(plugin, index) {
+          const tags = getPluginTags(plugin);
+          const isFeatured = plugin.featured;
+
+          let tagsHtml = '';
+          if (isFeatured) {
+            const featuredName = getCurrentLocale() === 'en' ? 'Featured' : '推荐';
+            tagsHtml += `<span class="plugin-tag featured">${featuredName}</span>`;
+          }
+          // 显示插件定义的标签（排除 featured 和 all）
+          tags.filter(t => t !== 'featured' && t !== 'all').slice(0, 3).forEach(tagSlug => {
+            const tagName = getTagDisplayName(tagSlug);
+            tagsHtml += `<span class="plugin-tag">${tagName}</span>`;
+          });
+
+          return `
+            <div class="plugin-card" data-tags="${tags.join(',')}" data-index="${index}">
+              <h3 class="plugin-name">${plugin.name}</h3>
+              <div class="plugin-meta">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="author">${plugin.author}</span>
+              </div>
+              <p class="plugin-description">${plugin.description}</p>
+              <div class="plugin-tags">${tagsHtml}</div>
+              <div class="plugin-actions">
+                <button class="download-btn" data-index="${index}">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  下载
+                </button>
+                <a href="${plugin.homepage}" target="_blank" rel="noopener" class="icon-btn" title="GitHub">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <button class="icon-btn" title="分享" onclick="sharePlugin('${plugin.name}', '${plugin.homepage}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        window.sharePlugin = function(name, url) {
+          if (navigator.share) {
+            navigator.share({ title: name + ' - 飞速MarkDown插件', url: url });
+          } else {
+            navigator.clipboard.writeText(url).then(() => alert('链接已复制到剪贴板'));
+          }
+        };
+
+        function filterPlugins() {
+          const searchTerm = searchInput.value.toLowerCase();
+
+          let filtered = allPlugins.filter(plugin => {
+            const matchSearch = plugin.name.toLowerCase().includes(searchTerm) ||
+                               plugin.description.toLowerCase().includes(searchTerm) ||
+                               plugin.author.toLowerCase().includes(searchTerm);
+
+            if (currentTag === 'all') return matchSearch;
+            const tags = getPluginTags(plugin);
+            return matchSearch && tags.includes(currentTag);
+          });
+
+          // 排序：推荐优先
+          filtered.sort((a, b) => {
+            if (a.featured && !b.featured) return -1;
+            if (!a.featured && b.featured) return 1;
+            return (a.rank || 999) - (b.rank || 999);
+          });
+
+          return filtered;
+        }
+
+        function renderPlugins() {
+          const filtered = filterPlugins();
+
+          if (filtered.length === 0) {
+            pluginsGrid.innerHTML = `
+              <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <p>未找到匹配的插件</p>
+              </div>
+            `;
+            return;
+          }
+
+          pluginsGrid.innerHTML = filtered.map((p, i) => renderPluginCard(p, allPlugins.indexOf(p))).join('');
+
+          // 绑定下载按钮事件
+          pluginsGrid.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.currentTarget.dataset.index);
+              openSidebar(allPlugins[index]);
+            });
+          });
+        }
+
+        // 获取当前语言
+        function getCurrentLocale() {
+          const saved = localStorage.getItem('preferred-language');
+          if (saved) return saved;
+          const browserLang = navigator.language || navigator.userLanguage;
+          return browserLang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+        }
+
+        // 标准化插件数据（兼容新旧格式）
+        function normalizePlugin(plugin, locale) {
+          // 新格式：有 i18n 字段
+          if (plugin.i18n) {
+            const localeData = plugin.i18n[locale] || plugin.i18n['zh'] || {};
+            return {
+              id: plugin.id,
+              name: localeData.name || plugin.name || plugin.id,
+              description: localeData.description || plugin.description || '',
+              tags: localeData.tags || [], // 从 i18n 读取标签
+              author: plugin.author || '',
+              homepage: plugin.homepage || '',
+              featured: plugin.recommended || plugin.featured || false,
+              rank: plugin.order || plugin.rank || 999,
+              install: plugin.manifest ? { ref: plugin.manifest, type: 'manifest' } : plugin.install
+            };
+          }
+          // 旧格式：直接使用
+          return {
+            ...plugin,
+            tags: plugin.tags || []
+          };
+        }
+
+        async function loadPlugins() {
+          try {
+            const response = await fetch('plugins/index.json');
+            const data = await response.json();
+            const locale = getCurrentLocale();
+
+            // 加载标签配置
+            if (data.tags && data.tags[locale]) {
+              tagsConfig = data.tags[locale];
+            } else if (data.tags && data.tags['zh']) {
+              tagsConfig = data.tags['zh'];
+            } else {
+              // 默认标签配置（兼容旧版本 JSON）
+              tagsConfig = [
+                { slug: 'all', name: locale === 'en' ? 'Featured' : '推荐' },
+                { slug: 'publish', name: locale === 'en' ? 'Publishing' : '发布工具' },
+                { slug: 'ai', name: locale === 'en' ? 'AI Integration' : 'AI 集成' },
+                { slug: 'export', name: locale === 'en' ? 'Export' : '导出增强' },
+                { slug: 'utility', name: locale === 'en' ? 'Utilities' : '效率工具' },
+                { slug: 'third', name: locale === 'en' ? '3rd Party' : '第三方集成' },
+                { slug: 'dev', name: locale === 'en' ? 'Developer Tools' : '开发者工具' },
+                { slug: 'other', name: locale === 'en' ? 'Other' : '其他' }
+              ];
+            }
+
+            // 渲染标签按钮
+            renderTagButtons();
+
+            // 兼容新旧格式
+            let rawPlugins = data.items || data.plugins || [];
+            allPlugins = rawPlugins.map(p => normalizePlugin(p, locale));
+
+            if (data.updatedAt) {
+              const date = new Date(data.updatedAt);
+              const timeLabel = locale === 'en' ? 'Updated: ' : '更新时间：';
+              updateTimeEl.textContent = timeLabel + date.toLocaleString(locale === 'en' ? 'en-US' : 'zh-CN', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+              });
+            }
+
+            renderPlugins();
+          } catch (error) {
+            console.error('加载插件数据失败:', error);
+            pluginsGrid.innerHTML = `
+              <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p>加载插件数据失败，请刷新重试</p>
+              </div>
+            `;
+          }
+        }
+
+        searchInput.addEventListener('input', renderPlugins);
+
+        loadPlugins();
+      })();
+    </script>
+  </body>
+</html>

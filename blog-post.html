@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>博客文章 - 飞速MarkDown</title>
+  <meta name="description" content="飞速MarkDown 博客文章" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="Flymdnew.png" />
+  <!-- marked.js for Markdown rendering -->
+  <script src="libs/marked.min.js"></script>
+  <!-- highlight.js for code highlighting -->
+  <link rel="stylesheet" href="libs/github-dark.min.css">
+  <script src="libs/highlight.min.js"></script>
+  <style>
+    /* 博客文章页样式 */
+    .blog-post-page {
+      padding-top: 100px;
+      padding-bottom: 60px;
+      min-height: 80vh;
+    }
+
+    .blog-post-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .blog-post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .blog-post-date {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .blog-post-tags {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .blog-post-tag {
+      padding: 4px 12px;
+      background: rgba(124, 58, 237, 0.1);
+      color: #7c3aed;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .blog-post-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .blog-post-summary {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .blog-post-cover {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    /* 文章内容样式 */
+    .blog-post-content {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .blog-post-content h1,
+    .blog-post-content h2,
+    .blog-post-content h3,
+    .blog-post-content h4 {
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .blog-post-content h1 { font-size: 2rem; }
+    .blog-post-content h2 { font-size: 1.6rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
+    .blog-post-content h3 { font-size: 1.3rem; }
+    .blog-post-content h4 { font-size: 1.1rem; }
+
+    .blog-post-content p {
+      margin-bottom: 1.2em;
+    }
+
+    .blog-post-content a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .blog-post-content a:hover {
+      text-decoration: underline;
+    }
+
+    .blog-post-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 1.5em 0;
+    }
+
+    .blog-post-content blockquote {
+      border-left: 4px solid var(--primary);
+      margin: 1.5em 0;
+      padding: 0.5em 0 0.5em 1.5em;
+      background: rgba(124, 58, 237, 0.05);
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary);
+    }
+
+    .blog-post-content pre {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 1em;
+      overflow-x: auto;
+      margin: 1.5em 0;
+    }
+
+    .blog-post-content code {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.9em;
+    }
+
+    .blog-post-content :not(pre) > code {
+      background: var(--bg-secondary);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      color: var(--primary);
+    }
+
+    .blog-post-content ul,
+    .blog-post-content ol {
+      margin: 1em 0;
+      padding-left: 2em;
+    }
+
+    .blog-post-content li {
+      margin-bottom: 0.5em;
+    }
+
+    .blog-post-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+    }
+
+    .blog-post-content th,
+    .blog-post-content td {
+      border: 1px solid var(--border);
+      padding: 0.75em 1em;
+      text-align: left;
+    }
+
+    .blog-post-content th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    /* 返回按钮 */
+    .blog-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .blog-back-link:hover {
+      color: var(--primary);
+    }
+
+    /* 加载状态 */
+    .loading-state {
+      text-align: center;
+      padding: 100px 20px;
+      color: var(--text-secondary);
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 错误状态 */
+    .error-state {
+      text-align: center;
+      padding: 100px 20px;
+      color: var(--text-secondary);
+    }
+
+    .error-state h2 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .blog-post-title {
+        font-size: 1.8rem;
+      }
+
+      .blog-post-content {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 滚动进度条 -->
+  <div id="scrollProgress" class="scroll-progress"></div>
+
+  <div class="bg-anim" aria-hidden="true"></div>
+  <div class="bg-fx" aria-hidden="true">
+    <span class="f f1">#</span>
+    <span class="f f2">*</span>
+    <span class="f f3">&lt;/&gt;</span>
+    <span class="f f4">MD</span>
+    <span class="f f5">{ }</span>
+    <span class="f f6">//</span>
+    <span class="f f7">[ ]</span>
+    <span class="f f8">&lt;h1&gt;</span>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <span>飞速Markdown</span>
+          </a>
+        </div>
+        <nav class="header-nav">
+          <a href="index.html#heroShowcase" data-en="Features" data-zh="特色">特色</a>
+          <a href="docs.html" data-en="Docs" data-zh="文档">文档</a>
+          <a href="blog.html" data-en="Blog" data-zh="博客" class="active">博客</a>
+          <a href="plugins.html" data-en="Extensions" data-zh="插件">插件</a>
+          <a href="donate.html" data-en="About" data-zh="关于">关于</a>
+          <a href="https://github.com/flyhunterl/flymd" target="_blank" rel="noopener" data-en="Login" data-zh="登录" class="btn-signup">登录</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="blog-post-page">
+    <div class="container">
+      <a href="blog.html" class="blog-back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span data-lang-only="zh">返回博客</span>
+        <span data-lang-only="en">Back to Blog</span>
+      </a>
+
+      <article id="blogPost">
+        <!-- 由 JavaScript 动态加载 -->
+        <div class="loading-state">
+          <div class="loading-spinner"></div>
+          <p data-lang-only="zh">正在加载文章...</p>
+          <p data-lang-only="en">Loading article...</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="footer-logo">飞速Markdown</h3>
+          <p class="footer-tagline" data-i18n="footer_tagline">快速书写，自由创作</p>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-column-title" data-i18n="footer_product">产品</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" data-i18n="footer_features">特色功能</a></li>
+            <li><a href="pricing.html" data-i18n="footer_pricing">定价</a></li>
+            <li><a href="docs.html" data-i18n="footer_faq">常见问题</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-column-title" data-i18n="footer_legal">法律</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/flyhunterl/flymd/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="footer_terms">条款和条件</a></li>
+            <li><a href="#" data-i18n="footer_privacy">隐私政策</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-column-title" data-i18n="footer_contact">联系我们</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:flyhunterl@gmail.com" data-i18n="footer_email">电子邮件</a></li>
+            <li><a href="https://t.me/+3SOMbwSbCvIxMGQ9" target="_blank" rel="noopener">Telegram</a></li>
+            <li><a href="https://github.com/flyhunterl/flymd" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          <span>© 2025 飞速Markdown</span>
+          <span class="dot">•</span>
+          <a href="https://github.com/flyhunterl/flymd/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="footer_license">非商业开源许可（NC 1.0）</a>
+          <span class="dot">•</span>
+          <span data-i18n="footer_qq">QQ群: 343638913</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      const blogPost = document.getElementById('blogPost');
+      let currentLocale = 'zh';
+
+      // 检测语言
+      function detectLanguage() {
+        // URL 参数优先
+        const params = new URLSearchParams(window.location.search);
+        const langParam = params.get('lang');
+        if (langParam === 'en' || langParam === 'zh') {
+          return langParam;
+        }
+
+        // localStorage
+        const saved = localStorage.getItem('preferred-language');
+        if (saved) return saved;
+
+        // 浏览器语言
+        const browserLang = navigator.language || navigator.userLanguage;
+        return browserLang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+      }
+
+      // 格式化日期
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (currentLocale === 'en') {
+          return date.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          });
+        }
+        return date.toLocaleDateString('zh-CN', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+      }
+
+      // 解析 Markdown front matter
+      function parseFrontMatter(content) {
+        const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+        if (!match) {
+          return { frontMatter: {}, body: content };
+        }
+
+        const frontMatterStr = match[1];
+        const body = match[2];
+        const frontMatter = {};
+
+        frontMatterStr.split('\n').forEach(line => {
+          const colonIndex = line.indexOf(':');
+          if (colonIndex > 0) {
+            const key = line.slice(0, colonIndex).trim();
+            let value = line.slice(colonIndex + 1).trim();
+            // 处理数组格式
+            if (value.startsWith('[') && value.endsWith(']')) {
+              try {
+                value = JSON.parse(value.replace(/'/g, '"'));
+              } catch (e) {
+                value = value.slice(1, -1).split(',').map(s => s.trim().replace(/['"]/g, ''));
+              }
+            } else {
+              // 移除引号
+              value = value.replace(/^['"]|['"]$/g, '');
+            }
+            frontMatter[key] = value;
+          }
+        });
+
+        return { frontMatter, body };
+      }
+
+      // 配置 marked
+      function configureMarked() {
+        marked.setOptions({
+          highlight: function(code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+              return hljs.highlight(code, { language: lang }).value;
+            }
+            return hljs.highlightAuto(code).value;
+          },
+          breaks: true,
+          gfm: true
+        });
+      }
+
+      // 渲染文章
+      function renderPost(articleMeta, content) {
+        const { frontMatter, body } = parseFrontMatter(content);
+        const translation = articleMeta.translations[currentLocale];
+
+        // 更新页面标题
+        document.title = `${translation.title} - 飞速MarkDown`;
+
+        // 渲染标签
+        const tags = translation.tags || [];
+        const tagsHtml = tags.map(tag => `<span class="blog-post-tag">${tag}</span>`).join('');
+
+        // 渲染文章内容
+        const htmlContent = marked.parse(body);
+
+        blogPost.innerHTML = `
+          <header class="blog-post-header">
+            <div class="blog-post-meta">
+              <span class="blog-post-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                ${formatDate(articleMeta.date)}
+              </span>
+              ${tags.length > 0 ? `<div class="blog-post-tags">${tagsHtml}</div>` : ''}
+            </div>
+            <h1 class="blog-post-title">${translation.title}</h1>
+            ${translation.summary ? `<p class="blog-post-summary">${translation.summary}</p>` : ''}
+          </header>
+          ${articleMeta.cover ? `<img src="${articleMeta.cover}" alt="${translation.title}" class="blog-post-cover">` : ''}
+          <div class="blog-post-content">
+            ${htmlContent}
+          </div>
+        `;
+
+        // 代码高亮
+        document.querySelectorAll('.blog-post-content pre code').forEach((block) => {
+          hljs.highlightElement(block);
+        });
+      }
+
+      // 显示错误
+      function showError(message) {
+        const backText = currentLocale === 'zh' ? '返回博客列表' : 'Back to Blog';
+        blogPost.innerHTML = `
+          <div class="error-state">
+            <h2>${currentLocale === 'zh' ? '文章未找到' : 'Article Not Found'}</h2>
+            <p>${message}</p>
+            <a href="blog.html" class="blog-back-link" style="justify-content: center; margin-top: 20px;">
+              ${backText}
+            </a>
+          </div>
+        `;
+      }
+
+      // 加载文章
+      async function loadPost() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+
+        if (!slug) {
+          showError(currentLocale === 'zh' ? '请指定文章' : 'Please specify an article');
+          return;
+        }
+
+        try {
+          // 先加载索引获取文章元数据
+          const indexResponse = await fetch('content/blog/_index.json');
+          if (!indexResponse.ok) throw new Error('Failed to load index');
+          const indexData = await indexResponse.json();
+
+          const articleMeta = indexData.articles.find(a => a.slug === slug);
+          if (!articleMeta) {
+            showError(currentLocale === 'zh' ? '文章不存在' : 'Article does not exist');
+            return;
+          }
+
+          // 检查当前语言版本是否存在
+          if (!articleMeta.translations[currentLocale]) {
+            // 尝试切换到另一个语言
+            const otherLocale = currentLocale === 'zh' ? 'en' : 'zh';
+            if (articleMeta.translations[otherLocale]) {
+              currentLocale = otherLocale;
+            } else {
+              showError(currentLocale === 'zh' ? '该文章暂无此语言版本' : 'This article is not available in this language');
+              return;
+            }
+          }
+
+          // 加载 Markdown 文件
+          const mdResponse = await fetch(`content/blog/${currentLocale}/${slug}.md`);
+          if (!mdResponse.ok) throw new Error('Failed to load article content');
+          const mdContent = await mdResponse.text();
+
+          configureMarked();
+          renderPost(articleMeta, mdContent);
+
+        } catch (error) {
+          console.error('Error loading post:', error);
+          showError(currentLocale === 'zh' ? '加载文章失败，请重试' : 'Failed to load article, please try again');
+        }
+      }
+
+      // 初始化
+      currentLocale = detectLanguage();
+      loadPost();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "locales": ["zh", "en"],
+  "defaultLocale": "zh",
+  "articles": [
+    {
+      "slug": "hello-world",
+      "date": "2025-01-15T10:00:00Z",
+      "cover": "",
+      "translations": {
+        "zh": {
+          "title": "你好，FlyMD",
+          "summary": "欢迎使用 FlyMD，一款快速、强大的 Markdown 编辑器",
+          "status": "published",
+          "tags": ["公告", "教程"]
+        },
+        "en": {
+          "title": "Hello, FlyMD",
+          "summary": "Welcome to FlyMD, a fast and powerful Markdown editor",
+          "status": "published",
+          "tags": ["Announcement", "Tutorial"]
+        }
+      }
+    }
+  ],
+  "tags": {
+    "zh": [
+      { "name": "公告", "slug": "announcement", "color": "#409EFF" },
+      { "name": "教程", "slug": "tutorial", "color": "#67C23A" },
+      { "name": "更新", "slug": "updates", "color": "#E6A23C" },
+      { "name": "功能", "slug": "features", "color": "#F56C6C" }
+    ],
+    "en": [
+      { "name": "Announcement", "slug": "announcement", "color": "#409EFF" },
+      { "name": "Tutorial", "slug": "tutorial", "color": "#67C23A" },
+      { "name": "Updates", "slug": "updates", "color": "#E6A23C" },
+      { "name": "Features", "slug": "features", "color": "#F56C6C" }
+    ]
+  }
+}

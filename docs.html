@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文档 - 飞速MarkDown</title>
+  <meta name="description" content="飞速MarkDown 使用指南与 Markdown 语法参考" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="Flymdnew.png" />
+  <!-- marked.js for Markdown rendering -->
+  <script src="libs/marked.min.js"></script>
+  <!-- highlight.js for code highlighting -->
+  <link rel="stylesheet" href="libs/github.min.css">
+  <script src="libs/highlight.min.js"></script>
+</head>
+<body class="docs-page">
+  <!-- Background Effects Component -->
+  <div data-include="bg-effects"></div>
+
+  <!-- Header Component -->
+  <div data-include="header"></div>
+
+  <main id="main" class="docs-main">
+    <!-- 移动端侧边栏遮罩 -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <div class="docs-shell">
+      <div class="docs-layout">
+      <!-- 移动端目录按钮 -->
+      <div class="mobile-menu-bar">
+        <button class="mobile-menu-button" id="mobileSidebarToggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <span data-lang-only="zh">菜单</span>
+          <span data-lang-only="en">Menu</span>
+        </button>
+        <div class="mobile-page-toc-wrapper">
+          <button class="mobile-page-toc-btn" id="mobilePageTocBtn">
+            <span data-lang-only="zh">页面导航</span>
+            <span data-lang-only="en">On This Page</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="mobile-page-toc-dropdown" id="mobilePageTocDropdown">
+            <a href="#" class="back-to-top" data-back-to-top="true">
+              <span data-lang-only="zh">回到顶部</span>
+              <span data-lang-only="en">Back to Top</span>
+            </a>
+            <nav id="mobilePageTocNav">
+              <!-- 移动端页内标题将通过 JavaScript 动态生成 -->
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <!-- 左侧目录导航栏 -->
+      <aside class="docs-toc" id="docsToc">
+        <div class="toc-content">
+          <div class="toc-title">
+            <span data-lang-only="zh">菜单</span>
+            <span data-lang-only="en">Menu</span>
+          </div>
+          <nav class="toc-nav" id="tocNav">
+            <!-- 目录项将通过 JavaScript 从 _index.json 动态生成 -->
+          </nav>
+        </div>
+      </aside>
+
+      <!-- 主内容区 -->
+      <div class="docs-content">
+        <div class="docs-content-inner" id="docsContentInner">
+          <!-- 加载状态 -->
+          <div class="docs-loading" id="docsLoading">
+            <div class="docs-loading-spinner"></div>
+            <span data-lang-only="zh">加载中...</span>
+            <span data-lang-only="en">Loading...</span>
+          </div>
+          <!-- 文档内容将通过 JavaScript 从 .md 文件动态加载 -->
+        </div>
+      </div>
+
+      <!-- 右侧 On this page 导航 -->
+      <aside class="docs-page-toc" id="docsPageToc">
+        <div class="page-toc-title">
+          <span data-lang-only="zh">本页导航</span>
+          <span data-lang-only="en">On This Page</span>
+        </div>
+        <nav class="page-toc-nav" id="pageTocNav">
+          <!-- 页内标题将通过 JavaScript 动态生成 -->
+        </nav>
+      </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Component -->
+  <div data-include="footer"></div>
+
+  <!-- Scripts -->
+  <script src="components/includes.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+  <script src="docs.js"></script>
+
+</body>
+</html>

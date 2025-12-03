@@ -1,0 +1,43 @@
+{
+  "contributors": [
+    {
+      "id": "flyhunterl",
+      "name": "flyhunterl",
+      "badge": "Core Team",
+      "github": "flyhunterl",
+      "avatar": "https://github.com/flyhunterl.png",
+      "link": "https://github.com/flyhunterl",
+      "role": {
+        "zh": "主要开发者 & 项目创建者",
+        "en": "Main Developer & Project Creator"
+      },
+      "order": 1
+    },
+    {
+      "id": "TGU-HansJack",
+      "name": "TGU-HansJack",
+      "badge": "Core Team",
+      "github": "TGU-HansJack",
+      "avatar": "https://github.com/TGU-HansJack.png",
+      "link": "https://github.com/TGU-HansJack",
+      "role": {
+        "zh": "扩展功能 & Typecho Publisher & 安卓端",
+        "en": "Extended Features & Typecho Publisher & Android"
+      },
+      "order": 2
+    },
+    {
+      "id": "xxtui-main",
+      "name": "xxtui-main",
+      "badge": "Core Team",
+      "github": "xxtui-main",
+      "avatar": "https://github.com/xxtui-main.png",
+      "link": "https://github.com/xxtui-main",
+      "role": {
+        "zh": "待办插件功能完善及增强",
+        "en": "Todo Plugin Enhancement"
+      },
+      "order": 3
+    }
+  ]
+}

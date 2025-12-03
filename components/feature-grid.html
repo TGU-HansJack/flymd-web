@@ -1,0 +1,646 @@
+<!-- FlyMD Feature Grid 组件 -->
+<!-- 无hover放大 + 黑白色调 + 直边 -->
+<section id="feature-grid" class="feature-grid-section feature-grid--mono">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="feature_grid_title">探索 FlyMD</h2>
+      <p class="section-subtitle" data-i18n="feature_grid_subtitle">交互式体验核心功能</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="feature-grid-wrapper">
+      <!-- Card 1: 界面布局展示 -->
+      <div class="fg-card fg-card--sharp">
+        <div class="fg-card-content">
+          <h3 class="fg-card-title">界面布局</h3>
+          <p class="fg-card-desc">侧栏目录树、顶栏标签页、右键菜单，一切触手可及</p>
+        </div>
+        <div class="fg-card-demo">
+          <div class="layout-demo">
+            <!-- 模拟顶栏 -->
+            <div class="layout-topbar">
+              <!-- 顶栏功能按钮 -->
+              <div class="topbar-menus">
+                <span class="topbar-menu-item">库</span>
+                <span class="topbar-menu-item">文件</span>
+                <span class="topbar-menu-item">模式</span>
+                <span class="topbar-menu-item">最近</span>
+                <span class="topbar-menu-item">图床</span>
+                <span class="topbar-menu-item">更多</span>
+              </div>
+              <!-- 标签页 -->
+              <div class="layout-tabs">
+                <div class="layout-tab">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <span>未命名 3.md</span>
+                  <button class="tab-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="layout-tab is-active">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <span>未命名 5.md</span>
+                  <span class="tab-modified"></span>
+                  <button class="tab-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="layout-tab">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <span>未命名 7.md</span>
+                  <button class="tab-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="layout-tab-add"><i class="fa-solid fa-plus"></i></div>
+              </div>
+              <!-- 右侧工具 -->
+              <div class="topbar-tools">
+                <span class="topbar-tool">主题</span>
+                <span class="topbar-tool">扩展</span>
+                <span class="topbar-status online"></span>
+              </div>
+            </div>
+            <!-- 主区域 -->
+            <div class="layout-main">
+              <!-- 侧栏目录树 -->
+              <div class="layout-sidebar">
+                <div class="sidebar-header">
+                  <span>库管理</span>
+                  <span class="sidebar-label">Base</span>
+                </div>
+                <div class="sidebar-toolbar">
+                  <span class="toolbar-btn active">目录</span>
+                  <span class="toolbar-btn">大纲</span>
+                  <span class="toolbar-btn">刷新</span>
+                  <span class="toolbar-btn">左侧</span>
+                  <span class="toolbar-btn">自动</span>
+                </div>
+                <div class="sidebar-tree">
+                  <div class="tree-item tree-folder is-open">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <i class="fa-solid fa-folder-open"></i> Obsidian
+                  </div>
+                  <div class="tree-item tree-folder indent-1">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-folder"></i> .trash
+                  </div>
+                  <div class="tree-item tree-folder indent-1 is-open">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <i class="fa-solid fa-folder-open"></i> Blog
+                  </div>
+                  <div class="tree-item tree-folder indent-2">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-folder"></i> post
+                  </div>
+                  <div class="tree-item tree-folder indent-1 is-open">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <i class="fa-solid fa-folder-open"></i> Learn
+                  </div>
+                  <div class="tree-item tree-file indent-2">
+                    <i class="fa-solid fa-file-lines"></i> JAVA学习内容
+                  </div>
+                  <div class="tree-item tree-folder indent-1">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-folder"></i> Temp
+                  </div>
+                  <div class="tree-item tree-file indent-1">
+                    <i class="fa-solid fa-file-lines"></i> 待办事项
+                  </div>
+                  <div class="tree-item tree-file indent-1">
+                    <i class="fa-solid fa-file-lines"></i> 化纤工艺学讲稿
+                  </div>
+                  <div class="tree-item tree-file is-active">
+                    <i class="fa-solid fa-file-lines"></i> 未命名 5
+                  </div>
+                </div>
+              </div>
+              <!-- 右键菜单 -->
+              <div class="layout-contextmenu">
+                <div class="ctx-item has-icon"><i class="fa-solid fa-robot"></i> AI 助手 <i class="fa-solid fa-chevron-right ctx-arrow"></i></div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-paper-plane"></i> 推送到 xxtui</div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-bell"></i> 创建提醒 (@时间)</div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-list-check"></i> 转换为待办事项</div>
+                <div class="ctx-divider"></div>
+                <div class="ctx-item has-icon disabled"><i class="fa-solid fa-arrow-up-from-bracket"></i> 立... <span class="ctx-hint">当前未配置 WebDAV，同步已禁用</span></div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-clock-rotate-left"></i> 同步记录</div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-image"></i> 图床 <span class="ctx-status">未开启</span></div>
+                <div class="ctx-divider"></div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-file-export"></i> 导出配置</div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-file-import"></i> 导入配置</div>
+                <div class="ctx-item has-icon"><i class="fa-solid fa-mobile-screen"></i> 便携模式 <span class="ctx-status">未开启</span></div>
+                <div class="ctx-footer">按住 Shift 再次右键可打开原生菜单</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 编辑器切换 -->
+      <div class="fg-card fg-card--sharp">
+        <div class="fg-card-content">
+          <h3 class="fg-card-title">源码 / 所见双模式</h3>
+          <p class="fg-card-desc">自由切换编辑与预览，满足不同写作习惯</p>
+        </div>
+        <div class="fg-card-demo">
+          <!-- Editor Toggle Buttons (无分屏) -->
+          <div class="editor-toggle-bar">
+            <button type="button" class="editor-toggle-btn is-active" data-editor-view="source">
+              <i class="fa-solid fa-code"></i> 源码
+            </button>
+            <button type="button" class="editor-toggle-btn" data-editor-view="preview">
+              <i class="fa-solid fa-eye"></i> 预览
+            </button>
+          </div>
+          <!-- Editor View -->
+          <div class="editor-split" data-view="source">
+            <div class="editor-pane editor-pane--source">
+              <pre class="editor-source-code"><code># FlyMD 编辑器
+
+**源码/所见双模式**，自由切换。
+
+## 核心特性
+
+- 毫秒级启动与渲染
+- 阅读位置记忆
+- 目录大纲支持
+
+```js
+const flymd = new Editor();
+flymd.render();
+```</code></pre>
+            </div>
+            <div class="editor-pane editor-pane--preview">
+              <article class="editor-preview-content">
+                <h1>FlyMD 编辑器</h1>
+                <p><strong>源码/所见双模式</strong>，自由切换。</p>
+                <h2>核心特性</h2>
+                <ul>
+                  <li>毫秒级启动与渲染</li>
+                  <li>阅读位置记忆</li>
+                  <li>目录大纲支持</li>
+                </ul>
+                <pre><code class="language-js">const flymd = new Editor();
+flymd.render();</code></pre>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 主题管理 -->
+      <div class="fg-card fg-card--sharp fg-card--wide">
+        <div class="fg-card-content">
+          <h3 class="fg-card-title">主题设置</h3>
+          <p class="fg-card-desc">背景配色、排版风格、Markdown 风格、字体选择，打造专属写作环境</p>
+        </div>
+        <div class="fg-card-demo">
+          <div class="theme-panel-demo">
+            <!-- 模式开关行 -->
+            <div class="theme-toggles-row">
+              <label class="theme-toggle-item">
+                <span>专注模式</span>
+                <div class="toggle-switch"><input type="checkbox" id="demoFocusToggle"><span class="toggle-slider"></span></div>
+              </label>
+              <label class="theme-toggle-item">
+                <span>所见模式</span>
+                <div class="toggle-switch"><input type="checkbox" id="demoWysiwygToggle"><span class="toggle-slider"></span></div>
+              </label>
+              <label class="theme-toggle-item">
+                <span>夜间模式</span>
+                <div class="toggle-switch"><input type="checkbox" id="demoDarkToggle"><span class="toggle-slider"></span></div>
+              </label>
+            </div>
+
+            <!-- 背景色板双列 -->
+            <div class="theme-section-row theme-section-row--dual">
+              <!-- 编辑背景 -->
+              <div class="theme-section-col">
+                <div class="theme-section-title">编辑背景</div>
+                <div class="theme-swatch-grid theme-swatch-grid--large" id="themeSwatchList">
+                  <!-- 第一行 -->
+                  <div class="theme-swatch" style="background:#fdf6e3" data-color="#fdf6e3"></div>
+                  <div class="theme-swatch is-active" style="background:#ffffff; border: 2px solid #4f46e5" data-color="#ffffff"></div>
+                  <div class="theme-swatch" style="background:#f5f5f5" data-color="#f5f5f5"></div>
+                  <div class="theme-swatch" style="background:#e8f5e9" data-color="#e8f5e9"></div>
+                  <div class="theme-swatch" style="background:#e3f2fd" data-color="#e3f2fd"></div>
+                  <div class="theme-swatch" style="background:#fff3e0" data-color="#fff3e0"></div>
+                  <div class="theme-swatch" style="background:#fce4ec" data-color="#fce4ec"></div>
+                  <div class="theme-swatch" style="background:#f3e5f5" data-color="#f3e5f5"></div>
+                  <!-- 第二行 -->
+                  <div class="theme-swatch" style="background:#fffde7" data-color="#fffde7"></div>
+                  <div class="theme-swatch" style="background:#e0f7fa" data-color="#e0f7fa"></div>
+                  <div class="theme-swatch" style="background:#f1f8e9" data-color="#f1f8e9"></div>
+                  <div class="theme-swatch" style="background:#fff8e1" data-color="#fff8e1"></div>
+                  <div class="theme-swatch" style="background:#fbe9e7" data-color="#fbe9e7"></div>
+                  <div class="theme-swatch" style="background:#ede7f6" data-color="#ede7f6"></div>
+                  <div class="theme-swatch" style="background:#e8eaf6" data-color="#e8eaf6"></div>
+                  <div class="theme-swatch" style="background:#eceff1" data-color="#eceff1"></div>
+                  <!-- 第三行 -->
+                  <div class="theme-swatch" style="background:#fff9c4" data-color="#fff9c4"></div>
+                  <div class="theme-swatch" style="background:#b2ebf2" data-color="#b2ebf2"></div>
+                  <div class="theme-swatch" style="background:#c8e6c9" data-color="#c8e6c9"></div>
+                  <div class="theme-swatch" style="background:#ffecb3" data-color="#ffecb3"></div>
+                  <div class="theme-swatch" style="background:#ffccbc" data-color="#ffccbc"></div>
+                  <div class="theme-swatch" style="background:#d1c4e9" data-color="#d1c4e9"></div>
+                  <div class="theme-swatch" style="background:#c5cae9" data-color="#c5cae9"></div>
+                  <div class="theme-swatch" style="background:#cfd8dc" data-color="#cfd8dc"></div>
+                </div>
+                <label class="theme-checkbox-item">
+                  <input type="checkbox" id="gridBgCheck">
+                  <span>网格背景</span>
+                </label>
+              </div>
+              <!-- 阅读背景 -->
+              <div class="theme-section-col">
+                <div class="theme-section-title">阅读背景</div>
+                <div class="theme-swatch-grid theme-swatch-grid--large">
+                  <div class="theme-swatch" style="background:#fdf6e3"></div>
+                  <div class="theme-swatch" style="background:#f5f5dc"></div>
+                  <div class="theme-swatch is-active" style="background:#ffffff; border: 2px solid #4f46e5"></div>
+                  <div class="theme-swatch" style="background:#f0fff0"></div>
+                  <div class="theme-swatch" style="background:#f0f8ff"></div>
+                  <div class="theme-swatch" style="background:#fffaf0"></div>
+                  <div class="theme-swatch" style="background:#fff0f5"></div>
+                  <div class="theme-swatch" style="background:#f8f4ff"></div>
+                  <div class="theme-swatch" style="background:#fffff0"></div>
+                  <div class="theme-swatch" style="background:#e0ffff"></div>
+                  <div class="theme-swatch" style="background:#f5fffa"></div>
+                  <div class="theme-swatch" style="background:#fafad2"></div>
+                  <div class="theme-swatch" style="background:#ffe4e1"></div>
+                  <div class="theme-swatch" style="background:#e6e6fa"></div>
+                  <div class="theme-swatch" style="background:#f0f0f0"></div>
+                  <div class="theme-swatch" style="background:#ffefd5"></div>
+                  <div class="theme-swatch" style="background:#ffffe0"></div>
+                  <div class="theme-swatch" style="background:#afeeee"></div>
+                  <div class="theme-swatch" style="background:#98fb98"></div>
+                  <div class="theme-swatch" style="background:#f0e68c"></div>
+                  <div class="theme-swatch" style="background:#ffc0cb"></div>
+                  <div class="theme-swatch" style="background:#dda0dd"></div>
+                  <div class="theme-swatch" style="background:#add8e6"></div>
+                  <div class="theme-swatch" style="background:#d3d3d3"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 所见背景 -->
+            <div class="theme-section-row">
+              <div class="theme-section-col theme-section-col--half">
+                <div class="theme-section-title">所见背景</div>
+                <div class="theme-swatch-grid theme-swatch-grid--large">
+                  <div class="theme-swatch" style="background:#fdf6e3"></div>
+                  <div class="theme-swatch is-active" style="background:#ffffff; border: 2px solid #4f46e5"></div>
+                  <div class="theme-swatch" style="background:#f8f8f8"></div>
+                  <div class="theme-swatch" style="background:#f0fff0"></div>
+                  <div class="theme-swatch" style="background:#f0f8ff"></div>
+                  <div class="theme-swatch" style="background:#fffaf0"></div>
+                  <div class="theme-swatch" style="background:#fff5ee"></div>
+                  <div class="theme-swatch" style="background:#f5f0ff"></div>
+                  <div class="theme-swatch" style="background:#fffff0"></div>
+                  <div class="theme-swatch" style="background:#e0ffff"></div>
+                  <div class="theme-swatch" style="background:#f5fffa"></div>
+                  <div class="theme-swatch" style="background:#fffacd"></div>
+                  <div class="theme-swatch" style="background:#ffe4e1"></div>
+                  <div class="theme-swatch" style="background:#e6e6fa"></div>
+                  <div class="theme-swatch" style="background:#f0f0f0"></div>
+                  <div class="theme-swatch" style="background:#ffefd5"></div>
+                  <div class="theme-swatch" style="background:#ffffe0"></div>
+                  <div class="theme-swatch" style="background:#7fffd4"></div>
+                  <div class="theme-swatch" style="background:#90ee90"></div>
+                  <div class="theme-swatch" style="background:#f0e68c"></div>
+                  <div class="theme-swatch" style="background:#ffb6c1"></div>
+                  <div class="theme-swatch" style="background:#dda0dd"></div>
+                  <div class="theme-swatch" style="background:#87ceeb"></div>
+                  <div class="theme-swatch" style="background:#d3d3d3"></div>
+                </div>
+              </div>
+              <!-- 排版风格 -->
+              <div class="theme-section-col theme-section-col--half">
+                <div class="theme-section-title">排版风格</div>
+                <div class="theme-btn-group theme-btn-group--wrap" id="typoButtons">
+                  <button type="button" class="theme-style-btn" data-typo="default">标准</button>
+                  <button type="button" class="theme-style-btn is-active" data-typo="serif">经典</button>
+                  <button type="button" class="theme-style-btn" data-typo="modern">现代</button>
+                  <button type="button" class="theme-style-btn" data-typo="reading">阅读</button>
+                  <button type="button" class="theme-style-btn" data-typo="academic">学术</button>
+                  <button type="button" class="theme-style-btn" data-typo="compact">紧凑</button>
+                  <button type="button" class="theme-style-btn" data-typo="elegant">优雅</button>
+                  <button type="button" class="theme-style-btn" data-typo="minimal">极简</button>
+                  <button type="button" class="theme-style-btn" data-typo="tech">科技</button>
+                  <button type="button" class="theme-style-btn" data-typo="literature">文学</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Markdown 风格与字体选择 -->
+            <div class="theme-section-row">
+              <div class="theme-section-col theme-section-col--half">
+                <div class="theme-section-title">MARKDOWN 风格</div>
+                <div class="theme-btn-group theme-btn-group--wrap" id="mdStyleButtons">
+                  <button type="button" class="theme-style-btn" data-md="standard">标准</button>
+                  <button type="button" class="theme-style-btn is-active" data-md="github">GitHub</button>
+                  <button type="button" class="theme-style-btn" data-md="notion">Notion</button>
+                  <button type="button" class="theme-style-btn" data-md="publish">出版风</button>
+                  <button type="button" class="theme-style-btn" data-md="card">卡片风</button>
+                  <button type="button" class="theme-style-btn" data-md="docs">Docs</button>
+                  <button type="button" class="theme-style-btn" data-md="typora">Typora</button>
+                  <button type="button" class="theme-style-btn" data-md="obsidian">Obsidian</button>
+                  <button type="button" class="theme-style-btn" data-md="bear">Bear</button>
+                  <button type="button" class="theme-style-btn" data-md="minimal">极简风</button>
+                </div>
+              </div>
+              <div class="theme-section-col theme-section-col--half">
+                <div class="theme-section-title">字体选择</div>
+                <div class="theme-font-selects">
+                  <div class="theme-font-row">
+                    <span class="font-label">正文字体</span>
+                    <select class="theme-select">
+                      <option>系统无衬线（系统默认）</option>
+                      <option>思源黑体</option>
+                      <option>思源宋体</option>
+                      <option>霞鹜文楷</option>
+                    </select>
+                  </div>
+                  <div class="theme-font-row">
+                    <span class="font-label">等宽字体</span>
+                    <select class="theme-select">
+                      <option>Consolas 系</option>
+                      <option>JetBrains Mono</option>
+                      <option>Fira Code</option>
+                      <option>Source Code Pro</option>
+                    </select>
+                  </div>
+                  <button type="button" class="theme-font-install-btn">
+                    <i class="fa-solid fa-download"></i> 安装字体
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4+5 Row: 插件管理 + 通知 -->
+      <div class="fg-card-row">
+        <!-- Card 4: 插件管理 -->
+        <div class="fg-card fg-card--sharp fg-card--flex-2">
+          <div class="fg-card-content">
+            <h3 class="fg-card-title">扩展与插件管理</h3>
+            <p class="fg-card-desc">内置核心功能、社区扩展，按需安装启用</p>
+          </div>
+          <div class="fg-card-demo">
+            <div class="plugin-panel-demo plugin-panel-demo--compact">
+              <!-- 安装扩展区域 -->
+              <div class="plugin-install-section">
+                <div class="plugin-install-title">安装扩展（GitHub / URL / 本地）</div>
+                <div class="plugin-install-bar">
+                  <input type="text" placeholder="输入 URL 或 username/repository@branch" class="plugin-install-input" readonly>
+                  <button type="button" class="plugin-browse-btn">浏览...</button>
+                  <button type="button" class="plugin-install-btn">安装</button>
+                </div>
+              </div>
+
+              <!-- 扩展管理区域 -->
+              <div class="plugin-manage-header plugin-manage-header--compact">
+                <span class="plugin-manage-title">扩展管理</span>
+                <label class="plugin-filter-checkbox">
+                  <input type="checkbox">
+                  <span>仅显示已安装</span>
+                </label>
+                <select class="plugin-filter-select">
+                  <option>官网</option>
+                  <option>GitHub</option>
+                </select>
+                <input type="text" placeholder="搜索扩展..." class="plugin-search-input plugin-search-input--compact">
+                <button type="button" class="plugin-refresh-btn">刷新</button>
+              </div>
+
+              <!-- 插件列表 - 紧凑版 -->
+              <div class="plugin-grid plugin-grid--compact" id="pluginToggleList">
+                <!-- 内置插件 - 图床 -->
+                <div class="plugin-item plugin-item--builtin">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">图床 (S3/R2)</span>
+                      <span class="plugin-badge badge-builtin">内置</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">粘贴/拖拽图片自动上传，支持 S3/R2 直连</div>
+                  <div class="plugin-actions">
+                    <span class="plugin-status-label">未启用</span>
+                    <button type="button" class="plugin-action-btn btn-settings">设置</button>
+                  </div>
+                </div>
+
+                <!-- 内置插件 - WebDAV -->
+                <div class="plugin-item plugin-item--builtin">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">WebDAV 同步</span>
+                      <span class="plugin-badge badge-builtin">内置</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">F5/启动/关闭前同步</div>
+                  <div class="plugin-actions">
+                    <span class="plugin-status-label">未启用</span>
+                    <button type="button" class="plugin-action-btn btn-settings">设置</button>
+                  </div>
+                </div>
+
+                <!-- 已安装插件 - AI 助手 -->
+                <div class="plugin-item plugin-item--installed">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">AI 助手 (0.2.9)</span>
+                      <span class="plugin-badge badge-installed">已安装</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">多供应商 AI 写作助手</div>
+                  <div class="plugin-actions">
+                    <label class="plugin-checkbox"><input type="checkbox" checked> 独立显示</label>
+                    <button type="button" class="plugin-action-btn btn-settings">设置</button>
+                    <button type="button" class="plugin-action-btn btn-remove">移除</button>
+                  </div>
+                </div>
+
+                <!-- 已安装插件 - 协同编辑 -->
+                <div class="plugin-item plugin-item--installed">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">协同编辑 (0.1.8)</span>
+                      <span class="plugin-badge badge-installed">已安装</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">连接协同服务器的多人协同插件</div>
+                  <div class="plugin-actions">
+                    <label class="plugin-checkbox"><input type="checkbox" checked> 独立显示</label>
+                    <button type="button" class="plugin-action-btn btn-settings">设置</button>
+                    <button type="button" class="plugin-action-btn btn-remove">移除</button>
+                  </div>
+                </div>
+
+                <!-- 推荐插件 -->
+                <div class="plugin-item plugin-item--recommend">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">Markdown 表格助手</span>
+                      <span class="plugin-badge badge-recommend">推荐</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">快速插入 Markdown 表格</div>
+                  <div class="plugin-actions">
+                    <button type="button" class="plugin-action-btn btn-primary">安装</button>
+                  </div>
+                </div>
+
+                <!-- 未安装插件 -->
+                <div class="plugin-item">
+                  <div class="plugin-item-header">
+                    <div class="plugin-name-row">
+                      <span class="plugin-name">批量导出 PDF</span>
+                    </div>
+                  </div>
+                  <div class="plugin-desc">批量导出文档为 PDF</div>
+                  <div class="plugin-actions">
+                    <button type="button" class="plugin-action-btn btn-primary">安装</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: 通知堆栈 -->
+        <div class="fg-card fg-card--sharp fg-card--flex-1">
+          <div class="fg-card-content">
+            <h3 class="fg-card-title">智能通知</h3>
+            <p class="fg-card-desc">协同状态、WebDAV 同步、AI 响应等实时反馈</p>
+          </div>
+          <div class="fg-card-demo">
+            <div class="notification-demo">
+              <!-- Notification Stack - 半透明三色风格 -->
+              <div class="notification-stack notification-stack--flymd" id="notificationStack">
+                <!-- 成功通知 - 协同连接已关闭 -->
+                <div class="notification-toast notification-toast--flymd" data-type="success">
+                  <div class="notification-icon">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="notification-content">
+                    <span class="notification-text">协同连接已关闭</span>
+                  </div>
+                </div>
+                <!-- 信息通知 - 协同未连接 -->
+                <div class="notification-toast notification-toast--flymd" data-type="info">
+                  <div class="notification-icon">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="notification-content">
+                    <span class="notification-text">协同未连接</span>
+                  </div>
+                </div>
+                <!-- 错误通知 - 协同连接异常 -->
+                <div class="notification-toast notification-toast--flymd" data-type="error">
+                  <div class="notification-icon">
+                    <i class="fa-solid fa-xmark"></i>
+                  </div>
+                  <div class="notification-content">
+                    <span class="notification-text">协同连接异常</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Trigger Button -->
+              <button type="button" class="notification-trigger" id="notificationTrigger">
+                <i class="fa-solid fa-bell"></i> 触发通知
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature Grid JavaScript -->
+<script>
+(function() {
+  // Theme Panel Interactivity
+  const themePanelDemo = document.querySelector('.theme-panel-demo');
+  if (!themePanelDemo) return;
+
+  // Swatch Click Handler - 背景色板点击
+  themePanelDemo.querySelectorAll('.theme-swatch-grid').forEach(grid => {
+    grid.addEventListener('click', (e) => {
+      const swatch = e.target.closest('.theme-swatch');
+      if (!swatch) return;
+
+      // Remove active from siblings in same grid
+      grid.querySelectorAll('.theme-swatch').forEach(s => {
+        s.classList.remove('is-active');
+        s.style.border = '2px solid transparent';
+      });
+
+      // Add active to clicked
+      swatch.classList.add('is-active');
+      swatch.style.border = '2px solid #1a1a1a';
+    });
+  });
+
+  // Typography Button Click Handler - 排版风格
+  const typoButtons = document.getElementById('typoButtons');
+  if (typoButtons) {
+    typoButtons.addEventListener('click', (e) => {
+      const btn = e.target.closest('.theme-style-btn');
+      if (!btn) return;
+
+      typoButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    });
+  }
+
+  // Markdown Style Button Click Handler - Markdown 风格
+  const mdStyleButtons = document.getElementById('mdStyleButtons');
+  if (mdStyleButtons) {
+    mdStyleButtons.addEventListener('click', (e) => {
+      const btn = e.target.closest('.theme-style-btn');
+      if (!btn) return;
+
+      mdStyleButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    });
+  }
+
+  // Notification Trigger
+  const notificationTrigger = document.getElementById('notificationTrigger');
+  const notificationStack = document.getElementById('notificationStack');
+  if (notificationTrigger && notificationStack) {
+    const messages = [
+      { type: 'success', text: 'WebDAV 同步完成' },
+      { type: 'warning', text: '图床上传中...' },
+      { type: 'info', text: 'AI 正在生成回复' },
+      { type: 'success', text: '协同连接成功' },
+    ];
+    let msgIndex = 0;
+
+    notificationTrigger.addEventListener('click', () => {
+      const msg = messages[msgIndex % messages.length];
+      msgIndex++;
+
+      const toast = document.createElement('div');
+      toast.className = 'notification-toast notification-toast--flymd';
+      toast.setAttribute('data-type', msg.type);
+      toast.innerHTML = `
+        <div class="notification-icon">
+          <i class="fa-solid fa-${msg.type === 'success' ? 'check' : msg.type === 'warning' ? 'bell' : 'chevron-right'}"></i>
+        </div>
+        <div class="notification-content">
+          <span class="notification-text">${msg.text}</span>
+        </div>
+      `;
+
+      notificationStack.insertBefore(toast, notificationStack.firstChild);
+
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-20px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    });
+  }
+})();
+</script>
