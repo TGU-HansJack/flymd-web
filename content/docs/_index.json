@@ -38,8 +38,34 @@
             "title": "插件开发",
             "slug": "plugin-dev",
             "file": "zh/plugin-dev.md"
+          },
+          {
+            "title": "协作服务器",
+            "slug": "collaboration-server",
+            "file": "zh/collaboration-server.md"
           }
         ]
+      },
+      {
+        "title": "高级",
+        "slug": "advanced",
+        "children": [
+          {
+            "title": "Android 构建指南",
+            "slug": "build-android",
+            "file": "zh/build-android.md"
+          },
+          {
+            "title": "Arch Linux 指南",
+            "slug": "arch-linux",
+            "file": "zh/arch-linux.md"
+          }
+        ]
+      },
+      {
+        "title": "更新日志",
+        "slug": "changelog",
+        "file": "zh/changelog.md"
       }
     ],
     "en": [
@@ -78,8 +104,34 @@
             "title": "Plugin Development",
             "slug": "plugin-dev",
             "file": "en/plugin-dev.md"
+          },
+          {
+            "title": "Collaboration Server",
+            "slug": "collaboration-server",
+            "file": "en/collaboration-server.md"
           }
         ]
+      },
+      {
+        "title": "Advanced",
+        "slug": "advanced",
+        "children": [
+          {
+            "title": "Android Build Guide",
+            "slug": "build-android",
+            "file": "en/build-android.md"
+          },
+          {
+            "title": "Arch Linux Guide",
+            "slug": "arch-linux",
+            "file": "en/arch-linux.md"
+          }
+        ]
+      },
+      {
+        "title": "Changelog",
+        "slug": "changelog",
+        "file": "en/changelog.md"
       }
     ]
   }
