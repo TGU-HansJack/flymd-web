@@ -243,23 +243,24 @@ document.addEventListener('DOMContentLoaded', function() {
   let githubReleaseLinks = null;
   let githubReleaseVersion = null;
 
-  // 从 GitHub Releases API 获取最新版本下载链接
-  async function fetchGitHubReleaseLinks() {
-    // 检查 localStorage 缓存（缓存 10 分钟）
+  // 从 localStorage 读取缓存（不检查过期）
+  function loadCachedRelease() {
     const cached = localStorage.getItem('flymd_release_cache');
     if (cached) {
       try {
-        const { links, version, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp < 10 * 60 * 1000) {
-          githubReleaseLinks = links;
-          githubReleaseVersion = version;
-          return links;
-        }
+        const data = JSON.parse(cached);
+        githubReleaseLinks = data.links;
+        githubReleaseVersion = data.version;
+        return data;
       } catch (e) {
         localStorage.removeItem('flymd_release_cache');
       }
     }
+    return null;
+  }
 
+  // 从 GitHub Releases API 获取最新版本下载链接
+  async function fetchGitHubReleaseLinks() {
     try {
       const response = await fetch(GITHUB_API_URL, {
         headers: { 'Accept': 'application/vnd.github.v3+json' }
@@ -298,7 +299,16 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('已从 GitHub 获取最新 release:', githubReleaseVersion);
       return links;
     } catch (err) {
-      console.warn('获取 GitHub Release 失败，使用默认链接:', err);
+      console.warn('获取 GitHub Release 失败:', err.message);
+
+      // API 失败时，如果有缓存（即使过期）则继续使用
+      if (githubReleaseLinks) {
+        console.log('使用过期缓存的 release 信息:', githubReleaseVersion);
+        return githubReleaseLinks;
+      }
+
+      // 完全没有缓存时，使用默认链接
+      console.log('无缓存，使用默认下载链接');
       return null;
     }
   }
@@ -328,28 +338,60 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 初始化下载按钮（异步获取 GitHub release 链接）
   async function initDownloadButtons() {
-    // 先尝试从 GitHub API 获取最新 release
-    await fetchGitHubReleaseLinks();
+    const platform = detectPlatform();
 
+    // 立即加载缓存并渲染（无需等待 API）
+    loadCachedRelease();
+    renderDownloadButtons(platform);
+
+    // 后台检查是否需要刷新缓存
+    const cached = localStorage.getItem('flymd_release_cache');
+    let needRefresh = true;
+
+    if (cached) {
+      try {
+        const data = JSON.parse(cached);
+        needRefresh = Date.now() - data.timestamp >= 10 * 60 * 1000;
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    // 如果缓存过期或不存在，后台刷新
+    if (needRefresh) {
+      fetchGitHubReleaseLinks().then(() => {
+        // 刷新成功后更新 UI
+        renderDownloadButtons(platform);
+      });
+    }
+  }
+
+  // 渲染下载按钮
+  function renderDownloadButtons(platform) {
     if (downloadMainBtn && downloadIcon && downloadText) {
-      const platform = detectPlatform();
       const platformInfo = getPlatformConfig(platform);
 
       downloadMainBtn.href = platformInfo.url;
       downloadIcon.className = platformInfo.icon;
       downloadText.textContent = platformInfo.text;
-
-      // 如果是 Android 或 iOS，禁用链接
-      if (platform === 'android' || platform === 'ios') {
-        downloadMainBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          alert('该平台版本即将推出，敬请期待！');
-        });
-      }
     }
 
-    // 更新下拉菜单中的链接
+    // 更新下拉菜单
     updateDropdownLinks();
+  }
+
+  // 为移动端平台绑定提示事件（只绑定一次）
+  let mobileAlertBound = false;
+  function bindMobileAlert() {
+    if (mobileAlertBound) return;
+    const platform = detectPlatform();
+    if ((platform === 'android' || platform === 'ios') && downloadMainBtn) {
+      downloadMainBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('该平台版本即将推出，敬请期待！');
+      });
+      mobileAlertBound = true;
+    }
   }
 
   // 更新下拉菜单中的下载链接
@@ -368,6 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 立即开始初始化
   initDownloadButtons();
+  bindMobileAlert();
 
   // 更多平台下拉菜单
   const downloadWrapper = document.querySelector('.download-dropdown-wrapper');
