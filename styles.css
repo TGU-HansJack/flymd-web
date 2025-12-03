@@ -8589,7 +8589,7 @@ body.docs-page .docs-main {
 /* 导航链接默认样式 */
 .header-nav a:not(.btn-github) {
   color: #666666;
-  padding: 6px 12px;
+  padding: 4px 16px;
   border-radius: 20px;
   transition: all 0.2s ease;
 }
