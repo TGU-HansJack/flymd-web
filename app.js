@@ -924,7 +924,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="developer-card">
           <span class="developer-badge">${contributor.badge}</span>
           <a href="${contributor.link}" target="_blank" rel="noopener" class="developer-link">
-            <img src="${contributor.avatar}" alt="${contributor.name}" class="developer-avatar" />
+            <img src="${getCdnUrl(contributor.avatar)}" alt="${contributor.name}" class="developer-avatar" />
             <div class="developer-info">
               <h3 class="developer-name">${contributor.name}</h3>
               <p class="developer-role">${contributor.role[currentLang] || contributor.role.zh}</p>

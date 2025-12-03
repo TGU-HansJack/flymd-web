@@ -22,26 +22,20 @@
     /**
      * 需要走 CDN 的资源路径前缀
      * - 匹配这些前缀的资源会使用 CDN
+     * - 留空则只按扩展名匹配
      */
     cdnPaths: [
-      'libs/',      // 第三方库
-      'fonts/',     // 字体文件
-      'uploads/',   // 上传的资源
-      'content/',   // 内容数据（博客、文档等）
-      'i18n/',      // 国际化文件
-      'tauri/',     // Tauri 数据
-      'plugins/'    // 插件数据
+      'fonts/'      // 字体文件目录
     ],
 
     /**
-     * 需要走 CDN 的文件扩展名
+     * 需要走 CDN 的文件扩展名（仅媒体文件）
      * - 匹配这些扩展名的资源会使用 CDN
      */
     cdnExtensions: [
       '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico',  // 图片
       '.woff', '.woff2', '.ttf', '.eot', '.otf',                  // 字体
-      '.mp4', '.webm', '.ogg', '.mp3',                            // 媒体
-      '.pdf'                                                       // 文档
+      '.mp4', '.webm', '.ogg', '.mp3'                             // 视频/音频
     ],
 
     /**
