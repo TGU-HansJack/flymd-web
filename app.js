@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // 自动加载最新博客文章
   // ===============================
   function loadLatestPost() {
-    const pillRow = document.querySelector('.feature-pill-row');
-    if (!pillRow) return;
+    // 获取所有 feature-pill-row 元素（桌面版和移动版）
+    const pillRows = document.querySelectorAll('.feature-pill-row');
+    if (pillRows.length === 0) return;
 
     // 从博客索引获取最新文章
     fetch(getCdnUrl('content/blog/_index.json', true))
@@ -36,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
           .sort((a, b) => new Date(b.date) - new Date(a.date));
 
         if (publishedArticles.length === 0) {
+          pillRows.forEach(pillRow => {
+            pillRow.removeAttribute('data-latest-ready');
+          });
           return;
         }
 
@@ -50,36 +54,41 @@ document.addEventListener('DOMContentLoaded', function() {
           ? `blog-post.html?slug=${latestArticle.slug}`
           : `blog-post.html?slug=${latestArticle.slug}&lang=en`;
 
-        // 更新链接
-        pillRow.href = detailUrl;
+        // 更新所有 pill-row（桌面版和移动版）
+        pillRows.forEach(pillRow => {
+          // 更新链接
+          pillRow.href = detailUrl;
 
-        // 更新标签
-        const tagText = pillRow.querySelector('.feature-pill-tag > span:last-child');
-        if (tagText) {
-          const zhTag = latestArticle.translations.zh?.tags?.[0] || '更新';
-          const enTag = latestArticle.translations.en?.tags?.[0] || 'Update';
-          tagText.textContent = currentLang === 'zh' ? zhTag : enTag;
-          tagText.setAttribute('data-zh', zhTag);
-          tagText.setAttribute('data-en', enTag);
-        }
+          // 更新标签
+          const tagText = pillRow.querySelector('.feature-pill-tag > span:last-child');
+          if (tagText) {
+            const zhTag = latestArticle.translations.zh?.tags?.[0] || '更新';
+            const enTag = latestArticle.translations.en?.tags?.[0] || 'Update';
+            tagText.textContent = currentLang === 'zh' ? zhTag : enTag;
+            tagText.setAttribute('data-zh', zhTag);
+            tagText.setAttribute('data-en', enTag);
+          }
 
-        // 更新标题
-        const titleText = pillRow.querySelector('.feature-pill-text');
-        if (titleText) {
-          const zhTitle = latestArticle.translations.zh?.title || '';
-          const enTitle = latestArticle.translations.en?.title || '';
-          titleText.textContent = currentLang === 'zh' ? zhTitle : enTitle;
-          titleText.setAttribute('data-zh', zhTitle);
-          titleText.setAttribute('data-en', enTitle);
-        }
+          // 更新标题
+          const titleText = pillRow.querySelector('.feature-pill-text');
+          if (titleText) {
+            const zhTitle = latestArticle.translations.zh?.title || '';
+            const enTitle = latestArticle.translations.en?.title || '';
+            titleText.textContent = currentLang === 'zh' ? zhTitle : enTitle;
+            titleText.setAttribute('data-zh', zhTitle);
+            titleText.setAttribute('data-en', enTitle);
+          }
 
-        // 更新按钮文字
-        const btnText = pillRow.querySelector('.feature-pill-btn');
-        if (btnText) {
-          btnText.setAttribute('data-zh', '点击详情');
-          btnText.setAttribute('data-en', 'Details');
-          btnText.textContent = currentLang === 'zh' ? '点击详情' : 'Details';
-        }
+          // 更新按钮文字
+          const btnText = pillRow.querySelector('.feature-pill-btn');
+          if (btnText) {
+            btnText.setAttribute('data-zh', '点击详情');
+            btnText.setAttribute('data-en', 'Details');
+            btnText.textContent = currentLang === 'zh' ? '点击详情' : 'Details';
+          }
+
+          pillRow.dataset.latestReady = 'true';
+        });
       })
       .catch(err => {
         console.log('无法加载最新文章信息:', err);
@@ -88,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 页面加载时获取最新文章
   loadLatestPost();
+  // 监听组件加载完成，重新加载最新文章（确保移动端菜单也被更新）
+  document.addEventListener('componentsLoaded', loadLatestPost);
   // 顶栏滚动效果 - 等待组件加载完成后执行
   function initHeaderScroll() {
     const header = document.querySelector('.site-header');
@@ -864,8 +875,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // 动态导航链接加载
   // ===============================
   async function initDynamicNavLinks() {
-    const container = document.getElementById('dynamicNavLinks');
-    if (!container || container.dataset.loaded === 'true') return;
+    const containers = Array.from(document.querySelectorAll('[data-dynamic-nav]'));
+    if (containers.length === 0 || containers.every(container => container.dataset.loaded === 'true')) return;
+
+    const titleTargets = Array.from(document.querySelectorAll('[data-dynamic-nav-title]'));
+
+    const resolveLangValue = (source, lang) => {
+      if (!source) return '';
+      if (typeof source === 'string') return source;
+      return source[lang] || '';
+    };
+
+    const applyLangAttributes = (attrs, zhValue, enValue) => {
+      const zh = zhValue || enValue || '';
+      const en = enValue || zhValue || '';
+      if (zh) attrs.push(`data-zh="${zh}"`);
+      if (en) attrs.push(`data-en="${en}"`);
+      return { zh, en };
+    };
 
     try {
       const response = await fetch(getCdnUrl('content/nav-links.json', true));
@@ -882,19 +909,77 @@ document.addEventListener('DOMContentLoaded', function() {
         .filter(link => link.enabled !== false)
         .sort((a, b) => (a.order || 999) - (b.order || 999));
 
-      const html = links.map(link => {
+      if (links.length === 0) return;
+
+      const buildLinkHtml = (link, extraClasses) => {
         const attrs = [];
+        const classNames = [];
+
+        if (link.className) {
+          classNames.push(link.className);
+        }
+
+        if (extraClasses) {
+          extraClasses.split(/\s+/).forEach(cls => {
+            if (cls) classNames.push(cls);
+          });
+        }
+
+        if (classNames.length) {
+          attrs.push(`class="${classNames.join(' ')}"`);
+        }
+
         if (link.target) attrs.push(`target="${link.target}"`);
         if (link.target === '_blank') attrs.push('rel="noopener"');
-        if (link.className) attrs.push(`class="${link.className}"`);
-        attrs.push(`data-zh="${link.text.zh}"`);
-        attrs.push(`data-en="${link.text.en}"`);
 
-        return `<a href="${link.url}" ${attrs.join(' ')}>${link.text[currentLang] || link.text.zh}</a>`;
-      }).join('');
+        const zhLabel = resolveLangValue(link.text, 'zh') || resolveLangValue(link.title, 'zh');
+        const enLabel = resolveLangValue(link.text, 'en') || resolveLangValue(link.title, 'en');
+        const langFallback = applyLangAttributes(attrs, zhLabel, enLabel);
 
-      container.innerHTML = html;
-      container.dataset.loaded = 'true';
+        const displayText =
+          resolveLangValue(link.text, currentLang) ||
+          resolveLangValue(link.title, currentLang) ||
+          (currentLang === 'zh' ? langFallback.zh : langFallback.en) ||
+          link.url;
+
+        const attrString = attrs.length ? ` ${attrs.join(' ')}` : '';
+        return `<a href="${link.url}"${attrString}>${displayText}</a>`;
+      };
+
+      containers.forEach(container => {
+        const extraClass = (container.dataset.linkClass || '').trim();
+        const html = links.map(link => buildLinkHtml(link, extraClass)).join('');
+        if (!html) return;
+        container.innerHTML = html;
+        container.dataset.loaded = 'true';
+        const wrapper = container.closest('[data-dynamic-nav-wrapper]');
+        if (wrapper) {
+          wrapper.removeAttribute('hidden');
+        }
+      });
+
+      if (data.title) {
+        const zhTitle = resolveLangValue(data.title, 'zh');
+        const enTitle = resolveLangValue(data.title, 'en');
+        const titleText = currentLang === 'zh'
+          ? (zhTitle || enTitle || '')
+          : (enTitle || zhTitle || '');
+
+        if (titleText) {
+          titleTargets.forEach(target => {
+            target.textContent = titleText;
+            const zhAttr = zhTitle || enTitle || '';
+            const enAttr = enTitle || zhTitle || '';
+            if (zhAttr) target.setAttribute('data-zh', zhAttr);
+            if (enAttr) target.setAttribute('data-en', enAttr);
+            target.removeAttribute('hidden');
+            const wrapper = target.closest('[data-dynamic-nav-wrapper]');
+            if (wrapper) {
+              wrapper.removeAttribute('hidden');
+            }
+          });
+        }
+      }
     } catch (err) {
       console.warn('加载动态导航失败:', err);
     }

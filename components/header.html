@@ -16,7 +16,10 @@
         <a href="blog.html" data-en="Blog" data-zh="博客">博客</a>
         <a href="plugins.html" data-en="Extensions" data-zh="插件">插件</a>
         <a href="about.html" data-en="About" data-zh="关于">关于</a>
-        <span id="dynamicNavLinks"></span>
+        <div class="header-dynamic-nav" data-dynamic-nav-wrapper hidden>
+          <span class="header-dynamic-title" data-dynamic-nav-title hidden></span>
+          <span id="dynamicNavLinks" class="header-dynamic-links" data-dynamic-nav></span>
+        </div>
       </nav>
 
       <!-- 移动端菜单按钮 -->
@@ -37,6 +40,19 @@
       <a href="blog.html" class="mobile-nav-link" data-en="Blog" data-zh="博客">博客</a>
       <a href="plugins.html" class="mobile-nav-link" data-en="Extensions" data-zh="插件">插件</a>
       <a href="about.html" class="mobile-nav-link" data-en="About" data-zh="关于">关于</a>
+      <div class="mobile-dynamic-nav" data-dynamic-nav-wrapper hidden>
+        <p class="mobile-dynamic-title" data-dynamic-nav-title hidden></p>
+        <div id="mobileDynamicNavLinks" class="mobile-dynamic-links" data-dynamic-nav data-link-class="mobile-nav-link"></div>
+      </div>
+      <!-- 移动端可扩展顶栏 -->
+      <a href="blog-post.html?slug=hello-world" class="feature-pill-row mobile-feature-pill" id="mobileFeaturePill" target="_blank" rel="noopener">
+        <span class="feature-pill-tag">
+          <span class="tag-dot"></span>
+          <span data-en="Announcement" data-zh="公告">公告</span>
+        </span>
+        <span class="feature-pill-text" data-en="Hello, FlyMD" data-zh="你好，FlyMD">你好，FlyMD</span>
+        <span class="feature-pill-btn" data-en="Details" data-zh="点击详情">点击详情</span>
+      </a>
     </div>
   </nav>
 </header>

@@ -3228,6 +3228,25 @@ body {
   background: transparent;
 }
 
+.header-dynamic-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+}
+
+.header-dynamic-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.header-dynamic-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* Sign up 按钮 */
 .header-nav .btn-signup {
   color: var(--text);
@@ -3278,6 +3297,10 @@ body {
 .feature-pill-row:hover {
   border-color: transparent;
   box-shadow: none;
+}
+
+.feature-pill-row:not([data-latest-ready="true"]) {
+  display: none;
 }
 
 /* 左侧标签（浅红背景红色字�?*/
@@ -8770,6 +8793,28 @@ body.docs-page .docs-main {
   background: #f5f5f5;
 }
 
+.mobile-dynamic-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.mobile-dynamic-title {
+  margin: 0;
+  padding: 0 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.mobile-dynamic-links {
+  display: flex;
+  flex-direction: column;
+}
+
 .mobile-nav-github {
   border-top: 1px solid var(--border-light);
   margin-top: 4px;
@@ -8795,5 +8840,49 @@ body.docs-page .docs-main {
 [data-theme="dark"] .mobile-nav-link:active {
   color: #ffffff;
   background: #333333;
+}
+
+/* 移动端可扩展顶栏样式 */
+.mobile-feature-pill {
+  margin: 8px 16px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #fff8f8 0%, #fff 100%);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.08);
+}
+
+.mobile-feature-pill:hover {
+  border-color: rgba(220, 38, 38, 0.25);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+}
+
+.mobile-feature-pill .feature-pill-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.mobile-feature-pill .feature-pill-text {
+  font-size: 13px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-feature-pill .feature-pill-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+[data-theme="dark"] .mobile-feature-pill {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-color: rgba(248, 113, 113, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .mobile-feature-pill:hover {
+  border-color: rgba(248, 113, 113, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
