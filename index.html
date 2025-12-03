@@ -20,18 +20,6 @@
     <main>
       <!-- Hero -->
       <section id="hero" class="section hero hero-new snap-section">
-        <!-- Feature Pill - Hero顶部悬浮（最新博客文章） -->
-        <div class="feature-pill-container">
-          <a href="https://blog.example.com/article" class="feature-pill-row" target="_blank" rel="noopener">
-            <span class="feature-pill-tag">
-              <span class="tag-dot"></span>
-              <span data-en="Update" data-zh="更新">更新</span>
-            </span>
-            <span class="feature-pill-text" data-en="Open collaborative editing is now available" data-zh="开放式协同编辑现已上线">开放式协同编辑现已上线</span>
-            <span class="feature-pill-btn" data-en="Details" data-zh="点击详情">点击详情</span>
-          </a>
-        </div>
-
         <div class="container hero-content-centered">
           <!-- Main Title -->
           <h1 class="hero-main-title" data-i18n="hero_main_title">FlyMD：快速书写，自由创作</h1>
@@ -87,7 +75,14 @@
                 <span class="ctrl-min"></span>
                 <span class="ctrl-max"></span>
               </div>
-              <span class="hero-image-title">FlyMD - 飞速Markdown</span>
+              <a href="blog-post.html?slug=hello-world" class="feature-pill-row hero-titlebar-pill" target="_blank" rel="noopener">
+                <span class="feature-pill-tag">
+                  <span class="tag-dot"></span>
+                  <span data-en="Announcement" data-zh="公告">公告</span>
+                </span>
+                <span class="feature-pill-text" data-en="Hello, FlyMD" data-zh="你好，FlyMD">你好，FlyMD</span>
+                <span class="feature-pill-btn" data-en="Details" data-zh="点击详情">点击详情</span>
+              </a>
             </div>
             <img src="hero.png" alt="FlyMD 界面展示" class="hero-image" />
           </div>
@@ -390,6 +385,193 @@
     <script src="components/includes.js"></script>
     <script src="i18n.js"></script>
     <script src="app.js"></script>
+
+    <!-- Feature Grid Slider -->
+    <script>
+    document.addEventListener('componentsLoaded', function() {
+      // Feature Grid Slider initialization
+      const wrapper = document.getElementById('featureGridWrapper');
+      const indicators = document.getElementById('featureGridIndicators');
+      const section = document.getElementById('feature-grid');
+
+      if (!wrapper || !indicators || !section) {
+        console.warn('Feature Grid elements not found');
+        return;
+      }
+
+      const cards = wrapper.querySelectorAll('.fg-card');
+      const indicatorBtns = indicators.querySelectorAll('.feature-grid-indicator');
+
+      let currentSlide = 0;
+      let isScrolling = false;
+      let scrollTimeout = null;
+      let autoPlayInterval = null;
+      const AUTO_PLAY_DELAY = 5000;
+
+      function updateIndicators(index) {
+        indicatorBtns.forEach((btn, i) => {
+          btn.classList.toggle('is-active', i === index);
+        });
+        currentSlide = index;
+      }
+
+      function scrollToSlide(index) {
+        if (index < 0 || index >= cards.length) return;
+        isScrolling = true;
+        const slideWidth = wrapper.clientWidth;
+        const targetScroll = index * slideWidth;
+        wrapper.scrollTo({ left: targetScroll, behavior: 'smooth' });
+        updateIndicators(index);
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isScrolling = false;
+        }, 500);
+      }
+
+      function nextSlide() {
+        const next = (currentSlide + 1) % cards.length;
+        scrollToSlide(next);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayInterval) {
+          clearInterval(autoPlayInterval);
+          autoPlayInterval = null;
+        }
+      }
+
+      // Indicator click
+      indicatorBtns.forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          scrollToSlide(index);
+          startAutoPlay();
+        });
+      });
+
+      // Scroll sync
+      wrapper.addEventListener('scroll', () => {
+        if (isScrolling) return;
+        const slideWidth = wrapper.clientWidth;
+        const newIndex = Math.round(wrapper.scrollLeft / slideWidth);
+        if (newIndex !== currentSlide && newIndex >= 0 && newIndex < cards.length) {
+          updateIndicators(newIndex);
+        }
+      });
+
+      // Hover pause
+      section.addEventListener('mouseenter', stopAutoPlay);
+      section.addEventListener('mouseleave', startAutoPlay);
+
+      // Touch pause
+      section.addEventListener('touchstart', stopAutoPlay, { passive: true });
+      section.addEventListener('touchend', () => setTimeout(startAutoPlay, 2000), { passive: true });
+
+      // Keyboard
+      section.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          scrollToSlide((currentSlide + 1) % cards.length);
+          startAutoPlay();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          scrollToSlide(currentSlide - 1 >= 0 ? currentSlide - 1 : cards.length - 1);
+          startAutoPlay();
+        }
+      });
+
+      section.setAttribute('tabindex', '0');
+
+      // Visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoPlay();
+        else startAutoPlay();
+      });
+
+      // Start
+      startAutoPlay();
+      console.log('Feature Grid Slider initialized:', cards.length, 'slides');
+
+      // Theme Panel Interactivity
+      const themePanelDemo = document.querySelector('.theme-panel-demo');
+      if (themePanelDemo) {
+        themePanelDemo.querySelectorAll('.theme-swatch-grid').forEach(grid => {
+          grid.addEventListener('click', (e) => {
+            const swatch = e.target.closest('.theme-swatch');
+            if (!swatch) return;
+            grid.querySelectorAll('.theme-swatch').forEach(s => {
+              s.classList.remove('is-active');
+              s.style.border = '2px solid transparent';
+            });
+            swatch.classList.add('is-active');
+            swatch.style.border = '2px solid #1a1a1a';
+          });
+        });
+      }
+
+      // Typography buttons
+      const typoButtons = document.getElementById('typoButtons');
+      if (typoButtons) {
+        typoButtons.addEventListener('click', (e) => {
+          const btn = e.target.closest('.theme-style-btn');
+          if (!btn) return;
+          typoButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        });
+      }
+
+      // Markdown style buttons
+      const mdStyleButtons = document.getElementById('mdStyleButtons');
+      if (mdStyleButtons) {
+        mdStyleButtons.addEventListener('click', (e) => {
+          const btn = e.target.closest('.theme-style-btn');
+          if (!btn) return;
+          mdStyleButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        });
+      }
+
+      // Notification trigger
+      const notificationTrigger = document.getElementById('notificationTrigger');
+      const notificationStack = document.getElementById('notificationStack');
+      if (notificationTrigger && notificationStack) {
+        const messages = [
+          { type: 'success', text: 'WebDAV 同步完成' },
+          { type: 'warning', text: '图床上传中...' },
+          { type: 'info', text: 'AI 正在生成回复' },
+          { type: 'success', text: '协同连接成功' },
+        ];
+        let msgIndex = 0;
+
+        notificationTrigger.addEventListener('click', () => {
+          const msg = messages[msgIndex++ % messages.length];
+          const toast = document.createElement('div');
+          toast.className = 'notification-toast notification-toast--flymd';
+          toast.setAttribute('data-type', msg.type);
+          toast.innerHTML = `
+            <div class="notification-icon">
+              <i class="fa-solid fa-${msg.type === 'success' ? 'check' : msg.type === 'warning' ? 'bell' : 'chevron-right'}"></i>
+            </div>
+            <div class="notification-content">
+              <span class="notification-text">${msg.text}</span>
+            </div>
+          `;
+          notificationStack.insertBefore(toast, notificationStack.firstChild);
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(-20px)';
+            setTimeout(() => toast.remove(), 300);
+          }, 3000);
+        });
+      }
+    });
+    </script>
   </body>
   </html>
 

@@ -9,9 +9,9 @@
     </div>
 
     <!-- Grid -->
-    <div class="feature-grid-wrapper">
+    <div class="feature-grid-wrapper" id="featureGridWrapper">
       <!-- Card 1: 界面布局展示 -->
-      <div class="fg-card fg-card--sharp">
+      <div class="fg-card fg-card--sharp fg-card--wide">
         <div class="fg-card-content">
           <h3 class="fg-card-title">界面布局</h3>
           <p class="fg-card-desc">侧栏目录树、顶栏标签页、右键菜单，一切触手可及</p>
@@ -132,7 +132,7 @@
       </div>
 
       <!-- Card 2: 编辑器切换 -->
-      <div class="fg-card fg-card--sharp">
+      <div class="fg-card fg-card--sharp fg-card--wide">
         <div class="fg-card-content">
           <h3 class="fg-card-title">源码 / 所见双模式</h3>
           <p class="fg-card-desc">自由切换编辑与预览，满足不同写作习惯</p>
@@ -375,10 +375,8 @@ flymd.render();</code></pre>
         </div>
       </div>
 
-      <!-- Card 4+5 Row: 插件管理 + 通知 -->
-      <div class="fg-card-row">
-        <!-- Card 4: 插件管理 -->
-        <div class="fg-card fg-card--sharp fg-card--flex-2">
+      <!-- Card 4: 插件管理 -->
+      <div class="fg-card fg-card--sharp fg-card--wide">
           <div class="fg-card-content">
             <h3 class="fg-card-title">扩展与插件管理</h3>
             <p class="fg-card-desc">内置核心功能、社区扩展，按需安装启用</p>
@@ -505,8 +503,8 @@ flymd.render();</code></pre>
           </div>
         </div>
 
-        <!-- Card 5: 通知堆栈 -->
-        <div class="fg-card fg-card--sharp fg-card--flex-1">
+      <!-- Card 5: 通知堆栈 -->
+      <div class="fg-card fg-card--sharp fg-card--wide">
           <div class="fg-card-content">
             <h3 class="fg-card-title">智能通知</h3>
             <p class="fg-card-desc">协同状态、WebDAV 同步、AI 响应等实时反馈</p>
@@ -550,97 +548,14 @@ flymd.render();</code></pre>
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    <!-- Slide Indicators -->
+    <div class="feature-grid-indicators" id="featureGridIndicators">
+      <button class="feature-grid-indicator is-active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="feature-grid-indicator" data-slide="1" aria-label="Slide 2"></button>
+      <button class="feature-grid-indicator" data-slide="2" aria-label="Slide 3"></button>
+      <button class="feature-grid-indicator" data-slide="3" aria-label="Slide 4"></button>
+      <button class="feature-grid-indicator" data-slide="4" aria-label="Slide 5"></button>
     </div>
   </div>
 </section>
-
-<!-- Feature Grid JavaScript -->
-<script>
-(function() {
-  // Theme Panel Interactivity
-  const themePanelDemo = document.querySelector('.theme-panel-demo');
-  if (!themePanelDemo) return;
-
-  // Swatch Click Handler - 背景色板点击
-  themePanelDemo.querySelectorAll('.theme-swatch-grid').forEach(grid => {
-    grid.addEventListener('click', (e) => {
-      const swatch = e.target.closest('.theme-swatch');
-      if (!swatch) return;
-
-      // Remove active from siblings in same grid
-      grid.querySelectorAll('.theme-swatch').forEach(s => {
-        s.classList.remove('is-active');
-        s.style.border = '2px solid transparent';
-      });
-
-      // Add active to clicked
-      swatch.classList.add('is-active');
-      swatch.style.border = '2px solid #1a1a1a';
-    });
-  });
-
-  // Typography Button Click Handler - 排版风格
-  const typoButtons = document.getElementById('typoButtons');
-  if (typoButtons) {
-    typoButtons.addEventListener('click', (e) => {
-      const btn = e.target.closest('.theme-style-btn');
-      if (!btn) return;
-
-      typoButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-    });
-  }
-
-  // Markdown Style Button Click Handler - Markdown 风格
-  const mdStyleButtons = document.getElementById('mdStyleButtons');
-  if (mdStyleButtons) {
-    mdStyleButtons.addEventListener('click', (e) => {
-      const btn = e.target.closest('.theme-style-btn');
-      if (!btn) return;
-
-      mdStyleButtons.querySelectorAll('.theme-style-btn').forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-    });
-  }
-
-  // Notification Trigger
-  const notificationTrigger = document.getElementById('notificationTrigger');
-  const notificationStack = document.getElementById('notificationStack');
-  if (notificationTrigger && notificationStack) {
-    const messages = [
-      { type: 'success', text: 'WebDAV 同步完成' },
-      { type: 'warning', text: '图床上传中...' },
-      { type: 'info', text: 'AI 正在生成回复' },
-      { type: 'success', text: '协同连接成功' },
-    ];
-    let msgIndex = 0;
-
-    notificationTrigger.addEventListener('click', () => {
-      const msg = messages[msgIndex % messages.length];
-      msgIndex++;
-
-      const toast = document.createElement('div');
-      toast.className = 'notification-toast notification-toast--flymd';
-      toast.setAttribute('data-type', msg.type);
-      toast.innerHTML = `
-        <div class="notification-icon">
-          <i class="fa-solid fa-${msg.type === 'success' ? 'check' : msg.type === 'warning' ? 'bell' : 'chevron-right'}"></i>
-        </div>
-        <div class="notification-content">
-          <span class="notification-text">${msg.text}</span>
-        </div>
-      `;
-
-      notificationStack.insertBefore(toast, notificationStack.firstChild);
-
-      // Remove after 3 seconds
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-20px)';
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    });
-  }
-})();
-</script>
