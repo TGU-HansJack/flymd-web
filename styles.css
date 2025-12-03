@@ -4574,6 +4574,7 @@ body.docs-page {
 body.docs-page .docs-main {
   padding: 0;
   width: 100%;
+  z-index: 2;
 }
 
 /* 文档外壳容器 */
@@ -4611,7 +4612,7 @@ body.docs-page .docs-main {
   scrollbar-width: thin;
   scrollbar-color: var(--vp-c-divider) transparent;
   border-right: 1px solid var(--vp-c-divider);
-  z-index: 2;
+  z-index: 20;
   box-sizing: border-box;
 }
 
@@ -5076,7 +5077,7 @@ body.docs-page .docs-main {
   background-color: var(--vp-c-bg);
   scrollbar-width: thin;
   scrollbar-color: var(--vp-c-divider) transparent;
-  z-index: 10;
+  z-index: 20;
   display: none;
   box-sizing: border-box;
 }
