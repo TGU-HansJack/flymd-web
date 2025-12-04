@@ -67,10 +67,25 @@
   <script src="i18n.js"></script>
   <script src="libs/marked.min.js"></script>
   <script>
+    function assetUrl(path, noCache) {
+      if (!path) return path;
+      const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith('data:') || path.startsWith('mailto:');
+      if (isAbsolute) return path;
+      const opts = typeof noCache === 'object' ? noCache : { noCache: !!noCache };
+      if (window.cdnUrl) {
+        return window.cdnUrl(path, opts);
+      }
+      if (opts.noCache) {
+        const separator = path.indexOf('?') === -1 ? '?' : '&';
+        return path + separator + '_t=' + Date.now();
+      }
+      return path;
+    }
+
     document.addEventListener('DOMContentLoaded', async function() {
       const contentEl = document.getElementById('aboutContent');
       try {
-        const response = await fetch('content/about.md?' + Date.now());
+        const response = await fetch(assetUrl('content/about.md', true));
         if (!response.ok) throw new Error('无法加载关于页面内容');
         const markdown = await response.text();
         contentEl.innerHTML = marked.parse(markdown);
@@ -81,7 +96,7 @@
           <p>作为一款开源软件，飞速MarkDown可以在非盈利作用情况下免费使用。开源软件也需要倾注大量心血，耗费时间持续进行完善和改进。</p>
           <p>如果您认为该软件对您有所帮助，欢迎在力所能及的情况下，给予适当赞赏。非常感谢您的支持！</p>
           <figure class="media-frame" style="max-width: 420px; margin: 18px auto;">
-            <img src="good.png" alt="赞赏二维码" style="width:100%; display:block;"/>
+            <img src="${assetUrl('good.png')}" alt="赞赏二维码" style="width:100%; display:block;"/>
           </figure>
         `;
       }

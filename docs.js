@@ -3,6 +3,21 @@
 (function() {
   'use strict';
 
+  function assetUrl(path, options) {
+    if (!path) return path;
+    const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith('data:') || path.startsWith('mailto:');
+    if (isAbsolute) return path;
+    const opts = typeof options === 'object' ? options : { noCache: !!options };
+    if (window.cdnUrl) {
+      return window.cdnUrl(path, opts);
+    }
+    if (opts.noCache) {
+      const separator = path.indexOf('?') === -1 ? '?' : '&';
+      return path + separator + '_t=' + Date.now();
+    }
+    return path;
+  }
+
   // ROADMAP 原文地址
   const ROADMAP_URLS = {
     zh: 'https://raw.githubusercontent.com/flyhunterl/flymd/main/ROADMAP.md',
@@ -251,7 +266,7 @@
         return;
       }
 
-      const response = await fetch(`content/docs/${file}`);
+      const response = await fetch(assetUrl(`content/docs/${file}`));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const mdContent = await response.text();
@@ -547,7 +562,7 @@
     showLoading();
 
     try {
-      const response = await fetch('content/docs/_index.json');
+      const response = await fetch(assetUrl('content/docs/_index.json'));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       docsData = await response.json();

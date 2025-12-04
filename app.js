@@ -12,6 +12,28 @@ function getCdnUrl(path, noCache) {
   return path;
 }
 
+function injectLxgwFont() {
+  const head = document.head || document.getElementsByTagName('head')[0];
+  if (!head) return;
+
+  if (!document.querySelector('link[data-lxgw-font="stylesheet"]')) {
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = getCdnUrl('fonts/lxgw/style.css', true);
+    fontLink.setAttribute('data-lxgw-font', 'stylesheet');
+    head.appendChild(fontLink);
+  }
+
+  if (!document.querySelector('style[data-lxgw-font="override"]')) {
+    const style = document.createElement('style');
+    style.setAttribute('data-lxgw-font', 'override');
+    style.textContent = "body{font-family:'LXGW WenKai Screen','LXGW WenKai GB Screen','LXGW WenKai Screen R','LXGW WenKai GB Screen R',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;}";
+    head.appendChild(style);
+  }
+}
+
+injectLxgwFont();
+
 document.addEventListener('DOMContentLoaded', function() {
   // ===============================
   // 自动加载最新博客文章

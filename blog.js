@@ -3,6 +3,21 @@
 (function() {
   'use strict';
 
+  function assetUrl(path, options) {
+    if (!path) return path;
+    const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith('data:') || path.startsWith('mailto:');
+    if (isAbsolute) return path;
+    const opts = typeof options === 'object' ? options : { noCache: !!options };
+    if (window.cdnUrl) {
+      return window.cdnUrl(path, opts);
+    }
+    if (opts.noCache) {
+      const separator = path.indexOf('?') === -1 ? '?' : '&';
+      return path + separator + '_t=' + Date.now();
+    }
+    return path;
+  }
+
   const featuredGrid = document.getElementById('featured-grid');
   const blogGrid = document.getElementById('blog-grid');
   let blogData = null;
@@ -52,7 +67,7 @@
     // 封面图片或图标
     const hasCover = article.cover && article.cover.trim() !== '';
     const imageContent = hasCover
-      ? `<img src="${article.cover}" alt="${translation.title}" />`
+      ? `<img src="${assetUrl(article.cover)}" alt="${translation.title}" />`
       : `<div class="featured-card-icon">${icons[index % icons.length]}</div>`;
     const imageClass = hasCover ? '' : ' no-cover';
 
@@ -179,7 +194,7 @@
         `;
       }
 
-      const response = await fetch('content/blog/_index.json');
+      const response = await fetch(assetUrl('content/blog/_index.json'));
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }

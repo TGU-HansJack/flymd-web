@@ -299,6 +299,21 @@
       const blogPost = document.getElementById('blogPost');
       let currentLocale = 'zh';
 
+      function assetUrl(path, options) {
+        if (!path) return path;
+        const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith('data:') || path.startsWith('mailto:');
+        if (isAbsolute) return path;
+        const opts = typeof options === 'object' ? options : { noCache: !!options };
+        if (window.cdnUrl) {
+          return window.cdnUrl(path, opts);
+        }
+        if (opts.noCache) {
+          const separator = path.indexOf('?') === -1 ? '?' : '&';
+          return path + separator + '_t=' + Date.now();
+        }
+        return path;
+      }
+
       // 检测语言
       function detectLanguage() {
         // URL 参数优先
@@ -392,6 +407,7 @@
 
         // 渲染文章内容
         const htmlContent = marked.parse(body);
+        const coverUrl = assetUrl(articleMeta.cover);
 
         blogPost.innerHTML = `
           <header class="blog-post-header">
@@ -410,7 +426,7 @@
             <h1 class="blog-post-title">${translation.title}</h1>
             ${translation.summary ? `<p class="blog-post-summary">${translation.summary}</p>` : ''}
           </header>
-          ${articleMeta.cover ? `<img src="${articleMeta.cover}" alt="${translation.title}" class="blog-post-cover">` : ''}
+          ${articleMeta.cover ? `<img src="${coverUrl}" alt="${translation.title}" class="blog-post-cover">` : ''}
           <div class="blog-post-content">
             ${htmlContent}
           </div>
@@ -448,7 +464,7 @@
 
         try {
           // 先加载索引获取文章元数据
-          const indexResponse = await fetch('content/blog/_index.json');
+          const indexResponse = await fetch(assetUrl('content/blog/_index.json'));
           if (!indexResponse.ok) throw new Error('Failed to load index');
           const indexData = await indexResponse.json();
 
@@ -471,7 +487,7 @@
           }
 
           // 加载 Markdown 文件
-          const mdResponse = await fetch(`content/blog/${currentLocale}/${slug}.md`);
+          const mdResponse = await fetch(assetUrl(`content/blog/${currentLocale}/${slug}.md`));
           if (!mdResponse.ok) throw new Error('Failed to load article content');
           const mdContent = await mdResponse.text();
 
