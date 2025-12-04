@@ -278,13 +278,22 @@
       .platform-row-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 16px;
         justify-content: flex-end;
+      }
+
+      .platform-download-option {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 150px;
+        flex: 1 1 220px;
       }
 
       .platform-pill {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         padding: 8px 16px;
         border-radius: 999px;
@@ -294,6 +303,7 @@
         font-size: 14px;
         text-decoration: none;
         transition: border 0.2s ease, background 0.2s ease;
+        text-align: center;
       }
 
       .platform-pill:hover {
@@ -324,6 +334,55 @@
 
       :root:not([data-theme="dark"]) .platform-pill.is-disabled {
         background: transparent;
+      }
+
+      .mirror-links {
+        display: none;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .mirror-links.is-active {
+        display: flex;
+      }
+
+      .mirror-label {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: inherit;
+      }
+
+      .mirror-link {
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        text-decoration: none;
+        transition: border 0.2s ease, background 0.2s ease;
+      }
+
+      .mirror-link:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      :root:not([data-theme="dark"]) .mirror-links {
+        color: rgba(15, 23, 42, 0.65);
+      }
+
+      :root:not([data-theme="dark"]) .mirror-link {
+        border-color: rgba(15, 23, 42, 0.16);
+        background: #f4f4f4;
+      }
+
+      :root:not([data-theme="dark"]) .mirror-link:hover {
+        border-color: rgba(15, 23, 42, 0.45);
+        background: #e4e4e4;
       }
 
       @media (max-width: 640px) {
@@ -527,16 +586,22 @@
                     </div>
                   </div>
                   <div class="platform-row-links">
-                    <a class="platform-pill" data-asset="windows-installer" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
-                      <span class="platform-pill-label" data-zh="安装包" data-en="Installer">安装包</span>
-                      <span class="platform-pill-meta">.exe</span>
-                    </a>
-                    <a class="platform-pill ghost" data-asset="windows-portable" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-box-archive" aria-hidden="true"></i>
-                      <span class="platform-pill-label" data-zh="免安装" data-en="Portable">免安装</span>
-                      <span class="platform-pill-meta">ZIP</span>
-                    </a>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="windows-installer" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                        <span class="platform-pill-label" data-zh="安装包" data-en="Installer">安装包</span>
+                        <span class="platform-pill-meta">.exe</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="windows-installer"></div>
+                    </div>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="windows-portable" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-box-archive" aria-hidden="true"></i>
+                        <span class="platform-pill-label" data-zh="免安装" data-en="Portable">免安装</span>
+                        <span class="platform-pill-meta">ZIP</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="windows-portable"></div>
+                    </div>
                   </div>
                 </li>
 
@@ -549,16 +614,22 @@
                     </div>
                   </div>
                   <div class="platform-row-links">
-                    <a class="platform-pill" data-asset="mac-dmg" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
-                      <span class="platform-pill-label" data-zh="DMG 安装" data-en="DMG installer">DMG 安装</span>
-                      <span class="platform-pill-meta">Universal</span>
-                    </a>
-                    <a class="platform-pill ghost" data-asset="mac-zip" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-file-zipper" aria-hidden="true"></i>
-                      <span class="platform-pill-label" data-zh="App Bundle" data-en="App bundle">App Bundle</span>
-                      <span class="platform-pill-meta">ZIP</span>
-                    </a>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="mac-dmg" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                        <span class="platform-pill-label" data-zh="DMG 安装" data-en="DMG installer">DMG 安装</span>
+                        <span class="platform-pill-meta">Universal</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="mac-dmg"></div>
+                    </div>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="mac-zip" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-file-zipper" aria-hidden="true"></i>
+                        <span class="platform-pill-label" data-zh="App Bundle" data-en="App bundle">App Bundle</span>
+                        <span class="platform-pill-meta">ZIP</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="mac-zip"></div>
+                    </div>
                   </div>
                 </li>
 
@@ -571,17 +642,22 @@
                     </div>
                   </div>
                   <div class="platform-row-links">
-                    <a class="platform-pill" data-asset="linux-appimage" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
-                      <span class="platform-pill-label">AppImage</span>
-                      <span class="platform-pill-meta">x86_64</span>
-                    </a>
-                    <a class="platform-pill ghost" data-asset="linux-deb" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
-                      <i class="fa-solid fa-cubes-stacked" aria-hidden="true"></i>
-                      <span class="platform-pill-label">Deb</span>
-                      <span class="platform-pill-meta">amd64</span>
-                    </a>
-                    <span class="platform-pill is-disabled" data-zh="Flatpak 社区" data-en="Flatpak (community)">Flatpak 社区</span>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="linux-appimage" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                        <span class="platform-pill-label">AppImage</span>
+                        <span class="platform-pill-meta">x86_64</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="linux-appimage"></div>
+                    </div>
+                    <div class="platform-download-option">
+                      <a class="platform-pill" data-asset="linux-deb" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-cubes-stacked" aria-hidden="true"></i>
+                        <span class="platform-pill-label">Deb</span>
+                        <span class="platform-pill-meta">amd64</span>
+                      </a>
+                      <div class="mirror-links" data-mirrors-for="linux-deb"></div>
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -633,6 +709,29 @@
           'linux-deb': /\.deb$/i
         };
 
+        const mirrorProviders = [
+          { id: 'ghfast', label: 'ghfast（推荐）', mode: 'prefix', value: 'https://ghfast.top/' },
+          { id: 'halonice', label: 'halonice', mode: 'prefix', value: 'http://gh.halonice.com/' }
+        ];
+
+        const platformConfig = {
+          windows: {
+            asset: 'windows-installer',
+            icon: 'fa-brands fa-windows',
+            text: { zh: '下载 Windows 版', en: 'Download for Windows' }
+          },
+          mac: {
+            asset: 'mac-dmg',
+            icon: 'fa-brands fa-apple',
+            text: { zh: '下载 macOS 版', en: 'Download for macOS' }
+          },
+          linux: {
+            asset: 'linux-appimage',
+            icon: 'fa-brands fa-linux',
+            text: { zh: '下载 Linux 版', en: 'Download for Linux' }
+          }
+        };
+
         fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github+json' } })
           .then(response => response.json())
           .then(data => populateDownloadData(data))
@@ -666,11 +765,7 @@
           const assets = data.assets || [];
           const matchedAssets = mapAssets(assets);
 
-          if (matchedAssets['windows-installer'] && heroBtn) {
-            heroBtn.href = matchedAssets['windows-installer'].browser_download_url;
-          } else if (heroBtn) {
-            heroBtn.href = releaseUrl;
-          }
+          updateHeroButton(matchedAssets, releaseUrl);
 
           Object.keys(assetRules).forEach(key => {
             const el = document.querySelector(`[data-asset="${key}"]`);
@@ -680,9 +775,14 @@
               el.classList.remove('is-disabled');
               const meta = el.querySelector('.platform-pill-meta');
               if (meta) {
-                meta.textContent = formatSize(asset.size);
+                if (!meta.dataset.originalText) {
+                  meta.dataset.originalText = meta.textContent;
+                }
+                const sizeLabel = formatSize(asset.size);
+                meta.textContent = sizeLabel ? `${meta.dataset.originalText} · ${sizeLabel}` : meta.dataset.originalText;
               }
               el.setAttribute('title', `${asset.name} · ${formatSize(asset.size)}`);
+              renderMirrorLinks(key, asset);
             }
           });
 
@@ -706,6 +806,60 @@
           return bucket;
         }
 
+        function updateHeroButton(assets, releaseUrl) {
+          if (!heroBtn) return;
+          const locale = getLocale();
+          const preferred = detectPlatform();
+          const config = platformConfig[preferred] || platformConfig.windows;
+          const iconEl = heroBtn.querySelector('i');
+          const textEl = heroBtn.querySelector('span');
+          const asset = assets[config.asset];
+          let href = releaseUrl;
+
+          if (asset) {
+            href = buildMirrorUrl(asset.browser_download_url, mirrorProviders[0]);
+          } else if (assets['windows-installer']) {
+            href = buildMirrorUrl(assets['windows-installer'].browser_download_url, mirrorProviders[0]);
+          }
+
+          heroBtn.href = href;
+          if (iconEl) iconEl.className = config.icon;
+          if (textEl) textEl.textContent = config.text[locale === 'en' ? 'en' : 'zh'];
+        }
+
+        function renderMirrorLinks(assetKey, asset) {
+          const containers = document.querySelectorAll(`[data-mirrors-for="${assetKey}"]`);
+          if (!containers.length || !asset) return;
+          const locale = getLocale();
+          const labelText = locale === 'en' ? 'Mirrors' : '镜像';
+          const linksHtml = mirrorProviders.map(provider => {
+            const url = buildMirrorUrl(asset.browser_download_url, provider);
+            return `<a class="mirror-link" href="${url}" target="_blank" rel="noopener" data-mirror="${provider.id}">${provider.label}</a>`;
+          }).join('');
+          containers.forEach(container => {
+            container.innerHTML = `<span class="mirror-label">${labelText}</span>${linksHtml}`;
+            container.classList.add('is-active');
+          });
+        }
+
+        function buildMirrorUrl(original, provider) {
+          if (!original || !provider) return original;
+          if (provider.mode === 'replace') {
+            const path = original.replace(/^https:\/\/github\.com\//i, '');
+            return provider.value + path;
+          }
+          return provider.value + original;
+        }
+
+        function detectPlatform() {
+          const ua = navigator.userAgent || '';
+          const platform = navigator.platform || '';
+          if (/win/i.test(platform) || /windows/i.test(ua)) return 'windows';
+          if (/mac/i.test(platform) && !/iphone|ipad/i.test(ua)) return 'mac';
+          if (/linux/i.test(platform) || /linux/i.test(ua)) return 'linux';
+          return 'windows';
+        }
+
         function formatDate(date, locale) {
           try {
             return date.toLocaleDateString(locale || undefined, { year: 'numeric', month: 'long', day: 'numeric' });
@@ -722,8 +876,8 @@
 
         function getLocale() {
           if (window.FlyMDi18n && typeof window.FlyMDi18n.getLocale === 'function') {
-            return window.FlyMDi18n.getLocale();
-          }
+          return window.FlyMDi18n.getLocale();
+        }
           return document.documentElement.getAttribute('data-lang') || document.documentElement.lang || 'zh';
         }
 
