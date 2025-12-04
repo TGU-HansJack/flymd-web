@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlyMD 下载中心</title>
+    <meta name="description" content="获取 FlyMD 在 Windows、macOS 与 Linux 上的最新安装包，并查看版本更新说明。" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fonts/fontawesome.css" />
+    <link rel="icon" type="image/png" href="Flymdnew.png" />
+    <link rel="icon" type="image/x-icon" href="Flymdnew.ico" />
+    <script src="config.js"></script>
+    <script src="cdn.js"></script>
+    <style>
+      body.download-body {
+        background: #fefefe;
+        min-height: 100vh;
+        color: var(--text);
+      }
+
+      [data-theme="dark"] body.download-body {
+        background: #050505;
+      }
+
+      .download-page {
+        padding-top: 72px;
+      }
+
+      .download-page .section {
+        background: transparent;
+      }
+
+      .download-hero {
+        padding: 60px 0;
+      }
+
+      .download-hero .container {
+        min-height: calc(100vh - 220px);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 40px;
+      }
+
+      @media (max-width: 640px) {
+        .download-hero {
+          padding: 20px 0 40px;
+        }
+
+        .download-hero .container {
+          min-height: calc(100vh - 60px);
+          align-items: flex-start;
+          padding-top: 0;
+        }
+      }
+
+      .download-hero-card {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 56px 40px 48px;
+        border-radius: 24px;
+        background: #fafafa;
+        text-align: center;
+      }
+
+      .download-logo {
+        width: 160px;
+        height: 160px;
+        border-radius: 32px;
+        margin: 0 auto 32px;
+        background: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 25px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      .download-logo img {
+        width: 88px;
+        height: 88px;
+        object-fit: contain;
+      }
+
+      .download-label {
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 12px;
+      }
+
+      :root:not([data-theme="dark"]) .download-label {
+        color: rgba(15, 23, 42, 0.55);
+      }
+
+      .download-title {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0 0 16px;
+      }
+
+      .download-desc {
+        font-size: 17px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin: 0 auto 28px;
+      }
+
+      :root:not([data-theme="dark"]) .download-desc {
+        color: rgba(15, 23, 42, 0.75);
+      }
+
+      .download-hero-btn {
+        justify-content: center;
+        min-width: 100%;
+        font-size: 16px;
+        border-radius: 12px;
+        gap: 12px;
+        font-weight: 600;
+      }
+
+      .download-hero-btn i {
+        font-size: 18px;
+      }
+
+      .download-meta {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 18px 0 0;
+      }
+
+      :root:not([data-theme="dark"]) .download-meta {
+        color: rgba(15, 23, 42, 0.6);
+      }
+
+      .download-pills {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .download-chip {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .download-chip.muted {
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.56);
+      }
+
+      :root:not([data-theme="dark"]) .download-chip {
+        border-color: rgba(15, 23, 42, 0.1);
+        color: rgba(15, 23, 42, 0.78);
+      }
+
+      .download-platforms {
+        padding-top: 40px;
+        padding-bottom: 120px;
+      }
+
+      .download-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 2.5fr) minmax(280px, 1fr);
+        gap: 32px;
+      }
+
+      @media (max-width: 960px) {
+        .download-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .platform-card,
+      .download-side-card {
+        background: #fafafa;
+        border-radius: 24px;
+        padding: 32px 36px;
+      }
+
+      .platform-card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .platform-card-title {
+        font-size: 20px;
+        margin: 0;
+        color: var(--text);
+      }
+
+      .platform-card-subtitle {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 4px 0 0;
+      }
+
+      .platform-status-badge {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        background: rgba(124, 124, 248, 0.16);
+        color: #c3c5ff;
+        border: 1px solid rgba(124, 124, 248, 0.3);
+      }
+
+      :root:not([data-theme="dark"]) .platform-status-badge {
+        background: rgba(76, 29, 149, 0.06);
+        color: #4c1d95;
+        border-color: rgba(76, 29, 149, 0.12);
+      }
+
+      .platform-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .platform-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .platform-row:last-child {
+        border-bottom: none;
+      }
+
+      :root:not([data-theme="dark"]) .platform-row {
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+
+      .platform-row-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 160px;
+      }
+
+      .platform-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        color: white;
+        font-size: 20px;
+      }
+
+      :root:not([data-theme="dark"]) .platform-icon {
+        background: rgba(15, 23, 42, 0.08);
+        color: #111827;
+      }
+
+      .platform-name {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .platform-hint {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .platform-row-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .platform-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font-size: 14px;
+        text-decoration: none;
+        transition: border 0.2s ease, background 0.2s ease;
+      }
+
+      .platform-pill:hover {
+        border-color: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.32);
+      }
+
+      .platform-pill .platform-pill-meta {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      :root:not([data-theme="dark"]) .platform-pill {
+        border-color: rgba(15, 23, 42, 0.16);
+        background: #f0f0f0;
+      }
+
+      :root:not([data-theme="dark"]) .platform-pill .platform-pill-meta {
+        color: rgba(15, 23, 42, 0.5);
+      }
+
+      .platform-pill.is-disabled {
+        opacity: 0.55;
+        pointer-events: none;
+        border-style: dashed;
+        background: transparent;
+      }
+
+      :root:not([data-theme="dark"]) .platform-pill.is-disabled {
+        background: transparent;
+      }
+
+      @media (max-width: 640px) {
+        .platform-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .platform-row-links {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .download-hero-card {
+          padding: 48px 24px 40px;
+        }
+
+        .download-title {
+          font-size: 38px;
+        }
+      }
+
+      .download-side-card h3 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+
+      .download-side-card p {
+        margin: 0 0 16px;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .download-side-list {
+        list-style: none;
+        margin: 0 0 16px;
+        padding: 0;
+      }
+
+      .download-side-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+
+      .download-side-list li i {
+        color: var(--primary);
+        margin-top: 2px;
+      }
+
+      .download-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+
+      .download-links a {
+        padding: 8px 14px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: inherit;
+        font-size: 13px;
+        text-decoration: none;
+        transition: border 0.2s ease;
+      }
+
+      :root:not([data-theme="dark"]) .download-links a {
+        background: rgba(15, 23, 42, 0.04);
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+
+      .download-links a:hover {
+        border-color: rgba(124, 124, 248, 0.6);
+      }
+
+      .download-release-note {
+        padding: 16px 18px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      :root:not([data-theme="dark"]) .download-release-note {
+        background: rgba(15, 23, 42, 0.02);
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+
+      .download-release-note h4 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+      }
+
+      .release-note-list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .download-page *,
+      .download-page *::before,
+      .download-page *::after {
+        border: none !important;
+        box-shadow: none !important;
+      }
+    </style>
+  </head>
+  <body class="download-body">
+    <div id="scrollProgress" class="scroll-progress"></div>
+    <div data-include="header"></div>
+
+    <main class="download-page">
+      <section class="download-hero section">
+        <div class="container">
+          <div class="download-hero-card">
+            <div class="download-logo">
+              <img src="Flymdnew.png" alt="FlyMD 标志" loading="lazy" />
+            </div>
+            <div class="download-label">跨平台 · AI Studio</div>
+            <h1 class="download-title">FlyMD</h1>
+            <p class="download-desc" data-zh="轻量而强大，在桌面端写 Markdown、读 PDF 和驱动 AI 智能助手。" data-en="Fast and polished Markdown writing with AI-assisted workflows across desktop platforms.">
+              轻量而强大，在桌面端写 Markdown、读 PDF 和驱动 AI 智能助手。
+            </p>
+            <a
+              id="downloadHeroBtn"
+              class="download-main-btn download-hero-btn"
+              href="https://github.com/flyhunterl/flymd/releases/latest"
+              target="_blank"
+              rel="noopener">
+              <i class="fa-brands fa-windows" aria-hidden="true"></i>
+              <span data-zh="下载 Windows 版" data-en="Download for Windows">下载 Windows 版</span>
+            </a>
+            <p class="download-meta" id="downloadMeta" data-zh="正在获取最新版本..." data-en="Fetching latest release...">正在获取最新版本...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="download-platforms section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-zh="全平台安装包" data-en="All platforms">全平台安装包</h2>
+            <p class="section-subtitle" data-zh="选择你的系统，获取 GitHub 最新构建或镜像下载。" data-en="Pick your system and grab the freshest GitHub build.">
+              选择你的系统，获取 GitHub 最新构建或镜像下载。
+            </p>
+          </div>
+
+          <div class="download-layout">
+            <div class="platform-card">
+              <div class="platform-card-head">
+                <div>
+                  <p class="platform-card-title">App</p>
+                  <p class="platform-card-subtitle" data-zh="桌面 &amp; 移动 · 统一体验" data-en="Desktop &amp; Mobile · Unified UI">桌面 &amp; 移动 · 统一体验</p>
+                </div>
+                <span class="platform-status-badge" data-release-badge>--</span>
+              </div>
+
+              <ul class="platform-list">
+                <li class="platform-row">
+                  <div class="platform-row-left">
+                    <span class="platform-icon"><i class="fa-brands fa-apple"></i></span>
+                    <div>
+                      <div class="platform-name">iOS</div>
+                      <div class="platform-hint" data-zh="App Store 审核中" data-en="App Store under review">App Store 审核中</div>
+                    </div>
+                  </div>
+                  <div class="platform-row-links">
+                    <span class="platform-pill is-disabled" data-zh="App Store" data-en="App Store">App Store</span>
+                    <span class="platform-pill is-disabled" data-zh="TestFlight 内测" data-en="TestFlight beta">TestFlight 内测</span>
+                  </div>
+                </li>
+
+                <li class="platform-row">
+                  <div class="platform-row-left">
+                    <span class="platform-icon"><i class="fa-brands fa-android"></i></span>
+                    <div>
+                      <div class="platform-name">Android</div>
+                      <div class="platform-hint" data-zh="内测排期 · 支持 8.0+" data-en="Beta queue · Android 8.0+">内测排期 · 支持 8.0+</div>
+                    </div>
+                  </div>
+                  <div class="platform-row-links">
+                    <span class="platform-pill is-disabled" data-zh="Google Play" data-en="Google Play">Google Play</span>
+                    <span class="platform-pill is-disabled" data-zh="APK 包" data-en="APK build">APK 包</span>
+                  </div>
+                </li>
+
+                <li class="platform-row">
+                  <div class="platform-row-left">
+                    <span class="platform-icon"><i class="fa-brands fa-windows"></i></span>
+                    <div>
+                      <div class="platform-name">Windows</div>
+                      <div class="platform-hint" data-zh="Win 10 / 11" data-en="Win 10 / 11">Win 10 / 11</div>
+                    </div>
+                  </div>
+                  <div class="platform-row-links">
+                    <a class="platform-pill" data-asset="windows-installer" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                      <span class="platform-pill-label" data-zh="安装包" data-en="Installer">安装包</span>
+                      <span class="platform-pill-meta">.exe</span>
+                    </a>
+                    <a class="platform-pill ghost" data-asset="windows-portable" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-box-archive" aria-hidden="true"></i>
+                      <span class="platform-pill-label" data-zh="免安装" data-en="Portable">免安装</span>
+                      <span class="platform-pill-meta">ZIP</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li class="platform-row">
+                  <div class="platform-row-left">
+                    <span class="platform-icon"><i class="fa-brands fa-apple"></i></span>
+                    <div>
+                      <div class="platform-name">macOS</div>
+                      <div class="platform-hint" data-zh="Apple Silicon &amp; Intel" data-en="Apple Silicon &amp; Intel">Apple Silicon &amp; Intel</div>
+                    </div>
+                  </div>
+                  <div class="platform-row-links">
+                    <a class="platform-pill" data-asset="mac-dmg" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                      <span class="platform-pill-label" data-zh="DMG 安装" data-en="DMG installer">DMG 安装</span>
+                      <span class="platform-pill-meta">Universal</span>
+                    </a>
+                    <a class="platform-pill ghost" data-asset="mac-zip" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-file-zipper" aria-hidden="true"></i>
+                      <span class="platform-pill-label" data-zh="App Bundle" data-en="App bundle">App Bundle</span>
+                      <span class="platform-pill-meta">ZIP</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li class="platform-row">
+                  <div class="platform-row-left">
+                    <span class="platform-icon"><i class="fa-brands fa-linux"></i></span>
+                    <div>
+                      <div class="platform-name">Linux</div>
+                      <div class="platform-hint" data-zh="X11 / Wayland" data-en="X11 / Wayland">X11 / Wayland</div>
+                    </div>
+                  </div>
+                  <div class="platform-row-links">
+                    <a class="platform-pill" data-asset="linux-appimage" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-circle-down" aria-hidden="true"></i>
+                      <span class="platform-pill-label">AppImage</span>
+                      <span class="platform-pill-meta">x86_64</span>
+                    </a>
+                    <a class="platform-pill ghost" data-asset="linux-deb" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-cubes-stacked" aria-hidden="true"></i>
+                      <span class="platform-pill-label">Deb</span>
+                      <span class="platform-pill-meta">amd64</span>
+                    </a>
+                    <span class="platform-pill is-disabled" data-zh="Flatpak 社区" data-en="Flatpak (community)">Flatpak 社区</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <aside class="download-side-card">
+              <h3 data-zh="安装小贴士" data-en="Install tips">安装小贴士</h3>
+              <p data-zh="所有包都来自 GitHub Actions，下载后可通过 SHA-256 校验确保完整性。" data-en="All builds are produced by GitHub Actions. Verify the SHA-256 hash after download for extra safety.">
+                所有包都来自 GitHub Actions，下载后可通过 SHA-256 校验确保完整性。
+              </p>
+              <div class="download-links">
+                <a id="releasePageLink" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">GitHub Release</a>
+                <a id="releaseMirrorLink" href="https://ghproxy.com/https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">ghproxy 镜像</a>
+              </div>
+              <div class="download-release-note">
+                <h4 data-zh="版本看点" data-en="Highlights">版本看点</h4>
+                <ul class="release-note-list" id="releaseNotesList">
+                  <li data-zh="从 GitHub 自动获取最新更新日志" data-en="Release notes sync from GitHub automatically">从 GitHub 自动获取最新更新日志</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div data-include="footer"></div>
+
+    <script src="components/includes.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+    <script>
+      (function() {
+        const apiUrl = 'https://api.github.com/repos/flyhunterl/flymd/releases/latest';
+        const fallbackUrl = 'https://github.com/flyhunterl/flymd/releases/latest';
+        const heroBtn = document.getElementById('downloadHeroBtn');
+        const heroMeta = document.getElementById('downloadMeta');
+        const versionBadges = document.querySelectorAll('[data-release-badge]');
+        const releasePageLink = document.getElementById('releasePageLink');
+        const releaseMirrorLink = document.getElementById('releaseMirrorLink');
+        const notesList = document.getElementById('releaseNotesList');
+
+        const assetRules = {
+          'windows-installer': /setup\.exe$/i,
+          'windows-portable': /portable.*\.zip$/i,
+          'mac-dmg': /\.dmg$/i,
+          'mac-zip': /\.app\.zip$/i,
+          'linux-appimage': /\.AppImage$/i,
+          'linux-deb': /\.deb$/i
+        };
+
+        fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github+json' } })
+          .then(response => response.json())
+          .then(data => populateDownloadData(data))
+          .catch(() => {
+            if (heroMeta) {
+              heroMeta.textContent = getLocale() === 'en' ? 'Unable to reach GitHub, please use the release page.' : '暂时无法访问 GitHub，建议前往 Release 页面查看。';
+            }
+          });
+
+        function populateDownloadData(data) {
+          if (!data) return;
+          const version = data.tag_name || data.name || 'latest';
+          versionBadges.forEach(el => el.textContent = version);
+
+          const releaseUrl = data.html_url || fallbackUrl;
+          if (releasePageLink) {
+            releasePageLink.href = releaseUrl;
+            releasePageLink.textContent = 'GitHub · ' + version;
+          }
+          if (releaseMirrorLink) {
+            releaseMirrorLink.href = 'https://ghproxy.com/' + releaseUrl;
+          }
+
+          const published = data.published_at ? new Date(data.published_at) : null;
+          if (heroMeta && published) {
+            heroMeta.textContent = getLocale() === 'en'
+              ? `Last updated ${formatDate(published, 'en-US')} · ${version}`
+              : `最后更新：${formatDate(published, 'zh-CN')} · ${version}`;
+          }
+
+          const assets = data.assets || [];
+          const matchedAssets = mapAssets(assets);
+
+          if (matchedAssets['windows-installer'] && heroBtn) {
+            heroBtn.href = matchedAssets['windows-installer'].browser_download_url;
+          } else if (heroBtn) {
+            heroBtn.href = releaseUrl;
+          }
+
+          Object.keys(assetRules).forEach(key => {
+            const el = document.querySelector(`[data-asset="${key}"]`);
+            const asset = matchedAssets[key];
+            if (el && asset && el.tagName.toLowerCase() === 'a') {
+              el.href = asset.browser_download_url;
+              el.classList.remove('is-disabled');
+              const meta = el.querySelector('.platform-pill-meta');
+              if (meta) {
+                meta.textContent = formatSize(asset.size);
+              }
+              el.setAttribute('title', `${asset.name} · ${formatSize(asset.size)}`);
+            }
+          });
+
+          if (notesList && data.body) {
+            const bullets = data.body.split(/\r?\n/).filter(line => line.trim().startsWith('- ')).slice(0, 4);
+            if (bullets.length) {
+              notesList.innerHTML = bullets.map(item => `<li>${escapeHTML(item.replace(/^-+\s*/, ''))}</li>`).join('');
+            }
+          }
+        }
+
+        function mapAssets(assets) {
+          const bucket = {};
+          assets.forEach(asset => {
+            Object.entries(assetRules).forEach(([key, rule]) => {
+              if (!bucket[key] && rule.test(asset.name)) {
+                bucket[key] = asset;
+              }
+            });
+          });
+          return bucket;
+        }
+
+        function formatDate(date, locale) {
+          try {
+            return date.toLocaleDateString(locale || undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+          } catch {
+            return date.toISOString().split('T')[0];
+          }
+        }
+
+        function formatSize(bytes) {
+          if (!bytes) return '';
+          const sizeInMB = bytes / (1024 * 1024);
+          return sizeInMB >= 1000 ? (bytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB' : sizeInMB.toFixed(1) + ' MB';
+        }
+
+        function getLocale() {
+          if (window.FlyMDi18n && typeof window.FlyMDi18n.getLocale === 'function') {
+            return window.FlyMDi18n.getLocale();
+          }
+          return document.documentElement.getAttribute('data-lang') || document.documentElement.lang || 'zh';
+        }
+
+        function escapeHTML(str) {
+          return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        }
+      })();
+    </script>
+  </body>
+</html>
