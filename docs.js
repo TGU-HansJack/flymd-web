@@ -23,7 +23,7 @@
     zh: 'https://raw.githubusercontent.com/flyhunterl/flymd/main/ROADMAP.md',
     en: 'https://raw.githubusercontent.com/flyhunterl/flymd/main/ROADMAP.en.md'
   };
-  const ROADMAP_CACHE_DURATION = 30 * 60 * 1000; // 30 分钟
+  const ROADMAP_CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 小时
 
   // 从 GitHub 获取 ROADMAP Markdown（带缓存）
   async function fetchRoadmapMarkdown(locale) {
