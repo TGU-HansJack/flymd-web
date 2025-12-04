@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>飞速Markdown · FlyMD</title>
     <meta name="description" content="仅7MB，免费且强大的MarkDown编辑/PDF阅读工具" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="fonts/fontawesome.css" />
-    <link rel="icon" type="image/png" href="Flymdnew.png" />
-    <link rel="icon" type="image/x-icon" href="Flymdnew.ico" />
     <!-- CDN 配置 -->
     <script src="config.js"></script>
     <script src="cdn.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" data-cdn-href="fonts/fontawesome.css" />
+    <link rel="icon" type="image/png" data-cdn-href="Flymdnew.png" />
+    <link rel="icon" type="image/x-icon" data-cdn-href="Flymdnew.ico" />
   </head>
   <body>
     <!-- Scroll Progress Bar -->
@@ -68,7 +68,7 @@
                 <span class="feature-pill-btn" data-en="Details" data-zh="点击详情">点击详情</span>
               </a>
             </div>
-            <img src="hero.png" alt="FlyMD 界面展示" class="hero-image" />
+            <img data-cdn-src="hero.png" alt="FlyMD 界面展示" class="hero-image" />
           </div>
         </div>
       </section>
@@ -222,7 +222,7 @@
                   muted
                   loop
                   playsinline
-                  src="todo.webm"
+                  data-cdn-src="todo.webm"
                   type="video/webm">
                 </video>
               </div>
@@ -321,9 +321,9 @@
             <div class="partner-card">
               <a href="https://cloud.siliconflow.cn/i/X96CT74a" target="_blank" rel="noopener noreferrer" class="partner-link">
                 <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="Powered-by-dark.png">
-                  <source media="(prefers-color-scheme: light)" srcset="Powered-by-light.png">
-                  <img alt="Powered by SiliconFlow" src="Powered-by-light.png" class="partner-logo">
+                  <source media="(prefers-color-scheme: dark)" data-cdn-srcset="Powered-by-dark.png">
+                  <source media="(prefers-color-scheme: light)" data-cdn-srcset="Powered-by-light.png">
+                  <img alt="Powered by SiliconFlow" data-cdn-src="Powered-by-light.png" class="partner-logo">
                 </picture>
                 <div class="partner-info">
                   <h3 class="partner-name" data-i18n="partner_siliconflow_name">硅基流动</h3>
@@ -336,7 +336,7 @@
             <!-- xxtui -->
             <div class="partner-card">
               <a href="https://www.xxtui.com/" target="_blank" rel="noopener noreferrer" class="partner-link">
-                <img src="xxtui-logo.png" alt="xxtui" class="partner-logo">
+                <img data-cdn-src="xxtui-logo.png" alt="xxtui" class="partner-logo">
                 <div class="partner-info">
                   <h3 class="partner-name" data-i18n="partner_xxtui_name">XXTUI</h3>
                   <p class="partner-slogan" data-i18n="partner_xxtui_slogan">简单高效的个人推送API</p>
@@ -348,7 +348,7 @@
             <!-- x666.me -->
             <div class="partner-card">
               <a href="https://x666.me/register?aff=yUSz" target="_blank" rel="noopener noreferrer" class="partner-link">
-                <img src="bohe-logo.png" alt="薄荷公益" class="partner-logo">
+                <img data-cdn-src="bohe-logo.png" alt="薄荷公益" class="partner-logo">
                 <div class="partner-info">
                   <h3 class="partner-name" data-i18n="partner_x666_name">薄荷公益</h3>
                   <p class="partner-slogan" data-i18n="partner_x666_slogan">用心提供优质 AI 接口支持的公益站</p>

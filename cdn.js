@@ -158,6 +158,84 @@
     });
   }
 
+  const CDN_DATA_ATTRS = [
+    { dataAttr: 'data-cdn-src', targetAttr: 'src', formatter: null },
+    { dataAttr: 'data-cdn-href', targetAttr: 'href', formatter: null },
+    { dataAttr: 'data-cdn-srcset', targetAttr: 'srcset', formatter: transformSrcset }
+  ];
+
+  function transformSrcset(value) {
+    if (!value) return value;
+    return value.split(',').map(function(entry) {
+      const trimmed = entry.trim();
+      if (!trimmed) return '';
+      const parts = trimmed.split(/\s+/, 2);
+      const url = parts[0];
+      const descriptor = parts[1] || '';
+      const finalUrl = getAssetUrl(url);
+      return descriptor ? finalUrl + ' ' + descriptor : finalUrl;
+    }).join(', ');
+  }
+
+  function applyCdnAttr(element, mapping) {
+    if (!element || element.nodeType !== 1 || !element.hasAttribute(mapping.dataAttr)) {
+      return;
+    }
+    const rawValue = element.getAttribute(mapping.dataAttr);
+    const finalValue = rawValue ? (mapping.formatter ? mapping.formatter(rawValue) : getAssetUrl(rawValue)) : rawValue;
+    if (finalValue) {
+      element.setAttribute(mapping.targetAttr, finalValue);
+    }
+    element.removeAttribute(mapping.dataAttr);
+  }
+
+  function applyCdnAttributes(root) {
+    if (!root) return;
+    const nodes = root.querySelectorAll ? [] : null;
+    if (root.nodeType === 1) {
+      CDN_DATA_ATTRS.forEach(function(mapping) {
+        applyCdnAttr(root, mapping);
+      });
+    }
+    if (root.querySelectorAll) {
+      CDN_DATA_ATTRS.forEach(function(mapping) {
+        root.querySelectorAll('[' + mapping.dataAttr + ']').forEach(function(el) {
+          applyCdnAttr(el, mapping);
+        });
+      });
+    }
+  }
+
+  function initCdnAttributeObserver() {
+    if (typeof document === 'undefined' || !document.documentElement) {
+      return;
+    }
+
+    applyCdnAttributes(document);
+
+    if (typeof MutationObserver === 'function') {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) {
+              applyCdnAttributes(node);
+            }
+          });
+        });
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      document.addEventListener('DOMContentLoaded', function() {
+        applyCdnAttributes(document);
+      });
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        applyCdnAttributes(document);
+      });
+    }
+  }
+
+  initCdnAttributeObserver();
+
   // 导出到全局
   window.FlyMDCdn = {
     getAssetUrl: getAssetUrl,

@@ -5,23 +5,6 @@
 (function() {
   'use strict';
 
-  function detectCdnBase() {
-    if (typeof window === 'undefined') {
-      return '';
-    }
-
-    if (window.__FLYMD_CDN_BASE__) {
-      return window.__FLYMD_CDN_BASE__;
-    }
-
-    const hostname = (window.location && window.location.hostname || '').toLowerCase();
-    if (hostname === 'flymd.hast.one') {
-      return 'https://cdn.flymd.hast.one';
-    }
-
-    return '';
-  }
-
   window.FLYMD_CONFIG = {
     // ========================================
     // CDN 配置
@@ -34,7 +17,7 @@
      * - 示例: 'https://cdn.llingfei.com'
      * - 注意: 末尾不要带斜杠 /
      */
-    cdnBase: detectCdnBase(),
+    cdnBase: '',
 
     /**
      * 需要走 CDN 的资源路径前缀

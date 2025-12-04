@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlyMD 下载中心</title>
     <meta name="description" content="获取 FlyMD 在 Windows、macOS 与 Linux 上的最新安装包，并查看版本更新说明。" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="fonts/fontawesome.css" />
-    <link rel="icon" type="image/png" href="Flymdnew.png" />
-    <link rel="icon" type="image/x-icon" href="Flymdnew.ico" />
     <script src="config.js"></script>
     <script src="cdn.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" data-cdn-href="fonts/fontawesome.css" />
+    <link rel="icon" type="image/png" data-cdn-href="Flymdnew.png" />
+    <link rel="icon" type="image/x-icon" data-cdn-href="Flymdnew.ico" />
     <style>
       body.download-body {
         background: #fefefe;
@@ -531,7 +531,7 @@
         <div class="container">
           <div class="download-hero-card">
             <div class="download-logo">
-              <img src="Flymdnew.png" alt="FlyMD 标志" loading="lazy" />
+              <img data-cdn-src="Flymdnew.png" alt="FlyMD 标志" loading="lazy" />
             </div>
             <div class="download-label">跨平台 · 自由编辑</div>
             <h1 class="download-title">FlyMD</h1>
