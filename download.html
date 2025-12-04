@@ -230,15 +230,38 @@
         justify-content: space-between;
         gap: 16px;
         padding: 18px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .platform-row:last-child {
+        position: relative;
         border-bottom: none;
       }
 
-      :root:not([data-theme="dark"]) .platform-row {
-        border-color: rgba(15, 23, 42, 0.08);
+      .platform-row::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      .platform-row:last-child::after {
+        display: none;
+      }
+
+      :root:not([data-theme="dark"]) .platform-row::after {
+        background: rgba(15, 23, 42, 0.18);
+      }
+
+      .platform-body {
+        border-top: none;
+        border-bottom: none;
+        border-radius: 0;
+        overflow: visible;
+      }
+
+      :root:not([data-theme="dark"]) .platform-body {
+        border-top-color: initial;
+        border-bottom-color: initial;
       }
 
       .platform-row-left {
@@ -548,7 +571,7 @@
                 <span class="platform-status-badge" data-release-badge>--</span>
               </div>
 
-              <ul class="platform-list">
+              <ul class="platform-list platform-body">
                 <li class="platform-row">
                   <div class="platform-row-left">
                     <span class="platform-icon"><i class="fa-brands fa-apple"></i></span>
@@ -670,7 +693,7 @@
               </p>
               <div class="download-links">
                 <a id="releasePageLink" href="https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">GitHub Release</a>
-                <a id="releaseMirrorLink" href="https://ghproxy.com/https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">ghproxy 镜像</a>
+                <a id="releaseMirrorLink" href="https://ghfast.top/https://github.com/flyhunterl/flymd/releases/latest" target="_blank" rel="noopener">ghfast 镜像</a>
               </div>
               <div class="download-release-note">
                 <h4 data-zh="版本看点" data-en="Highlights">版本看点</h4>

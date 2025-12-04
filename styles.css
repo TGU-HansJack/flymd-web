@@ -6136,6 +6136,7 @@ body.docs-page .docs-main {
   background: transparent;
   z-index: 10;
   position: relative;
+  margin: 0 auto 16px;
 }
 
 [data-theme="light"] .feature-grid-section .section-header,

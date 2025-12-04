@@ -3,116 +3,78 @@
 (function() {
   'use strict';
 
-  // GitHub 仓库配置
-  const GITHUB_REPO = 'flyhunterl/flymd';
-  const GITHUB_RELEASES_API = `https://api.github.com/repos/${GITHUB_REPO}/releases`;
+  // ROADMAP 原文地址
+  const ROADMAP_URLS = {
+    zh: 'https://raw.githubusercontent.com/flyhunterl/flymd/main/ROADMAP.md',
+    en: 'https://raw.githubusercontent.com/flyhunterl/flymd/main/ROADMAP.en.md'
+  };
+  const ROADMAP_CACHE_DURATION = 30 * 60 * 1000; // 30 分钟
 
-  // 缓存 GitHub releases 数据
-  let cachedReleases = null;
+  // 从 GitHub 获取 ROADMAP Markdown（带缓存）
+  async function fetchRoadmapMarkdown(locale) {
+    const cacheKey = `flymd_roadmap_cache_${locale}`;
+    let cachedData = null;
+    const cached = localStorage.getItem(cacheKey);
 
-  // 从 GitHub API 获取 releases
-  async function fetchGitHubReleases() {
-    // 检查 localStorage 缓存
-    const cached = localStorage.getItem('flymd_releases_cache');
     if (cached) {
       try {
-        const data = JSON.parse(cached);
-        // 缓存 30 分钟有效
-        if (Date.now() - data.timestamp < 30 * 60 * 1000) {
-          cachedReleases = data.releases;
-          return data.releases;
+        cachedData = JSON.parse(cached);
+        if (Date.now() - cachedData.timestamp < ROADMAP_CACHE_DURATION) {
+          return cachedData.content;
         }
       } catch (e) {
-        localStorage.removeItem('flymd_releases_cache');
+        localStorage.removeItem(cacheKey);
+        cachedData = null;
       }
     }
 
-    try {
-      const response = await fetch(GITHUB_RELEASES_API, {
-        headers: { 'Accept': 'application/vnd.github.v3+json' }
-      });
+    const url = ROADMAP_URLS[locale] || ROADMAP_URLS.en;
 
+    try {
+      const response = await fetch(url, { headers: { 'Accept': 'text/plain' } });
       if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.status}`);
+        throw new Error(`GitHub raw content error: ${response.status}`);
       }
 
-      const releases = await response.json();
-      cachedReleases = releases;
-
-      // 缓存到 localStorage
-      localStorage.setItem('flymd_releases_cache', JSON.stringify({
-        releases,
+      const markdown = await response.text();
+      localStorage.setItem(cacheKey, JSON.stringify({
+        content: markdown,
         timestamp: Date.now()
       }));
 
-      return releases;
+      return markdown;
     } catch (err) {
-      console.warn('获取 GitHub Releases 失败:', err.message);
-      // 如果有过期缓存，仍然使用
-      if (cachedReleases) {
-        return cachedReleases;
+      console.warn('获取 Roadmap 失败:', err.message);
+      if (cachedData) {
+        return cachedData.content;
       }
       return null;
     }
   }
 
-  // 将 GitHub releases 渲染为 changelog HTML
-  function renderChangelogFromReleases(releases, locale) {
-    if (!releases || releases.length === 0) {
+  // 渲染 ROADMAP Markdown
+  function renderRoadmapMarkdown(markdown, locale) {
+    if (!markdown) {
       return locale === 'zh'
-        ? '<p>暂无更新日志</p>'
-        : '<p>No changelog available</p>';
+        ? '<p>暂时无法加载 Roadmap。</p>'
+        : '<p>Unable to load the roadmap right now.</p>';
     }
 
-    let html = `<h1>${locale === 'zh' ? '更新日志' : 'Changelog'}</h1>\n`;
+    if (typeof marked !== 'undefined') {
+      return marked.parse(markdown);
+    }
 
-    releases.forEach(release => {
-      const version = release.tag_name || release.name;
-      const body = release.body || '';
-      const publishedAt = release.published_at
-        ? new Date(release.published_at).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US')
-        : '';
+    const escapeHtml = (str) => str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
-      html += `<h2>${version}</h2>\n`;
-
-      if (publishedAt) {
-        html += `<p style="color: var(--text-secondary); font-size: 0.9em; margin-top: -0.5em;">${publishedAt}</p>\n`;
-      }
-
-      // 渲染 release body（markdown 格式）
-      if (body && typeof marked !== 'undefined') {
-        html += marked.parse(body);
-      } else if (body) {
-        // 简单处理：将换行转为列表
-        const lines = body.split('\n');
-        let inList = false;
-
-        lines.forEach(line => {
-          const trimmed = line.trim();
-          if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-            if (!inList) {
-              html += '<ul>\n';
-              inList = true;
-            }
-            html += `<li>${trimmed.substring(2)}</li>\n`;
-          } else {
-            if (inList) {
-              html += '</ul>\n';
-              inList = false;
-            }
-            if (trimmed) {
-              html += `<p>${trimmed}</p>\n`;
-            }
-          }
-        });
-
-        if (inList) {
-          html += '</ul>\n';
-        }
-      }
-    });
-
-    return html;
+    return escapeHtml(markdown)
+      .split(/\n{2,}/)
+      .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
+      .join('');
   }
 
   // 配置 marked
@@ -260,10 +222,10 @@
     if (!docsContent) return;
 
     try {
-      // 如果是 changelog，从 GitHub releases 获取
+      // 如果是 changelog，直接加载 GitHub ROADMAP
       if (slug === 'changelog') {
-        const releases = await fetchGitHubReleases();
-        const htmlContent = renderChangelogFromReleases(releases, currentLocale);
+        const markdown = await fetchRoadmapMarkdown(currentLocale);
+        const htmlContent = renderRoadmapMarkdown(markdown, currentLocale);
 
         hideLoading();
 
