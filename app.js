@@ -336,12 +336,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function applyGhfastMirror(url) {
+    if (!url || url === '#') return url;
+    if (url.startsWith('https://ghfast.top/')) return url;
+    return `https://ghfast.top/${url}`;
+  }
+
   // 获取指定平台的下载链接
   function getDownloadUrl(platform) {
+    let url = '#';
     if (githubReleaseLinks && githubReleaseLinks[platform]) {
-      return githubReleaseLinks[platform];
+      url = githubReleaseLinks[platform];
+    } else {
+      url = defaultDownloadLinks[platform] || '#';
     }
-    return defaultDownloadLinks[platform] || '#';
+    return applyGhfastMirror(url);
   }
 
   // 获取平台配置信息
@@ -349,14 +358,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const config = platformPatterns[platform] || platformPatterns.windows;
     return {
       url: getDownloadUrl(platform),
-      icon: config.icon,
       text: config.text
     };
   }
 
   // 更新主下载按钮
   const downloadMainBtn = document.getElementById('downloadMainBtn');
-  const downloadIcon = document.getElementById('downloadIcon');
   const downloadText = document.getElementById('downloadText');
 
   // 初始化下载按钮（异步获取 GitHub release 链接）
@@ -391,16 +398,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 渲染下载按钮
   function renderDownloadButtons(platform) {
-    if (downloadMainBtn && downloadIcon && downloadText) {
+    if (downloadMainBtn && downloadText) {
       const platformInfo = getPlatformConfig(platform);
 
       downloadMainBtn.href = platformInfo.url;
-      downloadIcon.className = platformInfo.icon;
       downloadText.textContent = platformInfo.text;
     }
-
-    // 更新下拉菜单
-    updateDropdownLinks();
   }
 
   // 为移动端平台绑定提示事件（只绑定一次）
@@ -417,52 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // 更新下拉菜单中的下载链接
-  function updateDropdownLinks() {
-    const downloadOptions = document.querySelectorAll('#downloadDropdownMenu .download-option:not(.disabled)');
-    downloadOptions.forEach(option => {
-      const platform = option.getAttribute('data-platform');
-      if (platform) {
-        const platformMap = { win: 'windows', mac: 'macos', linux: 'linux' };
-        const normalizedPlatform = platformMap[platform] || platform;
-        const url = getDownloadUrl(normalizedPlatform);
-        option.href = url;
-      }
-    });
-  }
-
   // 立即开始初始化
   initDownloadButtons();
   bindMobileAlert();
-
-  // 更多平台下拉菜单
-  const downloadWrapper = document.querySelector('.download-dropdown-wrapper');
-  const morePlatformsBtn = document.getElementById('morePlatformsBtn');
-  const downloadMenu = document.getElementById('downloadDropdownMenu');
-
-  if (morePlatformsBtn && downloadMenu) {
-    morePlatformsBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      downloadWrapper.classList.toggle('open');
-    });
-
-    // 点击外部关闭下拉菜单
-    document.addEventListener('click', function(e) {
-      if (!downloadWrapper.contains(e.target)) {
-        downloadWrapper.classList.remove('open');
-      }
-    });
-
-    // 处理下拉菜单中的下载选项点击（链接已由 updateDropdownLinks 动态设置）
-    const downloadOptions = downloadMenu.querySelectorAll('.download-option:not(.disabled)');
-    downloadOptions.forEach(option => {
-      option.addEventListener('click', function() {
-        // 关闭下拉菜单（链接跳转由浏览器自动处理）
-        downloadWrapper.classList.remove('open');
-      });
-    });
-  }
 
   // 功能标签切换
   const featurePills = document.querySelectorAll('.feature-pill');

@@ -32,9 +32,20 @@
 
           <!-- Capsule Button Group -->
           <div class="capsule-container">
-            <!-- Download Page Button -->
-            <a href="download.html" class="capsule-btn download-main-btn">
-              <span data-en="Go to downloads" data-zh="前往下载页">前往下载页</span>
+            <!-- Auto-detected download button -->
+            <a
+              id="downloadMainBtn"
+              class="capsule-btn download-main-btn"
+              href="https://ghfast.top/https://github.com/flyhunterl/flymd/releases/latest/download/flymd-windows-x64.exe"
+              target="_blank"
+              rel="noopener">
+              <span id="downloadText" data-en="Download for Windows" data-zh="下载 Windows 版">下载 Windows 版</span>
+            </a>
+
+            <div class="capsule-divider" role="presentation"></div>
+
+            <a href="download.html" class="capsule-btn download-main-btn download-more-btn">
+              <span data-en="More platforms" data-zh="更多平台">更多平台</span>
             </a>
           </div>
         </div>
