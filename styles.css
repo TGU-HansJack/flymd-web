@@ -5582,6 +5582,7 @@ body.docs-page .docs-main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  border-radius: 24px;
 }
 
 @media (max-width: 900px) {
@@ -6178,6 +6179,7 @@ body.docs-page .docs-main {
   gap: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border-radius: 24px;
 }
 
 .feature-grid-wrapper::-webkit-scrollbar {
